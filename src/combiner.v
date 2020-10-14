@@ -31,7 +31,7 @@ always @(*) begin
       out2 = partial2;
       out3 = partial3;
     end
-
+  endcase
 end
 
 
