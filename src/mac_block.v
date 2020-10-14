@@ -1,7 +1,10 @@
 `include const.vh
 
 module #(
-  parameter MIN_WIDTH = 8
+  parameter MIN_WIDTH = 8,
+  parameter MUL_WIDTH = 2*MIN_WIDTH,
+  parameter ACC_WIDTH = 2*MUL_WIDTH,
+  parameter CONF_WIDTH = 3  // 1 bit for mac or mul, 2 bits for Single, Dual, or Quad
 ) mac_block (
   input clk,
   input rst,
@@ -10,15 +13,14 @@ module #(
   input [MIN_WIDTH-1:0] A,
   input [MIN_WIDTH-1:0] B,
   input [MIN_WIDTH-1:0] dual_in,     // Used for cross-multiply when chaining   
-  input [MIN_WIDTH-1:0] quad_in_one, // Will solidify signals names later
-  input [MIN_WIDTH-1:0] quad_in_two,
-  input [4*MIN_WIDTH + 3 - 1:0] cfg, // Initial accumulate value + config
+  input [MIN_WIDTH-1:0] quad_in1,    // Will solidify signals names later
+  input [MIN_WIDTH-1:0] quad_in2,
+  input [ACC_WIDTH + CONF_WIDTH - 1:0] cfg, // Initial accumulate value + config
 
   output carry_out,
   output [MIN_WIDTH-1:0] dual_out, 
-  output [MIN_WIDTH-1:0] quad_out_one, 
-  output [MIN_WIDTH-1:0] quad_out_two, 
-  output [4*MIN_WIDTH-1:0] C
+  output [MIN_WIDTH-1:0] quad_out, 
+  output [ACC_WIDTH-1:0] C
 );
 
 // Could either have a separate control block
