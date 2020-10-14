@@ -7,13 +7,15 @@ module #(
   input rst,
   input en,
   input [1:0] cfg,                          // Single, Dual or Quad
-  input [2*MIN_WIDTH-1:0] partial_one,      
-  input [2*MIN_WIDTH-1:0] partial_two,
-  input [2*MIN_WIDTH-1:0] partial_three,
-  input [2*MIN_WIDTH-1:0] partial_four,
+  input [2*MIN_WIDTH-1:0] from_mac_one,      
+  input [2*MIN_WIDTH-1:0] from_mac_two,
+  input [2*MIN_WIDTH-1:0] from_mac_three,
+  input [2*MIN_WIDTH-1:0] from_mac_four,
 
-  output [4*MIN_WIDTH-1:0] out_one,         // Output only used for dual or quad configuration
-  output [4*MIN_WIDTH-1:0] out_two
+  output [4*MIN_WIDTH-1:0] out_one,
+  output [4*MIN_WIDTH-1:0] out_two,
+  output [4*MIN_WIDTH-1:0] out_three,
+  output [4*MIN_WIDTH-1:0] out_four
 );
 
 // Block is used to combine and accumulate partial products for dual and quad configurations
