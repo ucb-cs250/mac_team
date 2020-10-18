@@ -83,12 +83,11 @@ accumulate #(.MIN_WIDTH(MIN_WIDTH)) acc
   .acc(accumulate_out)
 );
 
-
 // Output is either just multiply or the accumulate output (last bit of the CONF_WIDTH)
 // Note that the multiply only output is also pipelined to match accumulator
 assign C = cfg[CONF_WIDTH - 1] ? accumulate_out : mult_only_reg_out;
 
 // Input-forward is always A input
-assign input_fwd = A;s
+assign input_fwd = A;
 
 endmodule
