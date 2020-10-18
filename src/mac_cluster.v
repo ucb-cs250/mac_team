@@ -25,9 +25,9 @@ module #(
   output [ACC_WIDTH-1:0] out3
 );
 
-wire carry_from_mac0;
-wire carry_from_mac1;
-wire carry_from_mac2;
+// wire carry_from_mac0;
+// wire carry_from_mac1;
+// wire carry_from_mac2;
 
 wire [MIN_WIDTH-1:0] dual_from_mac0;
 wire [MIN_WIDTH-1:0] dual_from_mac1;
@@ -51,14 +51,14 @@ mac_block #(.MIN_WIDTH(MIN_WIDTH)) mac0
   .clk(clk),
   .rst(rst),
   .en(en),
-  .carry_in(1'b0),
+  // .carry_in(1'b0),
   .A(A0),
   .B(B0),
   .dual_in(dual_from_mac1),
   .quad_in1(quad_from_mac2),
   .quad_in2(quad_from_mac3),
   .cfg({cfg[ACC_WIDTH+CONF_WIDTH-1:CONF_WIDTH],cfg[CONF_WIDTH-1:0]}),
-  .carry_out(carry_from_mac0),
+  // .carry_out(carry_from_mac0),
   .dual_out(dual_from_mac0),
   .quad_out(quad_from_mac0),
   .C(mac0_out)
@@ -69,14 +69,14 @@ mac_block #(.MIN_WIDTH(MIN_WIDTH)) mac1
   .clk(clk),
   .rst(rst),
   .en(en),
-  .carry_in(carry_from_mac0),
+  // .carry_in(carry_from_mac0),
   .A(A1),
   .B(B1),
   .dual_in(dual_from_mac0),
   .quad_in1(quad_from_mac2),
   .quad_in2(quad_from_mac3),
   .cfg({cfg[ACC_WIDTH*2-1:ACC_WIDTH+CONF_WIDTH],cfg[CONF_WIDTH-1:0]}),
-  .carry_out(carry_from_mac1),
+  // .carry_out(carry_from_mac1),
   .dual_out(dual_from_mac1),
   .quad_out(quad_from_mac1),
   .C(mac1_out)
@@ -87,14 +87,14 @@ mac_block #(.MIN_WIDTH(MIN_WIDTH)) mac2
   .clk(clk),
   .rst(rst),
   .en(en),
-  .carry_in(carry_from_mac1),
+  // .carry_in(carry_from_mac1),
   .A(A2),
   .B(B2),
   .dual_in(dual_from_mac3),
   .quad_in1(quad_from_mac0),
   .quad_in2(quad_from_mac1),
   .cfg({cfg[ACC_WIDTH*3-1:ACC_WIDTH*2+CONF_WIDTH],cfg[CONF_WIDTH-1:0]}),
-  .carry_out(carry_from_mac2),
+  // .carry_out(carry_from_mac2),
   .dual_out(dual_from_mac2),
   .quad_out(quad_from_mac2),
   .C(mac2_out)
@@ -105,14 +105,14 @@ mac_block #(.MIN_WIDTH(MIN_WIDTH)) mac3
   .clk(clk),
   .rst(rst),
   .en(en),
-  .carry_in(carry_from_mac2),
+  // .carry_in(carry_from_mac2),
   .A(A3),
   .B(B3),
   .dual_in(dual_from_mac2),
   .quad_in1(quad_from_mac0),
   .quad_in2(quad_from_mac1),
   .cfg({cfg[ACC_WIDTH*4-1:ACC_WIDTH*3+CONF_WIDTH],cfg[CONF_WIDTH-1:0]}),
-  .carry_out(),
+  // .carry_out(),
   .dual_out(dual_from_mac3),
   .quad_out(quad_from_mac3),
   .C(mac3_out)
