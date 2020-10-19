@@ -1,40 +1,37 @@
-`include const.vh
+`include mac_const.vh
 
-module #(
-  parameter MIN_WIDTH = 8,
-  parameter MUL_WIDTH = 2*MIN_WIDTH,
-  parameter ACC_WIDTH = 2*MUL_WIDTH,
-  parameter CONF_WIDTH = 3  // 1 bit for mac or mul, 2 bits for Single, Dual, or Quad
-) mac_block (
+module mac_block (
   input clk,
   input rst,
   input en,
-  input [MIN_WIDTH-1:0] A,
-  input [MIN_WIDTH-1:0] B,
-  input [MIN_WIDTH-1:0] dual_in,     // Used for cross-multiply when chaining   
-  input [MIN_WIDTH-1:0] quad_in1,    // Will solidify signals names later
-  input [MIN_WIDTH-1:0] quad_in2,
-  input [ACC_WIDTH + CONF_WIDTH - 1:0] cfg, // Initial accumulate value + config
+  input [`MAC_MIN_WIDTH-1:0] A,
+  input [`MAC_MIN_WIDTH-1:0] B,
+  input [`MAC_MIN_WIDTH-1:0] dual_in,     // Used for cross-multiply when chaining   
+  input [`MAC_MIN_WIDTH-1:0] quad_in1,    // Will solidify signals names later
+  input [`MAC_MIN_WIDTH-1:0] quad_in2,
+  input [`MAC_ACC_WIDTH + `CONF_WIDTH - 1:0] cfg, // Initial accumulate value + config
 
-  output [MIN_WIDTH-1:0] input_fwd, 
-  output [ACC_WIDTH-1:0] C
+  output [`MAC_MIN_WIDTH-1:0] input_fwd, 
+  output [`MAC_ACC_WIDTH-1:0] C
 );
 
-wire [MUL_WIDTH-1:0] main_mul_out;
-wire [MUL_WIDTH-1:0] dual_mul_out;
-wire [MUL_WIDTH-1:0] quad_one_mul_out;
-wire [MUL_WIDTH-1:0] quad_two_mul_out;
-wire [ACC_WIDTH-1:0] mult_only_out;
-wire [ACC_WIDTH-1:0] accumulate_out;
+wire [`MAC_MUL_WIDTH-1:0] main_mul_out;
+wire [`MAC_MUL_WIDTH-1:0] dual_mul_out;
+wire [`MAC_MUL_WIDTH-1:0] quad_one_mul_out;
+wire [`MAC_MUL_WIDTH-1:0] quad_two_mul_out;
+wire [`MAC_MUL_WIDTH-1:0] accumulate_out;
 
-reg [ACC_WIDTH-1:0] mult_only_reg_out;
+reg [`MAC_ACC_WIDTH-1:0] mult_only_out;
+reg [`MAC_ACC_WIDTH-1:0] mult_only_reg_out;
 
 // Multiplication-only output
-case (cfg[1:0]) begin
-  2'b00:    mult_only_out = main_mul_out;  
-  2'b01:    mult_only_out = main_mul_out + (dual_mul_out << MIN_WIDTH);
-  2'b10:    mult_only_out = main_mul_out + (dual_mul_out << MIN_WIDTH) + (quad_one_mul_out << 2*MIN_WIDTH) + (quad_two_mul_out << 3*MIN_WIDTH);
-  default:  mult_only_out = 0;
+always @(*) begin
+  case (cfg[1:0]) begin
+    `MAC_SINGLE:    mult_only_out = main_mul_out;  
+    `MAC_DUAL:    mult_only_out = main_mul_out + (dual_mul_out << `MAC_MIN_WIDTH);
+    `MAC_QUAD:    mult_only_out = main_mul_out + (dual_mul_out << `MAC_MIN_WIDTH) + (quad_one_mul_out << 2*`MAC_MIN_WIDTH) + (quad_two_mul_out << 3*`MAC_MIN_WIDTH);
+    default:  mult_only_out = 0;
+  end
 end
 
 // Pipelining the multiplication-only output
@@ -43,7 +40,7 @@ always @(posedge clk) begin
 end
 
 // The multiply unit used for all configurations
-multiply #(.MIN_WIDTH(MIN_WIDTH)) main_mul 
+multiply main_mul 
 (
   .A(A), 
   .B(B), 
@@ -51,7 +48,7 @@ multiply #(.MIN_WIDTH(MIN_WIDTH)) main_mul
 );
 
 // The secondary mul unit used for dual configs
-multiply #(.MIN_WIDTH(MIN_WIDTH)) dual_mul 
+multiply dual_mul 
 (
   .A(dual_in), 
   .B(B), 
@@ -59,13 +56,13 @@ multiply #(.MIN_WIDTH(MIN_WIDTH)) dual_mul
 );
 
 // The third and fourth mul unit used for quad configs
-multiply #(.MIN_WIDTH(MIN_WIDTH)) quad_one_mul 
+multiply quad_one_mul 
 (
   .A(quad_one_mul), 
   .B(B), 
   .C(quad_one_mul_out)
 );
-multiply #(.MIN_WIDTH(MIN_WIDTH)) quad_two_mul 
+multiply quad_two_mul 
 (
   .A(quad_two_mul), 
   .B(B), 
@@ -73,19 +70,19 @@ multiply #(.MIN_WIDTH(MIN_WIDTH)) quad_two_mul
 );
 
 // The accumulate block
-accumulate #(.MIN_WIDTH(MIN_WIDTH)) acc 
+accumulate acc 
 (
   .clk(clk), 
   .reset(reset), 
   .en(en), 
-  .init_val(cfg[ACC_WIDTH + CONF_WIDTH - 1:CONF_WIDTH]), 
+  .init_val(cfg[`MAC_ACC_WIDTH + `CONF_WIDTH - 1:`CONF_WIDTH]), 
   .din(mult_only_out), 
   .acc(accumulate_out)
 );
 
 // Output is either just multiply or the accumulate output (last bit of the CONF_WIDTH)
 // Note that the multiply only output is also pipelined to match accumulator
-assign C = cfg[CONF_WIDTH - 1] ? accumulate_out : mult_only_reg_out;
+assign C = cfg[`CONF_WIDTH - 1] ? accumulate_out : mult_only_reg_out;
 
 // Input-forward is always A input
 assign input_fwd = A;
