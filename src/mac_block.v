@@ -1,4 +1,4 @@
-`include mac_const.vh
+`include "mac_const.vh"
 
 module mac_block (
   input clk,
@@ -9,29 +9,29 @@ module mac_block (
   input [`MAC_MIN_WIDTH-1:0] dual_in,     // Used for cross-multiply when chaining   
   input [`MAC_MIN_WIDTH-1:0] quad_in1,    // Will solidify signals names later
   input [`MAC_MIN_WIDTH-1:0] quad_in2,
-  input [`MAC_ACC_WIDTH + `CONF_WIDTH - 1:0] cfg, // Initial accumulate value + config
+  input [`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg, // Initial accumulate value + config
 
   output [`MAC_MIN_WIDTH-1:0] input_fwd, 
   output [`MAC_ACC_WIDTH-1:0] C
 );
 
-wire [`MAC_MUL_WIDTH-1:0] main_mul_out;
-wire [`MAC_MUL_WIDTH-1:0] dual_mul_out;
-wire [`MAC_MUL_WIDTH-1:0] quad_one_mul_out;
-wire [`MAC_MUL_WIDTH-1:0] quad_two_mul_out;
-wire [`MAC_MUL_WIDTH-1:0] accumulate_out;
+wire [`MAC_MULT_WIDTH-1:0] main_mul_out;
+wire [`MAC_MULT_WIDTH-1:0] dual_mul_out;
+wire [`MAC_MULT_WIDTH-1:0] quad_one_mul_out;
+wire [`MAC_MULT_WIDTH-1:0] quad_two_mul_out;
+wire [`MAC_MULT_WIDTH-1:0] accumulate_out;
 
 reg [`MAC_ACC_WIDTH-1:0] mult_only_out;
 reg [`MAC_ACC_WIDTH-1:0] mult_only_reg_out;
 
 // Multiplication-only output
 always @(*) begin
-  case (cfg[1:0]) begin
+  case (cfg[1:0])
     `MAC_SINGLE:    mult_only_out = main_mul_out;  
     `MAC_DUAL:    mult_only_out = main_mul_out + (dual_mul_out << `MAC_MIN_WIDTH);
     `MAC_QUAD:    mult_only_out = main_mul_out + (dual_mul_out << `MAC_MIN_WIDTH) + (quad_one_mul_out << 2*`MAC_MIN_WIDTH) + (quad_two_mul_out << 3*`MAC_MIN_WIDTH);
     default:  mult_only_out = 0;
-  end
+  endcase
 end
 
 // Pipelining the multiplication-only output
@@ -75,14 +75,15 @@ accumulate acc
   .clk(clk), 
   .reset(reset), 
   .en(en), 
-  .init_val(cfg[`MAC_ACC_WIDTH + `CONF_WIDTH - 1:`CONF_WIDTH]), 
+  .init_val(cfg[`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:`MAC_CONF_WIDTH]), 
   .din(mult_only_out), 
   .acc(accumulate_out)
 );
 
-// Output is either just multiply or the accumulate output (last bit of the CONF_WIDTH)
-// Note that the multiply only output is also pipelined to match accumulator
-assign C = cfg[`CONF_WIDTH - 1] ? accumulate_out : mult_only_reg_out;
+// Output is either just multiply or the accumulate output (last bit of the
+// MAC_CONF_WIDTH). Note that the multiply only output is also pipelined to
+// match accumulator
+assign C = cfg[`MAC_CONF_WIDTH - 1] ? accumulate_out : mult_only_reg_out;
 
 // Input-forward is always A input
 assign input_fwd = A;

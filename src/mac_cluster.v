@@ -1,4 +1,4 @@
-`include mac_const.vh
+`include "mac_const.vh"
 
 module mac_cluster (
   input clk,
@@ -12,7 +12,7 @@ module mac_cluster (
   input [`MAC_MIN_WIDTH-1:0] B2,
   input [`MAC_MIN_WIDTH-1:0] A3,
   input [`MAC_MIN_WIDTH-1:0] B3,
-  input [4*`MAC_ACC_WIDTH + `CONF_WIDTH - 1:0] cfg, // 4 * `MAC_ACC_WIDTH initial register values + `CONF_WIDTH config bits
+  input [4*`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg, // 4 * `MAC_ACC_WIDTH initial register values + `MAC_CONF_WIDTH config bits
 
   output [`MAC_ACC_WIDTH-1:0] out0,
   output [`MAC_ACC_WIDTH-1:0] out1,
@@ -42,7 +42,7 @@ mac_block mac0
   .dual_in(dual_from_mac1),
   .quad_in1(input_fwd_from_mac2),
   .quad_in2(input_fwd_from_mac3),
-  .cfg({cfg[`MAC_ACC_WIDTH+`CONF_WIDTH-1:`CONF_WIDTH],cfg[`CONF_WIDTH-1:0]}),
+  .cfg({cfg[`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
   .input_fwd(input_fwd_from_mac0),
   .C(mac0_out)
 );
@@ -57,7 +57,7 @@ mac_block mac1
   .dual_in(dual_from_mac0),
   .quad_in1(input_fwd_from_mac2),
   .quad_in2(input_fwd_from_mac3),
-  .cfg({cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`CONF_WIDTH],cfg[`CONF_WIDTH-1:0]}),
+  .cfg({cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
   .input_fwd(input_fwd_from_mac1),
   .C(mac1_out)
 );
@@ -72,7 +72,7 @@ mac_block mac2
   .dual_in(dual_from_mac3),
   .quad_in1(input_fwd_from_mac0),
   .quad_in2(input_fwd_from_mac1),
-  .cfg({cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`CONF_WIDTH],cfg[`CONF_WIDTH-1:0]}),
+  .cfg({cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
   .input_fwd(input_fwd_from_mac2),
   .C(mac2_out)
 );
@@ -87,7 +87,7 @@ mac_block mac3
   .dual_in(dual_from_mac2),
   .quad_in1(input_fwd_from_mac0),
   .quad_in2(input_fwd_from_mac1),
-  .cfg({cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`CONF_WIDTH],cfg[`CONF_WIDTH-1:0]}),
+  .cfg({cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
   .input_fwd(input_fwd_from_mac3),
   .C(mac3_out)
 );
