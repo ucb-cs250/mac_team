@@ -79,37 +79,44 @@ module macTestHarness(
   reg [`MAC_ACC_WIDTH-1:0] pipelined_golden_out3;
 
   always @(posedge clk) begin
-    case (cfg[`MAC_CONF_WIDTH - 2:0])
-      `MAC_SINGLE: begin
-        if (cfg[`MAC_CONF_WIDTH - 1]) begin // Accumulate
-          golden_out0 <= (A0 * B0) + golden_out0;
-          golden_out1 <= (A1 * B1) + golden_out1;
-          golden_out2 <= (A2 * B2) + golden_out2;
-          golden_out3 <= (A3 * B3) + golden_out3;
-        end else begin
-          golden_out0 <= A0 * B0;
-          golden_out1 <= A1 * B1;
-          golden_out2 <= A2 * B2;
-          golden_out3 <= A3 * B3;
+    if (!reset) begin
+      case (cfg[`MAC_CONF_WIDTH - 2:0])
+        `MAC_SINGLE: begin
+          if (cfg[`MAC_CONF_WIDTH - 1]) begin // Accumulate
+            golden_out0 <= (A0 * B0) + golden_out0;
+            golden_out1 <= (A1 * B1) + golden_out1;
+            golden_out2 <= (A2 * B2) + golden_out2;
+            golden_out3 <= (A3 * B3) + golden_out3;
+          end else begin
+            golden_out0 <= A0 * B0;
+            golden_out1 <= A1 * B1;
+            golden_out2 <= A2 * B2;
+            golden_out3 <= A3 * B3;
+          end
         end
-      end
-      `MAC_DUAL: begin
-        if (cfg[`MAC_CONF_WIDTH - 1]) begin // Accumulate
-          {golden_out1, golden_out0} <= ({A1, A0} * {B1, B0}) + {golden_out1, golden_out0};
-          {golden_out3, golden_out2} <= ({A3, A2} * {B3, B2}) + {golden_out3, golden_out2};
-        end else begin
-          {golden_out1, golden_out0} <= {A1, A0} * {B1, B0};
-          {golden_out3, golden_out2} <= {A3, A2} * {B3, B2};
+        `MAC_DUAL: begin
+          if (cfg[`MAC_CONF_WIDTH - 1]) begin // Accumulate
+            {golden_out1, golden_out0} <= ({A1, A0} * {B1, B0}) + {golden_out1, golden_out0};
+            {golden_out3, golden_out2} <= ({A3, A2} * {B3, B2}) + {golden_out3, golden_out2};
+          end else begin
+            {golden_out1, golden_out0} <= {A1, A0} * {B1, B0};
+            {golden_out3, golden_out2} <= {A3, A2} * {B3, B2};
+          end
         end
-      end
-      `MAC_QUAD: begin
-        if (cfg[`MAC_CONF_WIDTH - 1]) begin // Accumulate
-          {golden_out3, golden_out2, golden_out1, golden_out0} <= {A3, A2, A1, A0} * {B3, B2, B1, B0} + {golden_out3, golden_out2, golden_out1, golden_out0};
-        end else begin
-          {golden_out3, golden_out2, golden_out1, golden_out0} <= ({A3, A2, A1, A0} * {B3, B2, B1, B0});
+        `MAC_QUAD: begin
+          if (cfg[`MAC_CONF_WIDTH - 1]) begin // Accumulate
+            {golden_out3, golden_out2, golden_out1, golden_out0} <= {A3, A2, A1, A0} * {B3, B2, B1, B0} + {golden_out3, golden_out2, golden_out1, golden_out0};
+          end else begin
+            {golden_out3, golden_out2, golden_out1, golden_out0} <= ({A3, A2, A1, A0} * {B3, B2, B1, B0});
+          end
         end
-      end
-    endcase
+      endcase
+    end else begin
+      golden_out0 <= cfg[`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:`MAC_CONF_WIDTH];
+      golden_out1 <= cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`MAC_CONF_WIDTH];
+      golden_out2 <= cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH];
+      golden_out3 <= cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH];
+    end
   end
 
   always @(posedge clk) begin
@@ -137,45 +144,51 @@ module macTestHarness(
   // Start the simulation
 
   always @(posedge clk) begin
-    A0 = $urandom;
-    A1 = $urandom;
-    A2 = $urandom;
-    A3 = $urandom;
-    B0 = $urandom;
-    B1 = $urandom;
-    B2 = $urandom;
-    B3 = $urandom;
+    if (!reset) begin
+      A0 = $urandom;
+      A1 = $urandom;
+      A2 = $urandom;
+      A3 = $urandom;
+      B0 = $urandom;
+      B1 = $urandom;
+      B2 = $urandom;
+      B3 = $urandom;
 
-    if (out0 != pipelined_golden_out0 || out1 != pipelined_golden_out1 || out2 != pipelined_golden_out2 || out3 != pipelined_golden_out3 ) begin
-      $display("FAILED: On test %0d of %0d", test, num_tests);
-      $display("With cfg: %3b", cfg[`MAC_CONF_WIDTH-1:0]);
-      $display("Initial 0: %0d, Initial 1: %0d, Initial 2: %0d, Initial 3: %0d", 
-        cfg[`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:`MAC_CONF_WIDTH], 
-        cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`MAC_CONF_WIDTH], 
-        cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH],
-        cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH]);
-      $display("out0: Got %0d, Expected %0d", out0, pipelined_golden_out0);
-      $display("out1: Got %0d, Expected %0d", out1, pipelined_golden_out1);
-      $display("out2: Got %0d, Expected %0d", out2, pipelined_golden_out2);
-      $display("out3: Got %0d, Expected %0d", out3, pipelined_golden_out3);
-      $finish; 
+      if (out0 != pipelined_golden_out0 || out1 != pipelined_golden_out1 || out2 != pipelined_golden_out2 || out3 != pipelined_golden_out3 ) begin
+        $display("FAILED: On test %0d of %0d", test, num_tests);
+        $display("With cfg: %3b", cfg[`MAC_CONF_WIDTH-1:0]);
+        $display("Initial 0: %0d, Initial 1: %0d, Initial 2: %0d, Initial 3: %0d", 
+          cfg[`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:`MAC_CONF_WIDTH], 
+          cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`MAC_CONF_WIDTH], 
+          cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH],
+          cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH]);
+        $display("out0: Got %0d, Expected %0d", out0, pipelined_golden_out0);
+        $display("out1: Got %0d, Expected %0d", out1, pipelined_golden_out1);
+        $display("out2: Got %0d, Expected %0d", out2, pipelined_golden_out2);
+        $display("out3: Got %0d, Expected %0d", out3, pipelined_golden_out3);
+        $finish; 
+      end
     end
   end
 
   //-----------------------------------------------
   // Count cycles 
   always @(posedge clk) begin
-    if (test > num_tests) begin
-      $display("PASSED: %0d tests", num_tests);
-      $display("With cfg: %3b", cfg[`MAC_CONF_WIDTH-1:0]);
-      $display("Initial 0: %0d, Initial 1: %0d, Initial 2: %0d, Initial 3: %0d", 
-        cfg[`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:`MAC_CONF_WIDTH], 
-        cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`MAC_CONF_WIDTH], 
-        cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH],
-        cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH]);
-      $finish;
+    if (!reset) begin
+      if (test > num_tests) begin
+        $display("PASSED: %0d tests", num_tests);
+        $display("With cfg: %3b", cfg[`MAC_CONF_WIDTH-1:0]);
+        $display("Initial 0: %0d, Initial 1: %0d, Initial 2: %0d, Initial 3: %0d", 
+          cfg[`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:`MAC_CONF_WIDTH], 
+          cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`MAC_CONF_WIDTH], 
+          cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH],
+          cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH]);
+        $finish;
+      end else begin
+        test = test + 1;
+      end
     end else begin
-      test = test + 1;
+      test = test;
     end
   end
 
