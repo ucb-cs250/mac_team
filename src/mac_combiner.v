@@ -13,7 +13,7 @@ module mac_combiner (
   output reg [`MAC_ACC_WIDTH-1:0] out0,         // Output passed through in single mode
   output reg [`MAC_ACC_WIDTH-1:0] out1,         // Output split across one+two, three+four in dual mode
   output reg [`MAC_ACC_WIDTH-1:0] out2,       // Output split across all in quad mode
-  output reg [`MAC_ACC_WIDTH-1:0] out3,
+  output reg [`MAC_ACC_WIDTH-1:0] out3
 );
 
 always @(*) begin

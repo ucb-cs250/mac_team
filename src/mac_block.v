@@ -40,7 +40,7 @@ always @(posedge clk) begin
 end
 
 // The multiply unit used for all configurations
-multiply main_mul 
+multiply main_mul_block
 (
   .A(A), 
   .B(B), 
@@ -48,7 +48,7 @@ multiply main_mul
 );
 
 // The secondary mul unit used for dual configs
-multiply dual_mul 
+multiply dual_mul_block 
 (
   .A(dual_in), 
   .B(B), 
@@ -56,13 +56,13 @@ multiply dual_mul
 );
 
 // The third and fourth mul unit used for quad configs
-multiply quad_one_mul 
+multiply quad_one_mul_block
 (
   .A(quad_one_mul), 
   .B(B), 
   .C(quad_one_mul_out)
 );
-multiply quad_two_mul 
+multiply quad_two_mul_block
 (
   .A(quad_two_mul), 
   .B(B), 
@@ -70,7 +70,7 @@ multiply quad_two_mul
 );
 
 // The accumulate block
-accumulate acc 
+accumulate acc_block 
 (
   .clk(clk), 
   .reset(reset), 
