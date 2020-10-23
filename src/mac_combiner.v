@@ -23,8 +23,8 @@ always @(*) begin
       {out3, out2} = partial2 + (partial3 << `MAC_MIN_WIDTH);
     end
     `MAC_QUAD: begin
-      {out3, out2, out1, out0} = partial0 + (partial1 << `MAC_MIN_WIDTH) + (partial2 << 2*`MAC_MIN_WIDTH) + (partial3 << 3*`MAC_MIN_WIDTH);
-      // {out3, out2, out1, out0} = partial0 + {partial1, {`MAC_MIN_WIDTH{1'b0}}} + {partial2, {2*`MAC_MIN_WIDTH{1'b0}}} + {partial3, {3*`MAC_MIN_WIDTH{1'b0}}};
+      //{out3, out2, out1, out0} = partial0 + (partial1 << `MAC_MIN_WIDTH) + (partial2 << 2*`MAC_MIN_WIDTH) + (partial3 << 3*`MAC_MIN_WIDTH);
+      {out3, out2, out1, out0} = partial0 + {partial1, {`MAC_MIN_WIDTH{1'b0}}} + {partial2, {2*`MAC_MIN_WIDTH{1'b0}}} + {partial3, {3*`MAC_MIN_WIDTH{1'b0}}};
     end
     default: begin
       out0 = partial0;

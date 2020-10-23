@@ -27,7 +27,7 @@ module macTestHarness(
   // reg [4*`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg = {128'b0, 1'b0, 2'b01};; // Dual Multiply
   // reg [4*`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg = {128'b0, 1'b1, 2'b01};; // Dual Accumulate
   // reg [4*`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg = {128'b0, 1'b0, 2'b10};; // Quad Multiply
-  reg [4*`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg = {128'b0, 1'b1, 2'b10};; // Quad Accumulate
+  reg [4*`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg = 0; 
 
   wire [`MAC_ACC_WIDTH-1:0] out0;
   wire [`MAC_ACC_WIDTH-1:0] out1;
@@ -121,8 +121,12 @@ module macTestHarness(
 
   //-----------------------------------------------
   // Initialization
+  reg [31:0] test = 1;
+  reg [31:0] num_tests = 10;
+
   initial begin
     $value$plusargs("cfg=%d", cfg);
+    $value$plusargs("num_tests=%d", num_tests);
     golden_out0 = 0;
     golden_out1 = 0;
     golden_out2 = 0;
@@ -131,8 +135,6 @@ module macTestHarness(
 
   //-----------------------------------------------
   // Start the simulation
-  reg [31:0] test = 1;
-  reg [31:0] num_tests = 10;
 
   always @(posedge clk) begin
     A0 = $urandom;
@@ -164,7 +166,7 @@ module macTestHarness(
   // Count cycles 
   always @(posedge clk) begin
     if (test > num_tests) begin
-      $display("PASSED");
+      $display("PASSED: %0d tests", num_tests);
       $display("With cfg: %3b", cfg[`MAC_CONF_WIDTH-1:0]);
       $display("Initial 0: %0d, Initial 1: %0d, Initial 2: %0d, Initial 3: %0d", 
         cfg[`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:`MAC_CONF_WIDTH], 
