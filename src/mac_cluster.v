@@ -27,7 +27,7 @@ wire [`MAC_INT_WIDTH-1:0] mac_mul_out3;
 
 
 // Instantiating all blocks in a quad-cluster and fully connecting them together
-mac_mult_block_0 macmul0 
+mac_mul_block_0 macmul0 
 (
   .clk(clk),
   .rst(rst),
@@ -41,7 +41,7 @@ mac_mult_block_0 macmul0
   .C(mac_mul_out0)
 );
 
-mac_mult_block_1 macmul1 
+mac_mul_block_1 macmul1 
 (
   .clk(clk),
   .rst(rst),
@@ -55,7 +55,7 @@ mac_mult_block_1 macmul1
   .C(mac_mul_out1)
 );
 
-mac_mult_block_2 macmul2 
+mac_mul_block_2 macmul2 
 (
   .clk(clk),
   .rst(rst),
@@ -69,7 +69,7 @@ mac_mult_block_2 macmul2
   .C(mac_mul_out2)
 );
 
-mac_mult_block_3 macmul3 
+mac_mul_block_3 macmul3 
 (
   .clk(clk),
   .rst(rst),
@@ -90,10 +90,10 @@ mac_acc_block macacc
   .rst(rst),
   .en(en),
   .cfg(cfg),
-  .partial0(mac0_out),
-  .partial1(mac1_out),
-  .partial2(mac2_out),
-  .partial3(mac3_out),
+  .partial0(mac_mul_out0),
+  .partial1(mac_mul_out1),
+  .partial2(mac_mul_out2),
+  .partial3(mac_mul_out3),
   .out0(out0),
   .out1(out1),
   .out2(out2),

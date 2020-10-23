@@ -16,10 +16,10 @@ module mac_acc_block (
   output [`MAC_ACC_WIDTH-1:0] out3
 );
 
-wire [`MAC_ACC_WIDTH-1:0] mult_only_out0;
-wire [`MAC_ACC_WIDTH-1:0] mult_only_out1;
-wire [`MAC_ACC_WIDTH-1:0] mult_only_out2;
-wire [`MAC_ACC_WIDTH-1:0] mult_only_out3;
+reg [`MAC_ACC_WIDTH-1:0] mult_only_out0;  // Non-pipelined
+reg [`MAC_ACC_WIDTH-1:0] mult_only_out1;
+reg [`MAC_ACC_WIDTH-1:0] mult_only_out2;
+reg [`MAC_ACC_WIDTH-1:0] mult_only_out3;
 
 reg [`MAC_ACC_WIDTH-1:0] mult_only_out0_reg;
 reg [`MAC_ACC_WIDTH-1:0] mult_only_out1_reg;

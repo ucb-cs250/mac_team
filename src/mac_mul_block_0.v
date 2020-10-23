@@ -1,6 +1,6 @@
 `include "mac_const.vh"
 
-module mac_mult_block_0 (
+module mac_mul_block_0 (
   input clk,
   input rst,
   input en,
@@ -11,7 +11,7 @@ module mac_mult_block_0 (
   input [`MAC_MIN_WIDTH-1:0] A3,
   input [`MAC_CONF_WIDTH - 1:0] cfg, // Single, Dual or Quad
 
-  output [`MAC_INT_WIDTH-1:0] C
+  output reg [`MAC_INT_WIDTH-1:0] C  // Non-pipelined
 );
 
 wire [`MAC_MULT_WIDTH-1:0] A0B0;

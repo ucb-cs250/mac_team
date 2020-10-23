@@ -1,17 +1,17 @@
 `include "mac_const.vh"
 
-module mac_mult_block_1 (
+module mac_mul_block_1 (
   input clk,
   input rst,
   input en,
   input [`MAC_MIN_WIDTH-1:0] B1,
   input [`MAC_MIN_WIDTH-1:0] A0,     // Used for cross-multiply when chaining 
   input [`MAC_MIN_WIDTH-1:0] A1,  
-  input [`MAC_MIN_WIDTH-1:0] A2,    // Will solidify signals names later
+  input [`MAC_MIN_WIDTH-1:0] A2,     // Will solidify signals names later
   input [`MAC_MIN_WIDTH-1:0] A3,
   input [`MAC_CONF_WIDTH - 1:0] cfg, // Single, Dual or Quad
 
-  output [`MAC_INT_WIDTH-1:0] C
+  output reg [`MAC_INT_WIDTH-1:0] C  // Non-pipelined
 );
 
 wire [`MAC_MULT_WIDTH-1:0] A1B1;
