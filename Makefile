@@ -38,7 +38,6 @@ TRACING_OPTS := \
 #----------------------------------------------------------------------------------------
 VERILATOR_OPT_FLAGS := \
 	-O3 \
-	--x-initial 0 \
 
 VERILOG_VERILATOR_FLAGS := \
 	-Wno-PINCONNECTEMPTY \

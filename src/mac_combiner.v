@@ -24,8 +24,8 @@ always @(*) begin
       //  {out1, out0} = {partial1[`MAC_MIN_WIDTH-1:], partial0[`MAC_MIN_WIDTH-1:0]}
       // Maybe that'll work. Maybe you need explicit 0s prefixing the
       // concatenation.
-      {out1, out0} = partial0 + (partial1 << `MAC_MIN_WIDTH);
-      {out3, out2} = partial3 + (partial2 << `MAC_MIN_WIDTH);
+      {out1, out0} = partial0 + {partial1, {`MAC_MIN_WIDTH{1'b0}}};
+      {out3, out2} = partial3 + {partial2, {`MAC_MIN_WIDTH{1'b0}}};
     end
     `MAC_QUAD: begin
       {out3, out2, out1, out0} = partial0 + (partial1 << `MAC_MIN_WIDTH) + (partial2 << 2*`MAC_MIN_WIDTH) + (partial3 << 3*`MAC_MIN_WIDTH);
