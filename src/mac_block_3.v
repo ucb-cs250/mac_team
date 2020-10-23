@@ -11,7 +11,6 @@ module mac_block_3 (
   input [`MAC_MIN_WIDTH-1:0] A3,
   input [`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg, // Initial accumulate value + config
 
-  output [`MAC_MIN_WIDTH-1:0] A3_out, // this is somewhat redundant but I guess removes this responsibility from fabric? Could this be done in the mac_cluster instead? 
   output [`MAC_ACC_WIDTH-1:0] C
 );
 
@@ -84,8 +83,5 @@ accumulate acc_block
 // MAC_CONF_WIDTH). Note that the multiply only output is also pipelined to
 // match accumulator
 assign C = cfg[`MAC_CONF_WIDTH - 1] ? accumulate_out : mult_only_reg_out;
-
-// Input-forward is always A input
-assign A3_out =  A3;
 
 endmodule
