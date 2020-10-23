@@ -4,8 +4,8 @@ module mac_block_0 (
   input clk,
   input rst,
   input en,
-  input [`MAC_MIN_WIDTH-1:0] A0,
   input [`MAC_MIN_WIDTH-1:0] B0,
+  input [`MAC_MIN_WIDTH-1:0] A0,
   input [`MAC_MIN_WIDTH-1:0] A1,     // Used for cross-multiply when chaining   
   input [`MAC_MIN_WIDTH-1:0] A2,    // Will solidify signals names later
   input [`MAC_MIN_WIDTH-1:0] A3,

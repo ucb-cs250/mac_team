@@ -4,9 +4,9 @@ module mac_block_1 (
   input clk,
   input rst,
   input en,
-  input [`MAC_MIN_WIDTH-1:0] A1,
   input [`MAC_MIN_WIDTH-1:0] B1,
-  input [`MAC_MIN_WIDTH-1:0] A0,     // Used for cross-multiply when chaining   
+  input [`MAC_MIN_WIDTH-1:0] A0,     // Used for cross-multiply when chaining 
+  input [`MAC_MIN_WIDTH-1:0] A1,  
   input [`MAC_MIN_WIDTH-1:0] A2,    // Will solidify signals names later
   input [`MAC_MIN_WIDTH-1:0] A3,
   input [`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg, // Initial accumulate value + config

@@ -4,11 +4,11 @@ module mac_block_3 (
   input clk,
   input rst,
   input en,
-  input [`MAC_MIN_WIDTH-1:0] A3,
   input [`MAC_MIN_WIDTH-1:0] B3,
   input [`MAC_MIN_WIDTH-1:0] A0,     // Used for cross-multiply when chaining   
   input [`MAC_MIN_WIDTH-1:0] A1,    // Will solidify signals names later
   input [`MAC_MIN_WIDTH-1:0] A2,
+  input [`MAC_MIN_WIDTH-1:0] A3,
   input [`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg, // Initial accumulate value + config
 
   output [`MAC_MIN_WIDTH-1:0] A3_out, // this is somewhat redundant but I guess removes this responsibility from fabric? Could this be done in the mac_cluster instead? 
