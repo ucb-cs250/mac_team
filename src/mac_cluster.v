@@ -12,7 +12,7 @@ module mac_cluster (
   input [`MAC_MIN_WIDTH-1:0] B2,
   input [`MAC_MIN_WIDTH-1:0] A3,
   input [`MAC_MIN_WIDTH-1:0] B3,
-  input [4*`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg, // 4 * `MAC_ACC_WIDTH initial register values + `MAC_CONF_WIDTH config bits
+  input [4*`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:0] cfg,
 
   output [`MAC_ACC_WIDTH-1:0] out0,
   output [`MAC_ACC_WIDTH-1:0] out1,
@@ -37,7 +37,7 @@ mac_block_0 mac0
   .A2(A2),
   .A3(A3),
   .B0(B0),
-  .cfg({cfg[`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
+  .cfg(cfg[`MAC_CONF_WIDTH-2:0]),
   .C(mac0_out)
 );
 
@@ -51,7 +51,7 @@ mac_block_1 mac1
   .A2(A2),
   .A3(A3),
   .B1(B1),
-  .cfg({cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
+  .cfg(cfg[`MAC_CONF_WIDTH-2:0]),
   .C(mac1_out)
 );
 
@@ -65,7 +65,7 @@ mac_block_2 mac2
   .A2(A2),
   .A3(A3),
   .B2(B2),
-  .cfg({cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
+  .cfg(cfg[`MAC_CONF_WIDTH-2:0]),
   .C(mac2_out)
 );
 
@@ -79,7 +79,7 @@ mac_block_3 mac3
   .A2(A2),
   .A3(A3),
   .B3(B3),
-  .cfg({cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
+  .cfg(cfg[`MAC_CONF_WIDTH-2:0]),
   .C(mac3_out)
 );
 
@@ -89,7 +89,7 @@ mac_combiner comb1
   .clk(clk),
   .rst(rst),
   .en(en),
-  .cfg(cfg[1:0]), // Only taking the last 2 bits for Single, Dual or Quad
+  .cfg(cfg), // Only taking the last 2 bits for Single, Dual or Quad
   .partial0(mac0_out),
   .partial1(mac1_out),
   .partial2(mac2_out),
