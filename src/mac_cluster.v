@@ -20,10 +20,10 @@ module mac_cluster (
   output [`MAC_ACC_WIDTH-1:0] out3
 );
 
-wire [`MAC_ACC_WIDTH-1:0] mac0_out;
-wire [`MAC_ACC_WIDTH-1:0] mac1_out;
-wire [`MAC_ACC_WIDTH-1:0] mac2_out;
-wire [`MAC_ACC_WIDTH-1:0] mac3_out;
+wire [`MAC_INT_WIDTH-1:0] mac0_out;
+wire [`MAC_INT_WIDTH-1:0] mac1_out;
+wire [`MAC_INT_WIDTH-1:0] mac2_out;
+wire [`MAC_INT_WIDTH-1:0] mac3_out;
 
 
 // Instantiating all blocks in a quad-cluster and fully connecting them together

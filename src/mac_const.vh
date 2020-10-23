@@ -2,6 +2,7 @@
 `define MAC_MIN_WIDTH 8
 `define MAC_MULT_WIDTH 2*`MAC_MIN_WIDTH
 `define MAC_ACC_WIDTH 2*`MAC_MULT_WIDTH
+`define MAC_INT_WIDTH 3*`MAC_MULT_WIDTH // Used for internal MAC wires
 
 `define MAC_SINGLE 0
 `define MAC_DUAL 1

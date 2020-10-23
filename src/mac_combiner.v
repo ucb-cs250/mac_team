@@ -5,10 +5,10 @@ module mac_combiner (
   input rst,
   input en,
   input [1:0] cfg,                          // Single, Dual or Quad
-  input [`MAC_ACC_WIDTH-1:0] partial0,      
-  input [`MAC_ACC_WIDTH-1:0] partial1,
-  input [`MAC_ACC_WIDTH-1:0] partial2,
-  input [`MAC_ACC_WIDTH-1:0] partial3,
+  input [`MAC_INT_WIDTH-1:0] partial0,      
+  input [`MAC_INT_WIDTH-1:0] partial1,
+  input [`MAC_INT_WIDTH-1:0] partial2,
+  input [`MAC_INT_WIDTH-1:0] partial3,
 
   output reg [`MAC_ACC_WIDTH-1:0] out0,         // Output passed through in single mode
   output reg [`MAC_ACC_WIDTH-1:0] out1,         // Output split across one+two, three+four in dual mode

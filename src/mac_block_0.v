@@ -11,17 +11,17 @@ module mac_block_0 (
   input [`MAC_MIN_WIDTH-1:0] A3,
   input [`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg, // Initial accumulate value + config
 
-  output [`MAC_ACC_WIDTH-1:0] C
+  output [`MAC_INT_WIDTH-1:0] C
 );
 
 wire [`MAC_MULT_WIDTH-1:0] A0B0;
 wire [`MAC_MULT_WIDTH-1:0] A1B0;
 wire [`MAC_MULT_WIDTH-1:0] A2B0;
 wire [`MAC_MULT_WIDTH-1:0] A3B0;
-wire [`MAC_ACC_WIDTH-1:0] accumulate_out;
+wire [`MAC_INT_WIDTH-1:0] accumulate_out;
 
-reg [`MAC_ACC_WIDTH-1:0] mult_only_out;
-reg [`MAC_ACC_WIDTH-1:0] mult_only_reg_out;
+reg [`MAC_INT_WIDTH-1:0] mult_only_out;
+reg [`MAC_INT_WIDTH-1:0] mult_only_reg_out;
 
 // Multiplication-only output
 always @(*) begin

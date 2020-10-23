@@ -5,11 +5,11 @@ module accumulate (
   input wire reset, 
   input wire en, 
   input wire [`MAC_ACC_WIDTH-1:0] init_val, 
-  input wire [`MAC_ACC_WIDTH-1:0] din, 
-  output wire [`MAC_ACC_WIDTH-1:0] acc
+  input wire [`MAC_INT_WIDTH-1:0] din, 
+  output wire [`MAC_INT_WIDTH-1:0] acc
 );
 
-reg [`MAC_ACC_WIDTH-1: 0] accumulator;
+reg [`MAC_INT_WIDTH-1: 0] accumulator;
 
 always @(posedge clk) begin
 	if (reset) begin
