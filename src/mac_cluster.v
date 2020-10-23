@@ -20,14 +20,14 @@ module mac_cluster (
   output [`MAC_ACC_WIDTH-1:0] out3
 );
 
-wire [`MAC_INT_WIDTH-1:0] mac0_out;
-wire [`MAC_INT_WIDTH-1:0] mac1_out;
-wire [`MAC_INT_WIDTH-1:0] mac2_out;
-wire [`MAC_INT_WIDTH-1:0] mac3_out;
+wire [`MAC_INT_WIDTH-1:0] mac_mul_out0;
+wire [`MAC_INT_WIDTH-1:0] mac_mul_out1;
+wire [`MAC_INT_WIDTH-1:0] mac_mul_out2;
+wire [`MAC_INT_WIDTH-1:0] mac_mul_out3;
 
 
 // Instantiating all blocks in a quad-cluster and fully connecting them together
-mac_block_0 mac0 
+mac_mult_block_0 macmul0 
 (
   .clk(clk),
   .rst(rst),
@@ -37,11 +37,11 @@ mac_block_0 mac0
   .A2(A2),
   .A3(A3),
   .B0(B0),
-  .cfg({cfg[`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
-  .C(mac0_out)
+  .cfg(cfg[`MAC_CONF_WIDTH-1:0]),
+  .C(mac_mul_out0)
 );
 
-mac_block_1 mac1 
+mac_mult_block_1 macmul1 
 (
   .clk(clk),
   .rst(rst),
@@ -51,11 +51,11 @@ mac_block_1 mac1
   .A2(A2),
   .A3(A3),
   .B1(B1),
-  .cfg({cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
-  .C(mac1_out)
+  .cfg(cfg[`MAC_CONF_WIDTH-1:0]),
+  .C(mac_mul_out1)
 );
 
-mac_block_2 mac2 
+mac_mult_block_2 macmul2 
 (
   .clk(clk),
   .rst(rst),
@@ -65,11 +65,11 @@ mac_block_2 mac2
   .A2(A2),
   .A3(A3),
   .B2(B2),
-  .cfg({cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
-  .C(mac2_out)
+  .cfg(cfg[`MAC_CONF_WIDTH-1:0]),
+  .C(mac_mul_out2)
 );
 
-mac_block_3 mac3 
+mac_mult_block_3 macmul3 
 (
   .clk(clk),
   .rst(rst),
@@ -79,17 +79,17 @@ mac_block_3 mac3
   .A2(A2),
   .A3(A3),
   .B3(B3),
-  .cfg({cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
-  .C(mac3_out)
+  .cfg(cfg[`MAC_CONF_WIDTH-1:0]),
+  .C(mac_mul_out3)
 );
 
 // Combiner
-mac_combiner comb1 
+mac_acc_block macacc 
 (
   .clk(clk),
   .rst(rst),
   .en(en),
-  .cfg(cfg[1:0]), // Only taking the last 2 bits for Single, Dual or Quad
+  .cfg(cfg),
   .partial0(mac0_out),
   .partial1(mac1_out),
   .partial2(mac2_out),

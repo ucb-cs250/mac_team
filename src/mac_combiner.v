@@ -1,25 +1,43 @@
 `include "mac_const.vh"
 
-module mac_combiner (
+module mac_acc_block (
   input clk,
   input rst,
   input en,
-  input [`MAC_CONF_WIDTH-1:0] cfg,                          // Single, Dual or Quad
+  input [4*`MAC_ACC_WIDTH + `MAC_CONF_WIDTH - 1:0] cfg, // 4 * `MAC_ACC_WIDTH initial register values + `MAC_CONF_WIDTH config bits
   input [`MAC_INT_WIDTH-1:0] partial0,      
   input [`MAC_INT_WIDTH-1:0] partial1,
   input [`MAC_INT_WIDTH-1:0] partial2,
   input [`MAC_INT_WIDTH-1:0] partial3,
 
-  output [`MAC_ACC_WIDTH-1:0] out0,         // Output passed through in single mode
-  output [`MAC_ACC_WIDTH-1:0] out1,         // Output split across one+two, three+four in dual mode
+  output [`MAC_ACC_WIDTH-1:0] out0,       // Output passed through in single mode
+  output [`MAC_ACC_WIDTH-1:0] out1,       // Output split across one+two, three+four in dual mode
   output [`MAC_ACC_WIDTH-1:0] out2,       // Output split across all in quad mode
   output [`MAC_ACC_WIDTH-1:0] out3
 );
 
-reg [`MAC_ACC_WIDTH-1:0] mult_only_out0,         // Output passed through in single mode
-reg [`MAC_ACC_WIDTH-1:0] mult_only_out1,         // Output split across one+two, three+four in dual mode
-reg [`MAC_ACC_WIDTH-1:0] mult_only_out2,       // Output split across all in quad mode
-reg [`MAC_ACC_WIDTH-1:0] mult_only_out3
+wire [`MAC_ACC_WIDTH-1:0] mult_only_out0;
+wire [`MAC_ACC_WIDTH-1:0] mult_only_out1;
+wire [`MAC_ACC_WIDTH-1:0] mult_only_out2;
+wire [`MAC_ACC_WIDTH-1:0] mult_only_out3;
+
+reg [`MAC_ACC_WIDTH-1:0] mult_only_out0_reg;
+reg [`MAC_ACC_WIDTH-1:0] mult_only_out1_reg;
+reg [`MAC_ACC_WIDTH-1:0] mult_only_out2_reg;
+reg [`MAC_ACC_WIDTH-1:0] mult_only_out3_reg;
+
+wire [`MAC_ACC_WIDTH-1:0] acc_out0;
+wire [`MAC_ACC_WIDTH-1:0] acc_out1;
+wire [`MAC_ACC_WIDTH-1:0] acc_out2;
+wire [`MAC_ACC_WIDTH-1:0] acc_out3;
+
+// Pipelining multiply-only results
+always @(posedge clk) begin
+  mult_only_out0_reg <= mult_only_out0;
+  mult_only_out1_reg <= mult_only_out1;
+  mult_only_out2_reg <= mult_only_out2;
+  mult_only_out3_reg <= mult_only_out3;
+end
 
 always @(*) begin
   case (cfg[`MAC_CONF_WIDTH-2:0])
@@ -28,8 +46,7 @@ always @(*) begin
       {mult_only_out3, mult_only_out2} = partial2 + (partial3 << `MAC_MIN_WIDTH);
     end
     `MAC_QUAD: begin
-      //{mult_only_out3, mult_only_out2, mult_only_out1, mult_only_out0} = partial0 + (partial1 << `MAC_MIN_WIDTH) + (partial2 << 2*`MAC_MIN_WIDTH) + (partial3 << 3*`MAC_MIN_WIDTH);
-      {mult_only_out3, mult_only_out2, mult_only_out1, mult_only_out0} = partial0 + {partial1, {`MAC_MIN_WIDTH{1'b0}}} + {partial2, {2*`MAC_MIN_WIDTH{1'b0}}} + {partial3, {3*`MAC_MIN_WIDTH{1'b0}}};
+      {mult_only_out3, mult_only_out2, mult_only_out1, mult_only_out0} = partial0 + (partial1 << `MAC_MIN_WIDTH) + (partial2 << 2*`MAC_MIN_WIDTH) + (partial3 << 3*`MAC_MIN_WIDTH);
     end
     default: begin
       mult_only_out0 = partial0;
@@ -40,9 +57,51 @@ always @(*) begin
   endcase
 end
 
-assign out0 = cfg[`MAC_CONF_WIDTH-1] ? acc_out0 : mult_only_out0;
-assign out1 = cfg[`MAC_CONF_WIDTH-1] ? acc_out1 : mult_only_out1;
-assign out2 = cfg[`MAC_CONF_WIDTH-1] ? acc_out2 : mult_only_out2;
-assign out3 = cfg[`MAC_CONF_WIDTH-1] ? acc_out3 : mult_only_out3;
+// Accumulators (output is pipelined)
+accumulate acc_block_0
+(
+  .clk(clk), 
+  .reset(reset), 
+  .en(en), 
+  .init_val(cfg[`MAC_ACC_WIDTH-1:`MAC_CONF_WIDTH]), 
+  .din(mult_only_out0), 
+  .acc(acc_out0)
+);
+
+accumulate acc_block_1
+(
+  .clk(clk), 
+  .reset(reset), 
+  .en(en), 
+  .init_val(cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`MAC_CONF_WIDTH]), 
+  .din(mult_only_out1), 
+  .acc(acc_out1)
+);
+
+accumulate acc_block_2
+(
+  .clk(clk), 
+  .reset(reset), 
+  .en(en), 
+  .init_val(cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH]), 
+  .din(mult_only_out2), 
+  .acc(acc_out2)
+);
+
+accumulate acc_block_3
+(
+  .clk(clk), 
+  .reset(reset), 
+  .en(en), 
+  .init_val(cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH]), 
+  .din(mult_only_out3), 
+  .acc(acc_out3)
+);
+
+// Assigning outputs
+assign out0 = cfg[`MAC_CONF_WIDTH-1] ? acc_out0 : mult_only_out0_reg;
+assign out1 = cfg[`MAC_CONF_WIDTH-1] ? acc_out1 : mult_only_out1_reg;
+assign out2 = cfg[`MAC_CONF_WIDTH-1] ? acc_out2 : mult_only_out2_reg;
+assign out3 = cfg[`MAC_CONF_WIDTH-1] ? acc_out3 : mult_only_out3_reg;
 
 endmodule
