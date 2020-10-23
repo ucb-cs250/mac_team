@@ -20,11 +20,6 @@ module mac_cluster (
   output [`MAC_ACC_WIDTH-1:0] out3
 );
 
-wire [`MAC_MIN_WIDTH-1:0] input_fwd_from_mac0;
-wire [`MAC_MIN_WIDTH-1:0] input_fwd_from_mac1;
-wire [`MAC_MIN_WIDTH-1:0] input_fwd_from_mac2;
-wire [`MAC_MIN_WIDTH-1:0] input_fwd_from_mac3;
-
 wire [`MAC_ACC_WIDTH-1:0] mac0_out;
 wire [`MAC_ACC_WIDTH-1:0] mac1_out;
 wire [`MAC_ACC_WIDTH-1:0] mac2_out;
@@ -32,63 +27,59 @@ wire [`MAC_ACC_WIDTH-1:0] mac3_out;
 
 
 // Instantiating all blocks in a quad-cluster and fully connecting them together
-mac_block mac0 
+mac_block_0 mac0 
 (
   .clk(clk),
   .rst(rst),
   .en(en),
-  .A(A0),
-  .B(B0),
-  .dual_in(input_fwd_from_mac1),
-  .quad_in1(input_fwd_from_mac2),
-  .quad_in2(input_fwd_from_mac3),
+  .A0(A0),
+  .A1(A1),
+  .A2(A2),
+  .A3(A3),
+  .B0(B0),
   .cfg({cfg[`MAC_ACC_WIDTH+`MAC_CONF_WIDTH-1:`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
-  .input_fwd(input_fwd_from_mac0),
   .C(mac0_out)
 );
 
-mac_block mac1 
+mac_block_1 mac1 
 (
   .clk(clk),
   .rst(rst),
   .en(en),
-  .A(A1),
-  .B(B1),
-  .dual_in(input_fwd_from_mac0),
-  .quad_in1(input_fwd_from_mac2),
-  .quad_in2(input_fwd_from_mac3),
+  .A0(A0),
+  .A1(A1),
+  .A2(A2),
+  .A3(A3),
+  .B1(B1),
   .cfg({cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
-  .input_fwd(input_fwd_from_mac1),
   .C(mac1_out)
 );
 
-mac_block mac2 
+mac_block_2 mac2 
 (
   .clk(clk),
   .rst(rst),
   .en(en),
-  .A(A2),
-  .B(B2),
-  .dual_in(input_fwd_from_mac3),
-  .quad_in1(input_fwd_from_mac0),
-  .quad_in2(input_fwd_from_mac1),
+  .A0(A0),
+  .A1(A1),
+  .A2(A2),
+  .A3(A3),
+  .B2(B2),
   .cfg({cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
-  .input_fwd(input_fwd_from_mac2),
   .C(mac2_out)
 );
 
-mac_block mac3 
+mac_block_3 mac3 
 (
   .clk(clk),
   .rst(rst),
   .en(en),
-  .A(A3),
-  .B(B3),
-  .dual_in(input_fwd_from_mac2),
-  .quad_in1(input_fwd_from_mac0),
-  .quad_in2(input_fwd_from_mac1),
+  .A0(A0),
+  .A1(A1),
+  .A2(A2),
+  .A3(A3),
+  .B3(B3),
   .cfg({cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH],cfg[`MAC_CONF_WIDTH-1:0]}),
-  .input_fwd(input_fwd_from_mac3),
   .C(mac3_out)
 );
 

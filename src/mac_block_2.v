@@ -18,7 +18,7 @@ wire [`MAC_MULT_WIDTH-1:0] A2B2;
 wire [`MAC_MULT_WIDTH-1:0] A0B2;
 wire [`MAC_MULT_WIDTH-1:0] A1B2;
 wire [`MAC_MULT_WIDTH-1:0] A3B2;
-wire [`MAC_MULT_WIDTH-1:0] accumulate_out;
+wire [`MAC_ACC_WIDTH-1:0] accumulate_out;
 
 reg [`MAC_ACC_WIDTH-1:0] mult_only_out;
 reg [`MAC_ACC_WIDTH-1:0] mult_only_reg_out;

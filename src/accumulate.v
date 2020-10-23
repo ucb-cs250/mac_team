@@ -9,7 +9,7 @@ module accumulate (
   output wire [`MAC_ACC_WIDTH-1:0] acc
 );
 
-reg [`MAC_ACC_WIDTH: 0] accumulator;
+reg [`MAC_ACC_WIDTH-1: 0] accumulator;
 
 always @(posedge clk) begin
 	if (reset) begin
