@@ -60,10 +60,10 @@ end
 // Accumulators
 always @(posedge clk) begin
   if (1'b0) begin // Bug where reset is high during start of test
-    acc_out0 = cfg[`MAC_ACC_WIDTH*1-1:`MAC_ACC_WIDTH*0+`MAC_CONF_WIDTH];
-    acc_out1 = cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH*1+`MAC_CONF_WIDTH];
-    acc_out2 = cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH];
-    acc_out3 = cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH];
+    acc_out0 <= cfg[`MAC_ACC_WIDTH*1-1:`MAC_ACC_WIDTH*0+`MAC_CONF_WIDTH];
+    acc_out1 <= cfg[`MAC_ACC_WIDTH*2-1:`MAC_ACC_WIDTH*1+`MAC_CONF_WIDTH];
+    acc_out2 <= cfg[`MAC_ACC_WIDTH*3-1:`MAC_ACC_WIDTH*2+`MAC_CONF_WIDTH];
+    acc_out3 <= cfg[`MAC_ACC_WIDTH*4-1:`MAC_ACC_WIDTH*3+`MAC_CONF_WIDTH];
   end else begin
     case (cfg[`MAC_CONF_WIDTH-2:0])
       `MAC_DUAL: begin
