@@ -1,30 +1,35 @@
 `include "mac_const.vh"
 
-module mac_mul_block_1 (
+module mac_mul_block_1 #(
+  parameter MAC_CONF_WIDTH=3,
+  parameter MAC_MIN_WIDTH=8,
+  parameter MAC_MULT_WIDTH=2*MAC_MIN_WIDTH,
+  parameter MAC_INT_WIDTH=5*MAC_MIN_WIDTH // Used for internal MAC wires, widest bitwidth according to Quad config
+)(
   input clk,
   input rst,
   input en,
-  input [`MAC_MIN_WIDTH-1:0] B1,
-  input [`MAC_MIN_WIDTH-1:0] A0,     // Used for cross-multiply when chaining 
-  input [`MAC_MIN_WIDTH-1:0] A1,  
-  input [`MAC_MIN_WIDTH-1:0] A2,     // Will solidify signals names later
-  input [`MAC_MIN_WIDTH-1:0] A3,
-  input [`MAC_CONF_WIDTH - 1:0] cfg, // Single, Dual or Quad
+  input [MAC_MIN_WIDTH-1:0] B1,
+  input [MAC_MIN_WIDTH-1:0] A0,     // Used for cross-multiply when chaining 
+  input [MAC_MIN_WIDTH-1:0] A1,  
+  input [MAC_MIN_WIDTH-1:0] A2,     // Will solidify signals names later
+  input [MAC_MIN_WIDTH-1:0] A3,
+  input [MAC_CONF_WIDTH - 1:0] cfg, // Single, Dual or Quad
 
-  output reg [`MAC_INT_WIDTH-1:0] C  // Non-pipelined
+  output reg [MAC_INT_WIDTH-1:0] C  // Non-pipelined
 );
 
-wire [`MAC_MULT_WIDTH-1:0] A1B1;
-wire [`MAC_MULT_WIDTH-1:0] A0B1;
-wire [`MAC_MULT_WIDTH-1:0] A2B1;
-wire [`MAC_MULT_WIDTH-1:0] A3B1;
+wire [MAC_MULT_WIDTH-1:0] A1B1;
+wire [MAC_MULT_WIDTH-1:0] A0B1;
+wire [MAC_MULT_WIDTH-1:0] A2B1;
+wire [MAC_MULT_WIDTH-1:0] A3B1;
 
 // Multiplication output
 always @(*) begin
   case (cfg[1:0])
     `MAC_SINGLE:  C = A1B1;  
-    `MAC_DUAL:    C = A0B1 + {A1B1, {`MAC_MIN_WIDTH{1'b0}}};
-    `MAC_QUAD:    C = A0B1 + {A1B1, {`MAC_MIN_WIDTH{1'b0}}} + {A2B1, {2*`MAC_MIN_WIDTH{1'b0}}} + {A3B1, {3*`MAC_MIN_WIDTH{1'b0}}};
+    `MAC_DUAL:    C = A0B1 + {A1B1, {MAC_MIN_WIDTH{1'b0}}};
+    `MAC_QUAD:    C = A0B1 + {A1B1, {MAC_MIN_WIDTH{1'b0}}} + {A2B1, {2*MAC_MIN_WIDTH{1'b0}}} + {A3B1, {3*MAC_MIN_WIDTH{1'b0}}};
     default:      C = 0;
   endcase
 end

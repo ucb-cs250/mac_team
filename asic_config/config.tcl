@@ -25,7 +25,7 @@ set ::env(SYNTH_STRATEGY) 2  ;# 1 fails
 set ::env(FP_SIZING) absolute
 # I think this goes LL_X LL_Y UR_X UR_Y, where LL=lower left, UR=upper right
 # Units probably microns
-set ::env(DIE_AREA) [list 0 0 900 900]
+set ::env(DIE_AREA) [list 0 0 650 650]
 
 # Floorplan config
 #set ::env(FP_CORE_UTIL) 5
@@ -42,3 +42,9 @@ set ::env(PL_TARGET_DENSITY) 0.3
 set ::env(ROUTING_CORES) 4
 
 set ::env(PDN_CFG) $::env(DESIGN_DIR)/pdn.tcl
+
+#set ::env(CLOCK_TREE_SYNTH) 0
+#set ::env(SYNTH_BUFFERING) 0
+#set ::env(SYNTH_SIZING) 0
+#set ::env(CELL_PAD) 8
+#set ::env(SYNTH_MAX_FANOUT) 6
