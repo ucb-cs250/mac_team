@@ -115,7 +115,7 @@ mac_mul_block_3 #(
 );
 
 // Combiner
-mac_acc_block #(
+mac_acc_block_2 #(
   .MAC_CONF_WIDTH(MAC_CONF_WIDTH),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_ACC_WIDTH(MAC_ACC_WIDTH),
