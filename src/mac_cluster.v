@@ -1,8 +1,8 @@
 `include "mac_const.vh"
 
 module mac_cluster #(
-  // 1 (MSB) bit for mac or mul, 2 (LSB) bits for Single, Dual, or Quad.
-  parameter MAC_CONF_WIDTH=3,
+  // 1 (MSB) but for signed (1) or unsigned (0), 1 bit for mac or mul, 2 (LSB) bits for Single, Dual, or Quad.
+  parameter MAC_CONF_WIDTH=4,
   parameter MAC_MIN_WIDTH=8,
   parameter MAC_MULT_WIDTH=2*MAC_MIN_WIDTH,
   parameter MAC_ACC_WIDTH=2*MAC_MULT_WIDTH,
@@ -56,7 +56,7 @@ mac_mul_block_0 #(
   .A2(A2),
   .A3(A3),
   .B0(B0),
-  .cfg(cfg[MAC_CONF_WIDTH-1:0]),
+  .cfg(cfg[MAC_CONF_WIDTH-2:0]),
   .C(mac_mul_out0)
 );
 
@@ -74,7 +74,7 @@ mac_mul_block_1 #(
   .A2(A2),
   .A3(A3),
   .B1(B1),
-  .cfg(cfg[MAC_CONF_WIDTH-1:0]),
+  .cfg(cfg[MAC_CONF_WIDTH-2:0]),
   .C(mac_mul_out1)
 );
 
@@ -92,7 +92,7 @@ mac_mul_block_2 #(
   .A2(A2),
   .A3(A3),
   .B2(B2),
-  .cfg(cfg[MAC_CONF_WIDTH-1:0]),
+  .cfg(cfg[MAC_CONF_WIDTH-2:0]),
   .C(mac_mul_out2)
 );
 
@@ -110,7 +110,7 @@ mac_mul_block_3 #(
   .A2(A2),
   .A3(A3),
   .B3(B3),
-  .cfg(cfg[MAC_CONF_WIDTH-1:0]),
+  .cfg(cfg[MAC_CONF_WIDTH-2:0]),
   .C(mac_mul_out3)
 );
 
