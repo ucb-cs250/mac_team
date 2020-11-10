@@ -2,7 +2,7 @@
 `include "mac_const.vh"
 
 module macTestHarness #(
-  parameter MAC_CONF_WIDTH=3,
+  parameter MAC_CONF_WIDTH=4,
   parameter MAC_MIN_WIDTH=8,
   parameter MAC_ACC_WIDTH=4*MAC_MIN_WIDTH
 )(
@@ -36,8 +36,13 @@ module macTestHarness #(
   //-----------------------------------------------
   // Instantiate the dut
 
-  mac_cluster dut
-    (
+  mac_cluster #(
+    .MAC_CONF_WIDTH(MAC_CONF_WIDTH),
+    .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
+    .MAC_MULT_WIDTH(2*MAC_MIN_WIDTH),
+    .MAC_ACC_WIDTH(MAC_ACC_WIDTH),
+    .MAC_INT_WIDTH(5*MAC_MIN_WIDTH)
+  ) dut (
       .clk(clk),
       .rst(r_reset),
       .en(1'b1),
@@ -79,34 +84,66 @@ module macTestHarness #(
 
   always @(posedge clk) begin
     if (!reset) begin
-      case (cfg[MAC_CONF_WIDTH - 2:0])
+      case (cfg[1:0])
         `MAC_SINGLE: begin
-          if (cfg[MAC_CONF_WIDTH - 1]) begin // Accumulate
-            golden_out0 <= (A0 * B0) + golden_out0;
-            golden_out1 <= (A1 * B1) + golden_out1;
-            golden_out2 <= (A2 * B2) + golden_out2;
-            golden_out3 <= (A3 * B3) + golden_out3;
+          if (cfg[2]) begin // Accumulate
+            if (cfg[3]) begin // Signed
+              golden_out0 <= ($signed(A0) * $signed(B0)) + $signed(golden_out0);
+              golden_out1 <= ($signed(A1) * $signed(B1)) + $signed(golden_out1);
+              golden_out2 <= ($signed(A2) * $signed(B2)) + $signed(golden_out2);
+              golden_out3 <= ($signed(A3) * $signed(B3)) + $signed(golden_out3);
+            end else begin
+              golden_out0 <= (A0 * B0) + golden_out0;
+              golden_out1 <= (A1 * B1) + golden_out1;
+              golden_out2 <= (A2 * B2) + golden_out2;
+              golden_out3 <= (A3 * B3) + golden_out3;
+            end
           end else begin
-            golden_out0 <= A0 * B0;
-            golden_out1 <= A1 * B1;
-            golden_out2 <= A2 * B2;
-            golden_out3 <= A3 * B3;
+            if (cfg[3]) begin // Signed
+              golden_out0 <= $signed(A0) * $signed(B0);
+              golden_out1 <= $signed(A1) * $signed(B1);
+              golden_out2 <= $signed(A2) * $signed(B2);
+              golden_out3 <= $signed(A3) * $signed(B3);
+            end else begin
+              golden_out0 <= A0 * B0;
+              golden_out1 <= A1 * B1;
+              golden_out2 <= A2 * B2;
+              golden_out3 <= A3 * B3;
+            end
           end
         end
         `MAC_DUAL: begin
-          if (cfg[MAC_CONF_WIDTH - 1]) begin // Accumulate
-            {golden_out1, golden_out0} <= ({A1, A0} * {B1, B0}) + {golden_out1, golden_out0};
-            {golden_out3, golden_out2} <= ({A3, A2} * {B3, B2}) + {golden_out3, golden_out2};
+          if (cfg[2]) begin // Accumulate
+            if (cfg[3]) begin // Signed
+              {golden_out1, golden_out0} <= ($signed({A1, A0}) * $signed({B1, B0})) + $signed({golden_out1, golden_out0});
+              {golden_out3, golden_out2} <= ($signed({A3, A2}) * $signed({B3, B2})) + $signed({golden_out3, golden_out2});
+            end else begin
+              {golden_out1, golden_out0} <= ({A1, A0} * {B1, B0}) + {golden_out1, golden_out0};
+              {golden_out3, golden_out2} <= ({A3, A2} * {B3, B2}) + {golden_out3, golden_out2};
+            end
           end else begin
-            {golden_out1, golden_out0} <= {A1, A0} * {B1, B0};
-            {golden_out3, golden_out2} <= {A3, A2} * {B3, B2};
+            if (cfg[3]) begin // Signed 
+              {golden_out1, golden_out0} <= $signed({A1, A0}) * $signed({B1, B0});
+              {golden_out3, golden_out2} <= $signed({A3, A2}) * $signed({B3, B2});
+            end else begin
+              {golden_out1, golden_out0} <= {A1, A0} * {B1, B0};
+              {golden_out3, golden_out2} <= {A3, A2} * {B3, B2};
+            end
           end
         end
         `MAC_QUAD: begin
-          if (cfg[MAC_CONF_WIDTH - 1]) begin // Accumulate
-            {golden_out3, golden_out2, golden_out1, golden_out0} <= {A3, A2, A1, A0} * {B3, B2, B1, B0} + {golden_out3, golden_out2, golden_out1, golden_out0};
+          if (cfg[2]) begin // Accumulate
+            if (cfg[3]) begin // Signed
+              {golden_out3, golden_out2, golden_out1, golden_out0} <= ($signed({A3, A2, A1, A0}) * $signed({B3, B2, B1, B0})) + $signed({golden_out3, golden_out2, golden_out1, golden_out0});
+            end else begin
+              {golden_out3, golden_out2, golden_out1, golden_out0} <= ({A3, A2, A1, A0} * {B3, B2, B1, B0}) + {golden_out3, golden_out2, golden_out1, golden_out0};
+            end
           end else begin
-            {golden_out3, golden_out2, golden_out1, golden_out0} <= ({A3, A2, A1, A0} * {B3, B2, B1, B0});
+            if (cfg[3]) begin // Signed
+              {golden_out3, golden_out2, golden_out1, golden_out0} <= $signed({A3, A2, A1, A0}) * $signed({B3, B2, B1, B0});
+            end else begin
+              {golden_out3, golden_out2, golden_out1, golden_out0} <= {A3, A2, A1, A0} * {B3, B2, B1, B0};
+            end
           end
         end
       endcase
@@ -176,7 +213,7 @@ module macTestHarness #(
     if (!reset) begin
       if (test > num_tests) begin
         $display("PASSED: %0d tests", num_tests);
-        $display("With cfg: %3b", cfg[MAC_CONF_WIDTH-1:0]);
+        $display("With cfg: %4b", cfg[MAC_CONF_WIDTH-1:0]);
         $display("Initial 0: %0d, Initial 1: %0d, Initial 2: %0d, Initial 3: %0d", 
           cfg[MAC_ACC_WIDTH+MAC_CONF_WIDTH-1:MAC_CONF_WIDTH], 
           cfg[MAC_ACC_WIDTH*2-1:MAC_ACC_WIDTH+MAC_CONF_WIDTH], 
