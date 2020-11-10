@@ -34,10 +34,10 @@ module mac_mul_negator_block #(
   output [MAC_MIN_WIDTH-1:0] B3_out,
 
   // Is the multiplication result of Ai * Bi negative
-  output A0B0_neg,
-  output A1B1_neg,
-  output A2B2_neg,
-  output A3B3_neg
+  output C0_neg,
+  output C1_neg,
+  output C2_neg,
+  output C3_neg
 );
 
 wire [MAC_MIN_WIDTH-1:0] A0_bar;
@@ -78,30 +78,36 @@ wire B3_msb = B3_in[MAC_MIN_WIDTH-1];
 
 
 // Is outcome signed
-assign A0B0_neg = A0_msb ^ B0_msb;
-assign A1B1_neg = A1_msb ^ B1_msb;
-assign A2B2_neg = A2_msb ^ B2_msb;
-assign A3B4_neg = A3_msb ^ B3_msb;
+assign C0_neg = A0_msb ^ B0_msb;
+assign C1_neg = A1_msb ^ B1_msb;
+assign C2_neg = A2_msb ^ B2_msb;
+assign C3_neg = A3_msb ^ B3_msb;
 
 // Configurable negation chain
-assign {A0_cout, A0_bar} = ~A0_in + 1;
+assign A0_bar = ~A0_in + 1;
+assign A0_cout = &(~A0_in);
 
 assign A1_cin = ~single ? A0_cout : 1;
-assign {A1_cout, A1_bar} = ~A1_in + A1_cin;
+assign A1_bar = ~A1_in + A1_cin;
+assign A1_cout = &(~A1_in);
 
 assign A2_cin = quad ? A1_cout : 1;
-assign {A2_cout, A2_bar} = ~A2_in + A2_cin;
+assign A2_bar = ~A2_in + A2_cin;
+assign A2_cout = &(~A2_in);
 
 assign A3_cin = ~single ? A2_cout : 1;
 assign A3_bar = ~A3_in + A3_cin;
 
-assign {B0_cout, B0_bar} = ~B0_in + 1;
+assign B0_bar = ~B0_in + 1;
+assign B0_cout = &(~B0_in);
 
 assign B1_cin = ~single ? B0_cout : 1;
-assign {B1_cout, B1_bar} = ~B1_in + B1_cin;
+assign B1_bar = ~B1_in + B1_cin;
+assign B1_cout = &(~B1_in);
 
 assign B2_cin = quad ? B1_cout : 1;
-assign {B2_cout, B2_bar} = ~B2_in + B2_cin;
+assign B2_bar = ~B2_in + B2_cin;
+assign B2_cout = &(~B2_in);
 
 assign B3_cin = ~single ? B2_cout : 1;
 assign B3_bar = ~B3_in + B3_cin;
