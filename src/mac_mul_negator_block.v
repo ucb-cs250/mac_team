@@ -89,11 +89,11 @@ assign A0_cout = &(~A0_in);
 
 assign A1_cin = ~single ? A0_cout : 1;
 assign A1_bar = ~A1_in + A1_cin;
-assign A1_cout = &(~A1_in);
+assign A1_cout = &(~A1_in) & A1_cin;
 
 assign A2_cin = quad ? A1_cout : 1;
 assign A2_bar = ~A2_in + A2_cin;
-assign A2_cout = &(~A2_in);
+assign A2_cout = &(~A2_in) & A2_cin;
 
 assign A3_cin = ~single ? A2_cout : 1;
 assign A3_bar = ~A3_in + A3_cin;
@@ -103,11 +103,11 @@ assign B0_cout = &(~B0_in);
 
 assign B1_cin = ~single ? B0_cout : 1;
 assign B1_bar = ~B1_in + B1_cin;
-assign B1_cout = &(~B1_in);
+assign B1_cout = &(~B1_in) & B1_cin;
 
 assign B2_cin = quad ? B1_cout : 1;
 assign B2_bar = ~B2_in + B2_cin;
-assign B2_cout = &(~B2_in);
+assign B2_cout = &(~B2_in) & B2_cin;
 
 assign B3_cin = ~single ? B2_cout : 1;
 assign B3_bar = ~B3_in + B3_cin;
