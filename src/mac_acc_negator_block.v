@@ -56,19 +56,62 @@ wire C2_msb = C2_in[MAC_ACC_WIDTH-1];
 wire C3_msb = C3_in[MAC_ACC_WIDTH-1];
 
 // Configurable negation chain
-assign C0_bar = ~C0_in + 1;
-assign C0_cout = &(~C0_in);
+n_bit_adder #(
+  .N(MAC_ACC_WIDTH)
+) C0_adder (
+  .A(~C0_in),
+  .B(0),
+  .cin(1),
+  .SUM(C0_bar),
+  .cout(C0_cout)
+);
 
 assign C1_cin = ~single ? C0_cout : 1;
-assign C1_bar = ~C1_in + C1_cin;
-assign C1_cout = &(~C1_in) & C1_cin;
+n_bit_adder #(
+  .N(MAC_ACC_WIDTH)
+) C1_adder (
+  .A(~C1_in),
+  .B(0),
+  .cin(C1_cin),
+  .SUM(C1_bar),
+  .cout(C1_cout)
+);
 
 assign C2_cin = quad ? C1_cout : 1;
-assign C2_bar = ~C2_in + C2_cin;
-assign C2_cout = &(~C2_in) & C2_cin;
+n_bit_adder #(
+  .N(MAC_ACC_WIDTH)
+) C2_adder (
+  .A(~C2_in),
+  .B(0),
+  .cin(C2_cin),
+  .SUM(C2_bar),
+  .cout(C2_cout)
+);
 
 assign C3_cin = ~single ? C2_cout : 1;
-assign C3_bar = ~C3_in + C3_cin;
+n_bit_adder #(
+  .N(MAC_ACC_WIDTH)
+) C3_adder (
+  .A(~C3_in),
+  .B(0),
+  .cin(C3_cin),
+  .SUM(C3_bar),
+  .cout()
+);
+
+//assign C0_bar = ~C0_in + 1;
+//assign C0_cout = &(~C0_in);
+
+//assign C1_cin = ~single ? C0_cout : 1;
+//assign C1_bar = ~C1_in + C1_cin;
+//assign C1_cout = &(~C1_in) & C1_cin;
+
+//assign C2_cin = quad ? C1_cout : 1;
+//assign C2_bar = ~C2_in + C2_cin;
+//assign C2_cout = &(~C2_in) & C2_cin;
+
+//assign C3_cin = ~single ? C2_cout : 1;
+//assign C3_bar = ~C3_in + C3_cin;
 
 // Select negated or normal output based on cfg[1:0] -> single dual quad, is neg inputs
 // 1 for negated, 0 for normal

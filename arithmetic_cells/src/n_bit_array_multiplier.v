@@ -4,19 +4,19 @@ module array_multiplier_cell (
   input a,
   input b,
   input sum_in,
-  input c_in,
+  input cin,
   output sum_out,
-  output c_out
+  output cout
 );
 
 wire ab = a & b;
 
 sky130_fd_sc_hd__fa adder (
-  .COUT(c_out),
+  .COUT(cout),
   .SUM(sum_out),
   .A(sum_in),
   .B(ab),
-  .CIN(c_in)
+  .CIN(cin)
 );
 endmodule
 
@@ -36,13 +36,13 @@ generate
 	for (i = 0; i < N; i = i + 1) begin: horizontal
 		genvar j;
 		for (j = 0; j < N; j = j + 1) begin: vertical
-      wire c_in;
+      wire cin;
       wire sum_in;
       // Positional carry in assignment
       if (i == 0) begin
-        assign c_in = 0;
+        assign cin = 0;
       end else begin
-        assign c_in = carry_bus[i-1][j];
+        assign cin = carry_bus[i-1][j];
       end
       // Positional sum in assignment
       if (j == 0) begin
@@ -57,9 +57,9 @@ generate
 				.a(A[j]),
 				.b(B[i]),
         .sum_in(sum_in),
-        .c_in(c_in),
+        .cin(cin),
         .sum_out(sum_bus[i][j]),
-        .c_out(carry_bus[i][j])
+        .cout(carry_bus[i][j])
 			);
 
       // Positional prod assignment
