@@ -1,4 +1,3 @@
-// Test harness for EECS151 RISC-V Processor
 `include "mac_const.vh"
 
 module macTestHarness #(
