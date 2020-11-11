@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 `include "mac_const.vh"
 
 module multiply #(
@@ -11,6 +12,12 @@ module multiply #(
 );
 
 // Separate file in case we want to modify how we do multiply...
-assign C = A * B;
+n_bit_array_multiplier #(
+	.N(MAC_MIN_WIDTH)
+) array_multiplier (
+	.A(A),
+	.B(B),
+	.PROD(C)
+);
 
 endmodule

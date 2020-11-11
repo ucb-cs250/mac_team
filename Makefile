@@ -5,6 +5,8 @@ endif
 base_dir=$(abspath .)
 src_dir=$(base_dir)/src
 test_dir=$(base_dir)/test
+arithmetic_cells_dir=$(base_dir)/arithmetic_cells/src
+skywater_fa_dir=$(base_dir)/../skywater-pdk/libraries/sky130_fd_sc_hd/latest/cells/fa
 
 sim_name = verilator
 model_name = mac_test_harness
@@ -53,7 +55,9 @@ VERILOG_VERILATOR_FLAGS := \
 
 VERILATOR_INCLUDES := \
     -I$(src_dir)/  \
-    -I$(test_dir)/ 
+    -I$(test_dir)/ \
+    -I$(arithmetic_cells_dir)/ \
+    -I$(skywater_fa_dir)/
 
 VERILATOR_NONCC_OPTS = \
 	$(VERILATOR_INCLUDES) \

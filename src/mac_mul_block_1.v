@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 `include "mac_const.vh"
 
 module mac_mul_block_1 #(
