@@ -109,4 +109,4 @@ Regarding the main components, the multiply, combiner, and accumulator blocks pr
 
 For the MAC to support signed operations, negator blocks are cleverly used to manipulate the sign of the multiplication inputs and outputs such that we can re-use the unsigned multipliers to avoid extra hardware. The first negator block will take the absolute value of all inputs to allow for unsigned multiplication, while the second negator will assign the correct sign after the multiplication has completed. This double negation layer strategy allows us to properly multiply signed inputs without having the need for signed multipliers.
 
-For more exact block diagrams of each component, you can check out the ![diagrams directory](https://github.com/ucb-cs250/mac_team/tree/master/diagrams).
+For more exact block diagrams of each component, you can check out the [diagrams directory](https://github.com/ucb-cs250/mac_team/tree/master/diagrams).
