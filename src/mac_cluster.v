@@ -218,7 +218,7 @@ mac_acc_negator_block #(
 );
 
 // Combiner
-mac_acc_block_2 #(
+mac_acc_block #(
   .MAC_CONF_WIDTH(MAC_CONF_WIDTH),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_ACC_WIDTH(MAC_ACC_WIDTH),
