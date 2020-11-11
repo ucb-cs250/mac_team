@@ -85,33 +85,119 @@ assign C2_neg = A2_msb ^ B2_msb;
 assign C3_neg = A3_msb ^ B3_msb;
 
 // Configurable negation chain
-assign A0_bar = ~A0_in + 1;
-assign A0_cout = &(~A0_in);
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) A0_adder (
+  .A(~A0_in),
+  .B(0),
+  .cin(1),
+  .SUM(A0_bar),
+  .cout(A0_cout)
+);
 
 assign A1_cin = ~single ? A0_cout : 1;
-assign A1_bar = ~A1_in + A1_cin;
-assign A1_cout = &(~A1_in) & A1_cin;
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) A1_adder (
+  .A(~A1_in),
+  .B(0),
+  .cin(A1_cin),
+  .SUM(A1_bar),
+  .cout(A1_cout)
+);
 
 assign A2_cin = quad ? A1_cout : 1;
-assign A2_bar = ~A2_in + A2_cin;
-assign A2_cout = &(~A2_in) & A2_cin;
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) A2_adder (
+  .A(~A2_in),
+  .B(0),
+  .cin(A2_cin),
+  .SUM(A2_bar),
+  .cout(A2_cout)
+);
 
 assign A3_cin = ~single ? A2_cout : 1;
-assign A3_bar = ~A3_in + A3_cin;
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) A3_adder (
+  .A(~A3_in),
+  .B(0),
+  .cin(A3_cin),
+  .SUM(A3_bar),
+  .cout()
+);
 
-assign B0_bar = ~B0_in + 1;
-assign B0_cout = &(~B0_in);
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) B0_adder (
+  .A(~B0_in),
+  .B(0),
+  .cin(1),
+  .SUM(B0_bar),
+  .cout(B0_cout)
+);
 
 assign B1_cin = ~single ? B0_cout : 1;
-assign B1_bar = ~B1_in + B1_cin;
-assign B1_cout = &(~B1_in) & B1_cin;
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) B1_adder (
+  .A(~B1_in),
+  .B(0),
+  .cin(B1_cin),
+  .SUM(B1_bar),
+  .cout(B1_cout)
+);
 
 assign B2_cin = quad ? B1_cout : 1;
-assign B2_bar = ~B2_in + B2_cin;
-assign B2_cout = &(~B2_in) & B2_cin;
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) B2_adder (
+  .A(~B2_in),
+  .B(0),
+  .cin(B2_cin),
+  .SUM(B2_bar),
+  .cout(B2_cout)
+);
 
 assign B3_cin = ~single ? B2_cout : 1;
-assign B3_bar = ~B3_in + B3_cin;
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) B3_adder (
+  .A(~B3_in),
+  .B(0),
+  .cin(B3_cin),
+  .SUM(B3_bar),
+  .cout()
+);
+
+// assign A0_bar = ~A0_in + 1;
+// assign A0_cout = &(~A0_in);
+
+// assign A1_cin = ~single ? A0_cout : 1;
+// assign A1_bar = ~A1_in + A1_cin;
+// assign A1_cout = &(~A1_in) & A1_cin;
+
+// assign A2_cin = quad ? A1_cout : 1;
+// assign A2_bar = ~A2_in + A2_cin;
+// assign A2_cout = &(~A2_in) & A2_cin;
+
+// assign A3_cin = ~single ? A2_cout : 1;
+// assign A3_bar = ~A3_in + A3_cin;
+
+// assign B0_bar = ~B0_in + 1;
+// assign B0_cout = &(~B0_in);
+
+// assign B1_cin = ~single ? B0_cout : 1;
+// assign B1_bar = ~B1_in + B1_cin;
+// assign B1_cout = &(~B1_in) & B1_cin;
+
+// assign B2_cin = quad ? B1_cout : 1;
+// assign B2_bar = ~B2_in + B2_cin;
+// assign B2_cout = &(~B2_in) & B2_cin;
+
+// assign B3_cin = ~single ? B2_cout : 1;
+// assign B3_bar = ~B3_in + B3_cin;
 
 // Select negated or normal output based on cfg[1:0] -> single dual quad, cfg[3] unsigned, signed
 // 1 for negated, 0 for normal

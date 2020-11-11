@@ -99,20 +99,6 @@ n_bit_adder #(
   .cout()
 );
 
-//assign C0_bar = ~C0_in + 1;
-//assign C0_cout = &(~C0_in);
-
-//assign C1_cin = ~single ? C0_cout : 1;
-//assign C1_bar = ~C1_in + C1_cin;
-//assign C1_cout = &(~C1_in) & C1_cin;
-
-//assign C2_cin = quad ? C1_cout : 1;
-//assign C2_bar = ~C2_in + C2_cin;
-//assign C2_cout = &(~C2_in) & C2_cin;
-
-//assign C3_cin = ~single ? C2_cout : 1;
-//assign C3_bar = ~C3_in + C3_cin;
-
 // Select negated or normal output based on cfg[1:0] -> single dual quad, is neg inputs
 // 1 for negated, 0 for normal
 wire C0_select = (single & C0_neg) | (dual & C1_neg) | (quad & C3_neg);
