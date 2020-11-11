@@ -1,10 +1,10 @@
 #include <verilated.h>          // Defines common routines
 #include <iostream>             // Need std::cout
-#include "Vn_bit_adder_test_harness.h"// From Verilating "riscv_test_harness.v"
+#include "Vn_bit_array_multiplier_test_harness.h"// From Verilating "riscv_test_harness.v"
 #include "verilated_vcd_c.h"
 
 using namespace std;
-Vn_bit_adder_test_harness *top;       // Instantiation of module
+Vn_bit_array_multiplier_test_harness *top;       // Instantiation of module
 VerilatedVcdC   *m_trace;
 
 vluint64_t main_time = 0;       // Current simulation time
@@ -21,12 +21,12 @@ int main(int argc, char** argv) {
     Verilated::commandArgs(argc, argv);   // Remember args
     Verilated::traceEverOn(true);
 
-    top = new Vn_bit_adder_test_harness;        // Create instance
+    top = new Vn_bit_array_multiplier_test_harness;        // Create instance
 
     if (!m_trace) {
         m_trace = new VerilatedVcdC;
         top->trace(m_trace, 99);
-        m_trace->open("n_bit_adder_waves.vcd");
+        m_trace->open("n_bit_array_multiplier_waves.vcd");
     }
 
     while (!Verilated::gotFinish()) {

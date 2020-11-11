@@ -10,7 +10,8 @@ module n_bit_adder #(
 	output			cout
 );
 
-wire [N:0] carry_bus;
+// Can convert to another syntax if not accepted by Openlane
+wire carry_bus [N:0];
 
 assign carry_bus[0] = cin;
 

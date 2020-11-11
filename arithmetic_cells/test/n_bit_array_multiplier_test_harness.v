@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module n_bit_adder_test_harness #(
+module n_bit_array_multiplier_test_harness #(
   parameter N = 8
 )(
   input clk
@@ -15,31 +15,24 @@ reg r_reset;
 
 reg [N-1:0] A;
 reg [N-1:0] B;
-reg cin;
 
-wire [N-1:0] SUM;
-wire cout;
+wire [2*N-1:0] PROD;
 
 //-----------------------------------------------
 // Instantiate the dut
 
-n_bit_adder #(
+n_bit_array_multiplier #(
   .N(N)
 ) dut (
     .A(A),
     .B(B),
-    .cin(cin),
-    .SUM(SUM),
-    .cout(cout)
+    .PROD(PROD)
 );
-
 
 //-----------------------------------------------
 // Golden Model
-wire [N-1:0] golden_SUM;
-wire [N-1:0] golden_cout;
+wire [2*N-1:0] golden_PROD = A * B;
 
-assign {golden_cout, golden_SUM} = A + B + cin;
 
 //-----------------------------------------------
 // Initialization
@@ -56,17 +49,16 @@ end
 always @(posedge clk) begin
   A = $urandom;
   B = $urandom;
-  cin = $urandom;
 end
 
 always @(negedge clk) begin
-  if (SUM != golden_SUM || cout != golden_cout) begin
+  if (PROD != golden_PROD) begin
     $display("FAILED: On test %0d of %0d", test, num_tests);
-    $display("SUM: Got %0d, Expected %0d", SUM, golden_SUM);
-    $display("cout: Got %0d, Expected %0d", cout, golden_cout);
+    $display("PROD: Got %0d, Expected %0d", PROD, golden_PROD);
     $finish; 
   end
 end
+
 //-----------------------------------------------
 // Count cycles 
 always @(posedge clk) begin
