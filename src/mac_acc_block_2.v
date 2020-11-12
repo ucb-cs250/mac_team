@@ -1,7 +1,7 @@
 `include "mac_const.vh"
 
 module mac_acc_block_2 #(
-  parameter MAC_CONF_WIDTH=3,
+  parameter MAC_CONF_WIDTH=4,
   parameter MAC_MIN_WIDTH=8,
   parameter MAC_ACC_WIDTH=4*MAC_MIN_WIDTH,
   parameter MAC_INT_WIDTH=5*MAC_MIN_WIDTH // Used for internal MAC wires, widest bitwidth according to Quad config
@@ -55,7 +55,7 @@ accumulate #(
   .rst(rst),
   .en(en),
   .carry_in(1'b0),
-  .init(cfg[MAC_ACC_WIDTH*1-1:MAC_ACC_WIDTH*0+MAC_CONF_WIDTH]),
+  .init(cfg[MAC_ACC_WIDTH*1+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*0+MAC_CONF_WIDTH]),
   .acc_in(in0),
   .carry_out(carry_0_out),
   .out(acc_out0)
@@ -69,7 +69,7 @@ accumulate #(
   .rst(rst),
   .en(en),
   .carry_in(carry_1_in),
-  .init(cfg[MAC_ACC_WIDTH*2-1:MAC_ACC_WIDTH*1+MAC_CONF_WIDTH]),
+  .init(cfg[MAC_ACC_WIDTH*2+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*1+MAC_CONF_WIDTH]),
   .acc_in(in1),
   .carry_out(carry_1_out),
   .out(acc_out1)
@@ -83,7 +83,7 @@ accumulate #(
   .rst(rst),
   .en(en),
   .carry_in(carry_2_in),
-  .init(cfg[MAC_ACC_WIDTH*3-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH]),
+  .init(cfg[MAC_ACC_WIDTH*3+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH]),
   .acc_in(in2),
   .carry_out(carry_2_out),
   .out(acc_out2)
@@ -97,7 +97,7 @@ accumulate #(
   .rst(rst),
   .en(en),
   .carry_in(carry_3_in),
-  .init(cfg[MAC_ACC_WIDTH*4-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH]),
+  .init(cfg[MAC_ACC_WIDTH*4+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH]),
   .acc_in(in3),
   .carry_out(), // Empty, will overflow
   .out(acc_out3)
