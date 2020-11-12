@@ -26,10 +26,10 @@ reg [MAC_ACC_WIDTH-1:0] mult_only_out1_reg;
 reg [MAC_ACC_WIDTH-1:0] mult_only_out2_reg;
 reg [MAC_ACC_WIDTH-1:0] mult_only_out3_reg;
 
-reg [MAC_ACC_WIDTH-1:0] acc_out0;
-reg [MAC_ACC_WIDTH-1:0] acc_out1;
-reg [MAC_ACC_WIDTH-1:0] acc_out2;
-reg [MAC_ACC_WIDTH-1:0] acc_out3;
+wire [MAC_ACC_WIDTH-1:0] acc_out0;
+wire [MAC_ACC_WIDTH-1:0] acc_out1;
+wire [MAC_ACC_WIDTH-1:0] acc_out2;
+wire [MAC_ACC_WIDTH-1:0] acc_out3;
 
 // Pipelining multiply-only results
 always @(posedge clk) begin
