@@ -29,16 +29,6 @@ wire [MAC_MULT_WIDTH-1:0] A0B1;
 wire [MAC_MULT_WIDTH-1:0] A2B1;
 wire [MAC_MULT_WIDTH-1:0] A3B1;
 
-// Multiplication output
-// always @(*) begin
-//   case (cfg[1:0])
-//     `MAC_SINGLE:  C = A1B1;  
-//     `MAC_DUAL:    C = A0B1 + {A1B1, {MAC_MIN_WIDTH{1'b0}}};
-//     `MAC_QUAD:    C = A0B1 + {A1B1, {MAC_MIN_WIDTH{1'b0}}} + {A2B1, {2*MAC_MIN_WIDTH{1'b0}}} + {A3B1, {3*MAC_MIN_WIDTH{1'b0}}};
-//     default:      C = 0;
-//   endcase
-// end
-
 // The multiply unit used for all configurations
 multiply A1B1_mul_block
 (
@@ -69,6 +59,7 @@ multiply A3B1_mul_block
   .C(A3B1)
 );
 
+// Multiplication output
 wire [MAC_MIN_WIDTH-1:0] block_1_sum;
 wire [MAC_MIN_WIDTH-1:0] block_2_sum;
 wire [MAC_MIN_WIDTH-1:0] block_3_sum;

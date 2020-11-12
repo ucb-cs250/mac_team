@@ -17,23 +17,17 @@ module mac_mul_block_3 #(
   input [MAC_MIN_WIDTH-1:0] A3,
   input [MAC_CONF_WIDTH - 1:0] cfg, // Single, Dual or Quad
 
-  output reg [MAC_INT_WIDTH-1:0] C  // Non-pipelined
+  output [MAC_INT_WIDTH-1:0] C  // Non-pipelined
 );
+
+wire single = ~(cfg[0] | cfg[1]);
+wire dual = ~cfg[1] & cfg[0];
+wire quad = cfg[1] & ~cfg[0];
 
 wire [MAC_MULT_WIDTH-1:0] A3B3;
 wire [MAC_MULT_WIDTH-1:0] A0B3;
 wire [MAC_MULT_WIDTH-1:0] A1B3;
 wire [MAC_MULT_WIDTH-1:0] A2B3;
-
-// Multiplication output
-always @(*) begin
-  case (cfg[1:0])
-    `MAC_SINGLE:  C = A3B3;  
-    `MAC_DUAL:    C = A2B3 + {A3B3, {MAC_MIN_WIDTH{1'b0}}};
-    `MAC_QUAD:    C = A0B3 + {A1B3, {MAC_MIN_WIDTH{1'b0}}} + {A2B3, {2*MAC_MIN_WIDTH{1'b0}}} + {A3B3, {3*MAC_MIN_WIDTH{1'b0}}};
-    default:      C = 0;
-  endcase
-end
 
 // The multiply unit used for all configurations
 multiply A3B3_mul_block
@@ -64,5 +58,62 @@ multiply A2B3_mul_block
   .B(B3), 
   .C(A2B3)
 );
+
+// Multiplication Output
+wire [MAC_MIN_WIDTH-1:0] block_1_sum;
+wire [MAC_MIN_WIDTH-1:0] block_2_sum;
+wire [MAC_MIN_WIDTH-1:0] block_3_sum;
+wire [MAC_MIN_WIDTH-1:0] block_4_sum;
+
+wire block_1_cout;
+wire block_2_cout;
+wire block_3_cout;
+
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) block_1_adder (
+  .A(A0B3[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
+  .B(A1B3[MAC_MIN_WIDTH-1:0]),
+  .cin(1'b0),
+  .SUM(block_1_sum),
+  .cout(block_1_cout)
+);
+
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) block_2_adder (
+  .A(A1B3[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
+  .B(A2B3[MAC_MIN_WIDTH-1:0]),
+  .cin(block_1_cout),
+  .SUM(block_2_sum),
+  .cout(block_2_cout)
+);
+
+wire block_3_cin = quad ? block_2_cout : 1'b0;
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) block_3_adder (
+  .A(A2B3[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
+  .B(A3B3[MAC_MIN_WIDTH-1:0]),
+  .cin(block_3_cin),
+  .SUM(block_3_sum),
+  .cout(block_3_cout)
+);
+
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) block_4_adder (
+  .A(A3B3[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
+  .B({MAC_MIN_WIDTH{1'b0}}),
+  .cin(block_3_cout),
+  .SUM(block_4_sum),
+  .cout()
+);
+
+assign C[1*MAC_MIN_WIDTH-1:0*MAC_MIN_WIDTH] = single ? A3B3[MAC_MIN_WIDTH-1:0] : (dual ? A2B3[MAC_MIN_WIDTH-1:0] : A0B3[MAC_MIN_WIDTH-1:0]);
+assign C[2*MAC_MIN_WIDTH-1:1*MAC_MIN_WIDTH] = single ? A3B3[2*MAC_MIN_WIDTH-1:MAC_MIN_WIDTH] : (dual ? block_3_sum : block_1_sum);
+assign C[3*MAC_MIN_WIDTH-1:2*MAC_MIN_WIDTH] = single ? {MAC_MIN_WIDTH{1'b0}} : (dual ? block_4_sum : block_2_sum);
+assign C[4*MAC_MIN_WIDTH-1:3*MAC_MIN_WIDTH] = quad ? block_3_sum : {MAC_MIN_WIDTH{1'b0}};
+assign C[5*MAC_MIN_WIDTH-1:4*MAC_MIN_WIDTH] = quad ? block_4_sum : {MAC_MIN_WIDTH{1'b0}};
 
 endmodule

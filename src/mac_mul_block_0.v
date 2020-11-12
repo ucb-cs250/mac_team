@@ -68,6 +68,7 @@ multiply #(
   .C(A3B0)
 );
 
+// Multiply output
 wire [MAC_MIN_WIDTH-1:0] block_1_sum;
 wire [MAC_MIN_WIDTH-1:0] block_2_sum;
 wire [MAC_MIN_WIDTH-1:0] block_3_sum;
