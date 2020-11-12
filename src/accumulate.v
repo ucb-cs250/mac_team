@@ -27,7 +27,16 @@ always @(posedge clk) begin
   end
 end
 
-assign {carry_out, sum} = sum_reg + acc_in + carry_in;
+n_bit_adder #(
+  .N(MAC_ACC_WIDTH)
+) accumlate_adder (
+  .A(sum_reg),
+  .B(acc_in),
+  .cin(carry_in),
+  .SUM(sum),
+  .cout(carry_out)
+);
+
 assign out = sum_reg;
 
 endmodule

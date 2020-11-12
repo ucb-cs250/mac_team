@@ -17,23 +17,17 @@ module mac_mul_block_0 #(
   input [MAC_MIN_WIDTH-1:0] A3,
   input [MAC_CONF_WIDTH - 1:0] cfg, // Single, Dual or Quad
 
-  output reg [MAC_INT_WIDTH-1:0] C  // Non-pipelined
+  output [MAC_INT_WIDTH-1:0] C  // Non-pipelined
 );
+
+wire single = ~(cfg[0] | cfg[1]);
+wire dual = ~cfg[1] & cfg[0];
+wire quad = cfg[1] & ~cfg[0];
 
 wire [MAC_MULT_WIDTH-1:0] A0B0;
 wire [MAC_MULT_WIDTH-1:0] A1B0;
 wire [MAC_MULT_WIDTH-1:0] A2B0;
 wire [MAC_MULT_WIDTH-1:0] A3B0;
-
-// Multiplication output
-always @(*) begin
-  case (cfg[1:0])
-    `MAC_SINGLE:  C = A0B0;  
-    `MAC_DUAL:    C = A0B0 + {A1B0, {MAC_MIN_WIDTH{1'b0}}};
-    `MAC_QUAD:    C = A0B0 + {A1B0, {MAC_MIN_WIDTH{1'b0}}} + {A2B0, {2*MAC_MIN_WIDTH{1'b0}}} + {A3B0, {3*MAC_MIN_WIDTH{1'b0}}};
-    default:      C = 0;
-  endcase
-end
 
 // The multiply unit used for all configurations
 multiply #(
@@ -73,5 +67,61 @@ multiply #(
   .B(B0), 
   .C(A3B0)
 );
+
+wire [MAC_MIN_WIDTH-1:0] block_1_sum;
+wire [MAC_MIN_WIDTH-1:0] block_2_sum;
+wire [MAC_MIN_WIDTH-1:0] block_3_sum;
+wire [MAC_MIN_WIDTH-1:0] block_4_sum;
+
+wire block_1_cout;
+wire block_2_cout;
+wire block_3_cout;
+
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) block_1_adder (
+  .A(A0B0[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
+  .B(A1B0[MAC_MIN_WIDTH-1:0]),
+  .cin(1'b0),
+  .SUM(block_1_sum),
+  .cout(block_1_cout)
+);
+
+wire [MAC_MIN_WIDTH-1:0] block_2_B = quad ? A2B0[MAC_MIN_WIDTH-1:0] : {MAC_MIN_WIDTH{1'b0}};
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) block_2_adder (
+  .A(A1B0[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
+  .B(block_2_B),
+  .cin(block_1_cout),
+  .SUM(block_2_sum),
+  .cout(block_2_cout)
+);
+
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) block_3_adder (
+  .A(A2B0[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
+  .B(A3B0[MAC_MIN_WIDTH-1:0]),
+  .cin(block_2_cout),
+  .SUM(block_3_sum),
+  .cout(block_3_cout)
+);
+
+n_bit_adder #(
+  .N(MAC_MIN_WIDTH)
+) block_4_adder (
+  .A(A3B0[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
+  .B({MAC_MIN_WIDTH{1'b0}}),
+  .cin(block_3_cout),
+  .SUM(block_4_sum),
+  .cout()
+);
+
+assign C[1*MAC_MIN_WIDTH-1:0*MAC_MIN_WIDTH] = A0B0[MAC_MIN_WIDTH-1:0];
+assign C[2*MAC_MIN_WIDTH-1:1*MAC_MIN_WIDTH] = single ? A0B0[2*MAC_MIN_WIDTH-1:MAC_MIN_WIDTH] : block_1_sum;
+assign C[3*MAC_MIN_WIDTH-1:2*MAC_MIN_WIDTH] = single ? {MAC_MIN_WIDTH{1'b0}} : block_2_sum;
+assign C[4*MAC_MIN_WIDTH-1:3*MAC_MIN_WIDTH] = quad ? block_3_sum : {MAC_MIN_WIDTH{1'b0}};
+assign C[5*MAC_MIN_WIDTH-1:4*MAC_MIN_WIDTH] = quad ? block_4_sum : {MAC_MIN_WIDTH{1'b0}};
 
 endmodule
