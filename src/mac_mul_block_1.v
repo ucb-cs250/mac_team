@@ -2,7 +2,7 @@
 `include "mac_const.vh"
 
 module mac_mul_block_1 #(
-  parameter MAC_CONF_WIDTH=3,
+  parameter MAC_CONF_WIDTH=2,
   parameter MAC_MIN_WIDTH=8,
   parameter MAC_MULT_WIDTH=2*MAC_MIN_WIDTH,
   parameter MAC_INT_WIDTH=5*MAC_MIN_WIDTH // Used for internal MAC wires, widest bitwidth according to Quad config

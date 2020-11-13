@@ -37,6 +37,16 @@ module mac_cluster #(
   output [MAC_ACC_WIDTH-1:0] out3
 );
 
+reg [MAC_CONF_WIDTH-1:0] latched_cfg;
+
+always @(posedge clk) begin
+  if (cset) begin
+    latched_cfg = cfg[MAC_CONF_WIDTH-1:0];
+  end else begin
+    latched_cfg = latched_cfg;
+  end
+end
+
 wire [MAC_MIN_WIDTH-1:0] A0_sign_adjusted;
 wire [MAC_MIN_WIDTH-1:0] A1_sign_adjusted;
 wire [MAC_MIN_WIDTH-1:0] A2_sign_adjusted;
@@ -50,6 +60,7 @@ wire C1_neg;
 wire C2_neg;
 wire C3_neg;
 
+
 mac_mul_negator_block #(
   .MAC_CONF_WIDTH(MAC_CONF_WIDTH),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
@@ -60,7 +71,7 @@ mac_mul_negator_block #(
   .clk(clk),
   .rst(rst),
   .en(en),
-  .cfg(cfg[MAC_CONF_WIDTH-1:0]),
+  .cfg(latched_cfg[3:0]),
   .A0_in(A0),
   .A1_in(A1),
   .A2_in(A2),
@@ -90,7 +101,7 @@ wire [MAC_INT_WIDTH-1:0] mac_mul_out3;
 
 // Instantiating all blocks in a quad-cluster and fully connecting them together
 mac_mul_block_0 #(
-  .MAC_CONF_WIDTH(MAC_CONF_WIDTH-1),
+  .MAC_CONF_WIDTH(2),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_MULT_WIDTH(MAC_MULT_WIDTH),
   .MAC_INT_WIDTH(MAC_INT_WIDTH)
@@ -103,12 +114,12 @@ mac_mul_block_0 #(
   .A2(A2_sign_adjusted),
   .A3(A3_sign_adjusted),
   .B0(B0_sign_adjusted),
-  .cfg(cfg[MAC_CONF_WIDTH-2:0]),
+  .cfg(cfg[1:0]),
   .C(mac_mul_out0)
 );
 
 mac_mul_block_1 #(
-  .MAC_CONF_WIDTH(MAC_CONF_WIDTH-1),
+  .MAC_CONF_WIDTH(2),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_MULT_WIDTH(MAC_MULT_WIDTH),
   .MAC_INT_WIDTH(MAC_INT_WIDTH)
@@ -121,12 +132,12 @@ mac_mul_block_1 #(
   .A2(A2_sign_adjusted),
   .A3(A3_sign_adjusted),
   .B1(B1_sign_adjusted),
-  .cfg(cfg[MAC_CONF_WIDTH-2:0]),
+  .cfg(cfg[1:0]),
   .C(mac_mul_out1)
 );
 
 mac_mul_block_2 #(
-  .MAC_CONF_WIDTH(MAC_CONF_WIDTH-1),
+  .MAC_CONF_WIDTH(2),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_MULT_WIDTH(MAC_MULT_WIDTH),
   .MAC_INT_WIDTH(MAC_INT_WIDTH)
@@ -139,12 +150,12 @@ mac_mul_block_2 #(
   .A2(A2_sign_adjusted),
   .A3(A3_sign_adjusted),
   .B2(B2_sign_adjusted),
-  .cfg(cfg[MAC_CONF_WIDTH-2:0]),
+  .cfg(cfg[1:0]),
   .C(mac_mul_out2)
 );
 
 mac_mul_block_3 #(
-  .MAC_CONF_WIDTH(MAC_CONF_WIDTH-1),
+  .MAC_CONF_WIDTH(2),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_MULT_WIDTH(MAC_MULT_WIDTH),
   .MAC_INT_WIDTH(MAC_INT_WIDTH)
@@ -157,7 +168,7 @@ mac_mul_block_3 #(
   .A2(A2_sign_adjusted),
   .A3(A3_sign_adjusted),
   .B3(B3_sign_adjusted),
-  .cfg(cfg[MAC_CONF_WIDTH-2:0]),
+  .cfg(cfg[1:0]),
   .C(mac_mul_out3)
 );
 

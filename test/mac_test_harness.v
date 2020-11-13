@@ -14,9 +14,6 @@ module macTestHarness #(
   //initial seed = $get_initial_random_seed();
 
   //-----------------------------------------------
-  // Setup clocking and reset
-  reg r_reset;
-  reg start = 0;
 
   reg [MAC_MIN_WIDTH-1:0] A0;
   reg [MAC_MIN_WIDTH-1:0] B0;
@@ -36,6 +33,8 @@ module macTestHarness #(
   //-----------------------------------------------
   // Instantiate the dut
 
+  wire cset = reset;
+
   mac_cluster #(
     .MAC_CONF_WIDTH(MAC_CONF_WIDTH),
     .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
@@ -44,7 +43,8 @@ module macTestHarness #(
     .MAC_INT_WIDTH(5*MAC_MIN_WIDTH)
   ) dut (
       .clk(clk),
-      .rst(r_reset),
+      .rst(reset),
+      .cset(cset),
       .en(1'b1),
       .A0(A0),
       .B0(B0),
@@ -60,15 +60,6 @@ module macTestHarness #(
       .out2(out2),
       .out3(out3)
     );
-
-  
-  //-----------------------------------------------
-  // Memory interface
-
-  always @(negedge clk)
-  begin
-    r_reset <= reset;
-  end
 
   //-----------------------------------------------
   // Golden Model
@@ -149,9 +140,9 @@ module macTestHarness #(
       endcase
     end else begin
       golden_out0 <= cfg[MAC_ACC_WIDTH+MAC_CONF_WIDTH-1:MAC_CONF_WIDTH];
-      golden_out1 <= cfg[MAC_ACC_WIDTH*2-1:MAC_ACC_WIDTH+MAC_CONF_WIDTH];
-      golden_out2 <= cfg[MAC_ACC_WIDTH*3-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH];
-      golden_out3 <= cfg[MAC_ACC_WIDTH*4-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH];
+      golden_out1 <= cfg[MAC_ACC_WIDTH*2+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH+MAC_CONF_WIDTH];
+      golden_out2 <= cfg[MAC_ACC_WIDTH*3+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH];
+      golden_out3 <= cfg[MAC_ACC_WIDTH*4+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH];
     end
   end
 

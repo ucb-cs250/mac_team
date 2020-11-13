@@ -27,10 +27,10 @@ reg [MAC_ACC_WIDTH-1:0] mult_only_out1_reg;
 reg [MAC_ACC_WIDTH-1:0] mult_only_out2_reg;
 reg [MAC_ACC_WIDTH-1:0] mult_only_out3_reg;
 
-reg [MAC_ACC_WIDTH-1:0] acc_out0;
-reg [MAC_ACC_WIDTH-1:0] acc_out1;
-reg [MAC_ACC_WIDTH-1:0] acc_out2;
-reg [MAC_ACC_WIDTH-1:0] acc_out3;
+wire [MAC_ACC_WIDTH-1:0] acc_out0;
+wire [MAC_ACC_WIDTH-1:0] acc_out1;
+wire [MAC_ACC_WIDTH-1:0] acc_out2;
+wire [MAC_ACC_WIDTH-1:0] acc_out3;
 
 // Pipelining multiply-only results
 always @(posedge clk) begin
@@ -56,7 +56,7 @@ accumulate #(
   .rst(rst),
   .en(en),
   .carry_in(1'b0),
-  .init(cfg[MAC_ACC_WIDTH*1-1:MAC_ACC_WIDTH*0+MAC_CONF_WIDTH]),
+  .init(cfg[MAC_ACC_WIDTH*1-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*0+MAC_CONF_WIDTH]),
   .acc_in(in0),
   .carry_out(carry_0_out),
   .out(acc_out0)
@@ -70,7 +70,7 @@ accumulate #(
   .rst(rst),
   .en(en),
   .carry_in(carry_1_in),
-  .init(cfg[MAC_ACC_WIDTH*2-1:MAC_ACC_WIDTH*1+MAC_CONF_WIDTH]),
+  .init(cfg[MAC_ACC_WIDTH*2-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*1+MAC_CONF_WIDTH]),
   .acc_in(in1),
   .carry_out(carry_1_out),
   .out(acc_out1)
@@ -84,7 +84,7 @@ accumulate #(
   .rst(rst),
   .en(en),
   .carry_in(carry_2_in),
-  .init(cfg[MAC_ACC_WIDTH*3-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH]),
+  .init(cfg[MAC_ACC_WIDTH*3-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH]),
   .acc_in(in2),
   .carry_out(carry_2_out),
   .out(acc_out2)
@@ -98,7 +98,7 @@ accumulate #(
   .rst(rst),
   .en(en),
   .carry_in(carry_3_in),
-  .init(cfg[MAC_ACC_WIDTH*4-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH]),
+  .init(cfg[MAC_ACC_WIDTH*4-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH]),
   .acc_in(in3),
   .carry_out(), // Empty, will overflow
   .out(acc_out3)

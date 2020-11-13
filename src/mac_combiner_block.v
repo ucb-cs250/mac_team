@@ -57,7 +57,7 @@ n_bit_adder #(
 n_bit_adder #(
   .N(MAC_INT_WIDTH+MAC_MIN_WIDTH+1)
 ) quad_full_adder (
-  .A({{2*MAC_MIN_WIDTH-1{1'b0}}, partial0_upper_partial1_full_cout, partial0_upper_partial1_full_sum[MAC_INT_WIDTH-1:MAC_MIN_WIDTH]}),
+  .A({{2*MAC_MIN_WIDTH{1'b0}}, partial0_upper_partial1_full_cout, partial0_upper_partial1_full_sum[MAC_INT_WIDTH-1:MAC_MIN_WIDTH]}),
   .B({partial2_upper_partial3_full_cout, partial2_upper_partial3_full_sum, partial2[MAC_MIN_WIDTH-1:0]}),
   .cin(1'b0),
   .SUM(quad_full_adder_sum),

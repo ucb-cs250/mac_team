@@ -49,9 +49,9 @@ VERILOG_VERILATOR_FLAGS := \
 	-Wno-UNUSED \
 	-Wno-UNOPTFLAT \
 	-Wno-BLKANDNBLK \
-	-Wno-WIDTH \
 	-Wno-STMTDLY \
-	-Wno-style
+	-Wno-style \
+	#-Wno-WIDTH \
 
 VERILATOR_INCLUDES := \
     -I$(src_dir)/  \
