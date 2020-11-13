@@ -151,10 +151,17 @@ module macTestHarness #(
   end
 
   always @(posedge clk) begin
-    pipelined_golden_out0 <= golden_out0;
-    pipelined_golden_out1 <= golden_out1;
-    pipelined_golden_out2 <= golden_out2;
-    pipelined_golden_out3 <= golden_out3;
+    if (cset) begin
+      pipelined_golden_out0 <= cfg[MAC_ACC_WIDTH+MAC_CONF_WIDTH-1:MAC_CONF_WIDTH];
+      pipelined_golden_out1 <= cfg[MAC_ACC_WIDTH*2+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH+MAC_CONF_WIDTH];
+      pipelined_golden_out2 <= cfg[MAC_ACC_WIDTH*3+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH];
+      pipelined_golden_out3 <= cfg[MAC_ACC_WIDTH*4+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH];
+    end else begin
+      pipelined_golden_out0 <= golden_out0;
+      pipelined_golden_out1 <= golden_out1;
+      pipelined_golden_out2 <= golden_out2;
+      pipelined_golden_out3 <= golden_out3;
+    end
   end
 
   //-----------------------------------------------
@@ -165,10 +172,6 @@ module macTestHarness #(
   initial begin
     $value$plusargs("cfg=%d", cfg);
     $value$plusargs("num_tests=%d", num_tests);
-    golden_out0 = cfg[MAC_ACC_WIDTH+MAC_CONF_WIDTH-1:MAC_CONF_WIDTH];
-    golden_out1 = cfg[MAC_ACC_WIDTH*2+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH+MAC_CONF_WIDTH];
-    golden_out2 = cfg[MAC_ACC_WIDTH*3+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH];
-    golden_out3 = cfg[MAC_ACC_WIDTH*4+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH];
   end
 
   //-----------------------------------------------
