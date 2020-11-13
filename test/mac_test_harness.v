@@ -7,7 +7,8 @@ module macTestHarness #(
   parameter MAC_ACC_WIDTH=4*MAC_MIN_WIDTH
 )(
   input clk,
-  input reset
+  input reset,
+  input cset
 );
 
   //reg [31:0] seed;
@@ -32,8 +33,6 @@ module macTestHarness #(
 
   //-----------------------------------------------
   // Instantiate the dut
-
-  wire cset = reset;
 
   mac_cluster #(
     .MAC_CONF_WIDTH(MAC_CONF_WIDTH),
@@ -74,7 +73,17 @@ module macTestHarness #(
   reg [MAC_ACC_WIDTH-1:0] pipelined_golden_out3;
 
   always @(posedge clk) begin
-    if (!reset) begin
+    if (reset) begin
+      golden_out0 <= {MAC_ACC_WIDTH{1'b0}};
+      golden_out1 <= {MAC_ACC_WIDTH{1'b0}};
+      golden_out2 <= {MAC_ACC_WIDTH{1'b0}};
+      golden_out3 <= {MAC_ACC_WIDTH{1'b0}};
+    end else if (cset) begin
+      golden_out0 <= cfg[MAC_ACC_WIDTH+MAC_CONF_WIDTH-1:MAC_CONF_WIDTH];
+      golden_out1 <= cfg[MAC_ACC_WIDTH*2+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH+MAC_CONF_WIDTH];
+      golden_out2 <= cfg[MAC_ACC_WIDTH*3+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH];
+      golden_out3 <= cfg[MAC_ACC_WIDTH*4+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH];
+    end else begin
       case (cfg[1:0])
         `MAC_SINGLE: begin
           if (cfg[2]) begin // Accumulate
@@ -138,11 +147,6 @@ module macTestHarness #(
           end
         end
       endcase
-    end else begin
-      golden_out0 <= cfg[MAC_ACC_WIDTH+MAC_CONF_WIDTH-1:MAC_CONF_WIDTH];
-      golden_out1 <= cfg[MAC_ACC_WIDTH*2+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH+MAC_CONF_WIDTH];
-      golden_out2 <= cfg[MAC_ACC_WIDTH*3+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH];
-      golden_out3 <= cfg[MAC_ACC_WIDTH*4+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH];
     end
   end
 
@@ -161,17 +165,17 @@ module macTestHarness #(
   initial begin
     $value$plusargs("cfg=%d", cfg);
     $value$plusargs("num_tests=%d", num_tests);
-    golden_out0 = 0;
-    golden_out1 = 0;
-    golden_out2 = 0;
-    golden_out3 = 0;
+    golden_out0 = cfg[MAC_ACC_WIDTH+MAC_CONF_WIDTH-1:MAC_CONF_WIDTH];
+    golden_out1 = cfg[MAC_ACC_WIDTH*2+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH+MAC_CONF_WIDTH];
+    golden_out2 = cfg[MAC_ACC_WIDTH*3+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH];
+    golden_out3 = cfg[MAC_ACC_WIDTH*4+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH];
   end
 
   //-----------------------------------------------
   // Start the simulation
 
   always @(posedge clk) begin
-    if (!reset) begin
+    if (~reset & ~cset) begin
       A0 = $urandom;
       A1 = $urandom;
       A2 = $urandom;
@@ -201,7 +205,7 @@ module macTestHarness #(
   //-----------------------------------------------
   // Count cycles 
   always @(posedge clk) begin
-    if (!reset) begin
+    if (~reset & ~cset) begin
       if (test > num_tests) begin
         $display("PASSED: %0d tests", num_tests);
         $display("With cfg: %4b", cfg[MAC_CONF_WIDTH-1:0]);
@@ -212,10 +216,10 @@ module macTestHarness #(
           cfg[MAC_ACC_WIDTH*4-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH]);
         $finish;
       end else begin
-        test = test + 1;
+        test <= test + 1;
       end
     end else begin
-      test = test;
+      test <= test;
     end
   end
 

@@ -40,7 +40,9 @@ module mac_cluster #(
 reg [MAC_CONF_WIDTH-1:0] latched_cfg;
 
 always @(posedge clk) begin
-  if (cset) begin
+  if (rst) begin
+    latched_cfg = {MAC_CONF_WIDTH{1'b0}};
+  end else if (cset) begin
     latched_cfg = cfg[MAC_CONF_WIDTH-1:0];
   end else begin
     latched_cfg = latched_cfg;
@@ -114,7 +116,7 @@ mac_mul_block_0 #(
   .A2(A2_sign_adjusted),
   .A3(A3_sign_adjusted),
   .B0(B0_sign_adjusted),
-  .cfg(cfg[1:0]),
+  .cfg(latched_cfg[1:0]),
   .C(mac_mul_out0)
 );
 
@@ -132,7 +134,7 @@ mac_mul_block_1 #(
   .A2(A2_sign_adjusted),
   .A3(A3_sign_adjusted),
   .B1(B1_sign_adjusted),
-  .cfg(cfg[1:0]),
+  .cfg(latched_cfg[1:0]),
   .C(mac_mul_out1)
 );
 
@@ -150,7 +152,7 @@ mac_mul_block_2 #(
   .A2(A2_sign_adjusted),
   .A3(A3_sign_adjusted),
   .B2(B2_sign_adjusted),
-  .cfg(cfg[1:0]),
+  .cfg(latched_cfg[1:0]),
   .C(mac_mul_out2)
 );
 
@@ -168,7 +170,7 @@ mac_mul_block_3 #(
   .A2(A2_sign_adjusted),
   .A3(A3_sign_adjusted),
   .B3(B3_sign_adjusted),
-  .cfg(cfg[1:0]),
+  .cfg(latched_cfg[1:0]),
   .C(mac_mul_out3)
 );
 
@@ -191,7 +193,7 @@ mac_combiner_block #(
   .clk(clk),
   .rst(rst),
   .en(en),
-  .cfg(cfg[MAC_CONF_WIDTH-1:0]),
+  .cfg(latched_cfg),
   .partial0(mac_mul_out0),
   .partial1(mac_mul_out1),
   .partial2(mac_mul_out2),
@@ -213,7 +215,7 @@ mac_acc_negator_block #(
   .clk(clk),
   .rst(rst),
   .en(en),
-  .cfg(cfg[MAC_CONF_WIDTH-1:0]),
+  .cfg(latched_cfg),
   .C0_in(mac_combiner_out0),
   .C1_in(mac_combiner_out1),
   .C2_in(mac_combiner_out2),
@@ -230,7 +232,7 @@ mac_acc_negator_block #(
 
 // Combiner
 mac_acc_block #(
-  .MAC_CONF_WIDTH(MAC_CONF_WIDTH),
+  .MAC_CONF_WIDTH(3),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_ACC_WIDTH(MAC_ACC_WIDTH),
   .MAC_INT_WIDTH(MAC_INT_WIDTH)
@@ -238,7 +240,12 @@ mac_acc_block #(
   .clk(clk),
   .rst(rst),
   .en(en),
-  .cfg(cfg),
+  .cset(cset),
+  .cfg(latched_cfg[2:0]),
+  .initial0(cfg[MAC_ACC_WIDTH*1-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*0+MAC_CONF_WIDTH]),
+  .initial1(cfg[MAC_ACC_WIDTH*2-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*1+MAC_CONF_WIDTH]),
+  .initial2(cfg[MAC_ACC_WIDTH*3-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH]),
+  .initial3(cfg[MAC_ACC_WIDTH*4-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH]),
   .in0(mac_combiner_out0_sign_adjusted),
   .in1(mac_combiner_out1_sign_adjusted),
   .in2(mac_combiner_out2_sign_adjusted),

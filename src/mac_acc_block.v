@@ -10,7 +10,12 @@ module mac_acc_block #(
   input clk,
   input rst,
   input en,
-  input [4*MAC_ACC_WIDTH + MAC_CONF_WIDTH - 1:0] cfg, // 4 * MAC_ACC_WIDTH initial register values + MAC_CONF_WIDTH config bits
+  input cset,
+  input [MAC_CONF_WIDTH - 1:0] cfg, // 4 * MAC_ACC_WIDTH initial register values + MAC_CONF_WIDTH config bits
+  input [MAC_ACC_WIDTH-1:0] initial0,
+  input [MAC_ACC_WIDTH-1:0] initial1,
+  input [MAC_ACC_WIDTH-1:0] initial2,
+  input [MAC_ACC_WIDTH-1:0] initial3,
   input [MAC_ACC_WIDTH-1:0] in0,      
   input [MAC_ACC_WIDTH-1:0] in1,
   input [MAC_ACC_WIDTH-1:0] in2,
@@ -55,8 +60,9 @@ accumulate #(
   .clk(clk),
   .rst(rst),
   .en(en),
+  .cset(cset),
   .carry_in(1'b0),
-  .init(cfg[MAC_ACC_WIDTH*1-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*0+MAC_CONF_WIDTH]),
+  .init(initial0),
   .acc_in(in0),
   .carry_out(carry_0_out),
   .out(acc_out0)
@@ -69,8 +75,9 @@ accumulate #(
   .clk(clk),
   .rst(rst),
   .en(en),
+  .cset(cset),
   .carry_in(carry_1_in),
-  .init(cfg[MAC_ACC_WIDTH*2-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*1+MAC_CONF_WIDTH]),
+  .init(initial1),
   .acc_in(in1),
   .carry_out(carry_1_out),
   .out(acc_out1)
@@ -83,8 +90,9 @@ accumulate #(
   .clk(clk),
   .rst(rst),
   .en(en),
+  .cset(cset),
   .carry_in(carry_2_in),
-  .init(cfg[MAC_ACC_WIDTH*3-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH]),
+  .init(initial2),
   .acc_in(in2),
   .carry_out(carry_2_out),
   .out(acc_out2)
@@ -97,17 +105,21 @@ accumulate #(
   .clk(clk),
   .rst(rst),
   .en(en),
+  .cset(cset),
   .carry_in(carry_3_in),
-  .init(cfg[MAC_ACC_WIDTH*4-1+MAC_CONF_WIDTH:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH]),
+  .init(initial3),
   .acc_in(in3),
   .carry_out(), // Empty, will overflow
   .out(acc_out3)
 );
 
 // Assigning Carry Signals
-assign carry_1_in = (cfg[1:0] == `MAC_SINGLE) ? 1'b0 : carry_0_out;
-assign carry_2_in = (cfg[1:0] == `MAC_QUAD) ? carry_1_out : 1'b0;
-assign carry_3_in = (cfg[1:0] == `MAC_SINGLE) ? 1'b0 : carry_2_out;
+wire single = ~(cfg[1] | cfg[0]);
+wire quad = cfg[1] & ~cfg[0];
+
+assign carry_1_in = single ? 1'b0 : carry_0_out;
+assign carry_2_in = quad ? carry_1_out : 1'b0;
+assign carry_3_in = single ? 1'b0 : carry_2_out;
 
 // Assigning outputs
 assign out0 = cfg[2] ? acc_out0 : mult_only_out0_reg;

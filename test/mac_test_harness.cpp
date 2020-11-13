@@ -30,10 +30,16 @@ int main(int argc, char** argv) {
     }
 
     top->reset = 1;           // Set some inputs
+    top->cset  = 0;
 
     while (!Verilated::gotFinish()) {
-        if (main_time > 10) {
+        if (main_time > 10 && main_time <= 20) {
             top->reset = 0;   // Deassert reset
+            top->cset = 1;    // Assert cset
+        }
+        if (main_time > 20) {
+            top->reset = 0;   // Deassert reset
+            top->cset = 0;    // deassert cset
         }
         if ((main_time % 10) == 1) {
             top->clk = 1;       // Toggle clock

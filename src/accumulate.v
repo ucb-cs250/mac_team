@@ -8,6 +8,7 @@ module accumulate #(
   input clk,
   input rst,
   input en,
+  input cset,
   input carry_in,
   input [MAC_ACC_WIDTH - 1:0] init, // Initial value
   input [MAC_ACC_WIDTH - 1:0] acc_in, 
@@ -21,9 +22,13 @@ wire [MAC_ACC_WIDTH - 1:0] sum;
 
 always @(posedge clk) begin
   if (rst) begin
+    sum_reg <= {MAC_ACC_WIDTH{1'b0}};
+  end else if (cset) begin
     sum_reg <= init;
-  end else begin
+  end else if (en) begin
     sum_reg <= sum;
+  end else begin
+    sum_reg <= sum_reg;
   end
 end
 
