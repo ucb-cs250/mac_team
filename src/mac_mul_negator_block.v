@@ -132,8 +132,8 @@ n_bit_adder #(
   .N(MAC_MIN_WIDTH)
 ) B0_adder (
   .A(~B0_in),
-  .B(0),
-  .cin(1),
+  .B({MAC_MIN_WIDTH{1'b0}}),
+  .cin(1'b1),
   .SUM(B0_bar),
   .cout(B0_cout)
 );
