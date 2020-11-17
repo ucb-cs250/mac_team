@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module n_bit_adder_4 #(
+module n_bit_adder #(
 	parameter N=8
 )(
 	input [N-1:0] 	A,
@@ -18,7 +18,7 @@ assign carry_bus[0] = cin;
 generate
 	genvar i;
 	for (i = 0; i < N; i = i + 1) begin: adder_chain
-		sky130_fd_sc_hd__fa adder (
+		sky130_fd_sc_hd__fa_4 adder (
     		.COUT(carry_bus[i+1]),
     		.SUM(SUM[i]),
     		.A(A[i]),
