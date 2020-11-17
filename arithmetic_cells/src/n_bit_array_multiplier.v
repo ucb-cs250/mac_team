@@ -11,7 +11,7 @@ module array_multiplier_cell (
 
 wire ab = a & b;
 
-sky130_fd_sc_hd__fa adder (
+sky130_fd_sc_hd__fa_4 adder (
   .COUT(cout),
   .SUM(sum_out),
   .A(sum_in),
