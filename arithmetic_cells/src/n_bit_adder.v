@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module n_bit_adder #(
+module n_bit_adder_4 #(
 	parameter N=8
 )(
 	input [N-1:0] 	A,
