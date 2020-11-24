@@ -124,3 +124,4 @@ test: $(sim)
 clean:
 	rm -rf $(model_dir) $(sim)
 	rm -rf *.vcd
+	rm -rf $(test_dir)/*.vcd

@@ -168,10 +168,12 @@ module macTestHarness #(
   // Initialization
   reg [31:0] test = 1;
   reg [31:0] num_tests = 10;
+  reg verbose = 0;
 
   initial begin
     $value$plusargs("cfg=%d", cfg);
     $value$plusargs("num_tests=%d", num_tests);
+    $value$plusargs("verbose=%d", verbose);
   end
 
   //-----------------------------------------------
@@ -187,6 +189,12 @@ module macTestHarness #(
       B1 = $urandom;
       B2 = $urandom;
       B3 = $urandom;
+
+      if (verbose) begin
+        $display("---");
+        $display("A0: %d A1: %d A2: %d A3: %d", A0, A1, A2, A3);
+        $display("B0: %d B1: %d B2: %d B3: %d", B0, B1, B2, B3);
+      end
 
       if (out0 != pipelined_golden_out0 || out1 != pipelined_golden_out1 || out2 != pipelined_golden_out2 || out3 != pipelined_golden_out3 ) begin
         $display("FAILED: On test %0d of %0d", test, num_tests);
