@@ -178,7 +178,7 @@ if __name__ == "__main__":
   if args.t > 0.0:
   	print("---RUNNING IN COVERAGE MODE---")
   	last_result = True
-  	coverage = calculate_coverage(args.n, args.w, args.signed, args.acc)
+  	coverage = 0.0
   	while (coverage < args.t and last_result):
   		if coverage < 0.0:
   			print("ERROR: Calculating coverage failed, will exit now")
