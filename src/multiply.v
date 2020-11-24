@@ -12,12 +12,10 @@ module multiply #(
 );
 
 // Separate file in case we want to modify how we do multiply...
-n_bit_array_multiplier #(
-	.N(MAC_MIN_WIDTH)
-) array_multiplier (
+dadda_8_8_mult array_multiplier (
 	.A(A),
 	.B(B),
-	.PROD(C)
+	.C(C)
 );
 
 endmodule
