@@ -6,9 +6,10 @@ base_dir=$(abspath .)
 src_dir=$(base_dir)/src
 test_dir=$(base_dir)/test
 skywater_fa_dir=$(base_dir)/../../skywater-pdk/libraries/sky130_fd_sc_hd/latest/cells/fa
+skywater_ha_dir=$(base_dir)/../../skywater-pdk/libraries/sky130_fd_sc_hd/latest/cells/ha
 
 sim_name = verilator
-model_name = n_bit_adder_test_harness
+model_name = dadda_8_8_multiplier_test_harness
 
 sim_prefix = simulator
 sim = $(base_dir)/$(sim_prefix)-$(model_name)
@@ -55,7 +56,8 @@ VERILOG_VERILATOR_FLAGS := \
 VERILATOR_INCLUDES := \
     -I$(src_dir)/  \
     -I$(test_dir)/ \
-    -I$(skywater_fa_dir)/
+    -I$(skywater_fa_dir)/ \
+    -I$(skywater_ha_dir)/
 
 VERILATOR_NONCC_OPTS = \
 	$(VERILATOR_INCLUDES) \
