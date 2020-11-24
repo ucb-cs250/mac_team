@@ -164,13 +164,13 @@ def unsigned_to_signed(x, n):
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
-  parser.add_argument('--clean', help='Clean before performing regression', action='store_true', default = False)
+  parser.add_argument('-t', help='Set coverage target for configuration (float between 0 and 1)', type=float, default=0.0)
+  parser.add_argument('-n', help='Number of tests to run (per cycle if target is set)', type=int, default=100)
   parser.add_argument('-w', help='Set width of MAC operations', type=int, default = 8)
   parser.add_argument('--acc', help='Turn on accumulate for MAC', action='store_true', default = False)
   parser.add_argument('--signed', help='Turn on signed operations for MAC', action='store_true', default = False)
-  parser.add_argument('-n', help='Number of tests to run (per cycle if target is set)', type=int, default=100)
   parser.add_argument('--show', help='Show regression results', action='store_true', default=False)
-  parser.add_argument('-t', help='Set coverage target for configuration', type=float, default=0.0)
+  parser.add_argument('--clean', help='Clean before performing regression', action='store_true', default = False)
   args = parser.parse_args()
 
 
