@@ -1,0 +1,31 @@
+
+31. Printing statistics.
+
+=== mac_cluster ===
+
+   Number of wires:               7607
+   Number of wire bits:           7918
+   Number of public wires:        5005
+   Number of public wire bits:    5316
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               6117
+     sky130_fd_sc_hd__and2_2       331
+     sky130_fd_sc_hd__and3_2       108
+     sky130_fd_sc_hd__buf_1        566
+     sky130_fd_sc_hd__conb_1       530
+     sky130_fd_sc_hd__dfxtp_4      260
+     sky130_fd_sc_hd__fa_4        1601
+     sky130_fd_sc_hd__inv_8        132
+     sky130_fd_sc_hd__nand2_2      213
+     sky130_fd_sc_hd__nand3_2       15
+     sky130_fd_sc_hd__nor2_2      1732
+     sky130_fd_sc_hd__nor3_2       192
+     sky130_fd_sc_hd__o22a_4       174
+     sky130_fd_sc_hd__or2_2        242
+     sky130_fd_sc_hd__or3_2         18
+     sky130_fd_sc_hd__xor2_2         3
+
+   Chip area for module '\mac_cluster': 78132.435200
+
