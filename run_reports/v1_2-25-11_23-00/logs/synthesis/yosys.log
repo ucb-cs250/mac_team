@@ -1,0 +1,1466 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Wolf <claire@symbioticeda.com>          |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.9+3621 (git sha1 84e9fa7, gcc 8.3.1 -fPIC -Os)
+
+[TCL: yosys -import] Command name collision: found pre-existing command `cd' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `eval' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `exec' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `read' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `trace' -> skip.
+
+1. Executing Liberty frontend.
+Imported 428 cell types from liberty file.
+
+2. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/multiply.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/multiply.v' to AST representation.
+Generating RTLIL representation for module `\multiply'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/mac_mul_negator_block.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/mac_mul_negator_block.v' to AST representation.
+Generating RTLIL representation for module `\mac_mul_negator_block'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/mac_mul_block_1.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/mac_mul_block_1.v' to AST representation.
+Generating RTLIL representation for module `\mac_mul_block_1'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/mac_mul_block_3.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/mac_mul_block_3.v' to AST representation.
+Generating RTLIL representation for module `\mac_mul_block_3'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/n_bit_adder.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v' to AST representation.
+Generating RTLIL representation for module `\n_bit_adder'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/n_bit_array_multiplier.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/n_bit_array_multiplier.v' to AST representation.
+Generating RTLIL representation for module `\array_multiplier_cell'.
+Generating RTLIL representation for module `\n_bit_array_multiplier'.
+Successfully finished Verilog frontend.
+
+8. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/mac_acc_negator_block.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/mac_acc_negator_block.v' to AST representation.
+Generating RTLIL representation for module `\mac_acc_negator_block'.
+Successfully finished Verilog frontend.
+
+9. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/mac_cluster.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/mac_cluster.v' to AST representation.
+Generating RTLIL representation for module `\mac_cluster'.
+Successfully finished Verilog frontend.
+
+10. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/mac_mul_block_2.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/mac_mul_block_2.v' to AST representation.
+Generating RTLIL representation for module `\mac_mul_block_2'.
+Successfully finished Verilog frontend.
+
+11. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/mac_mul_block_0.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/mac_mul_block_0.v' to AST representation.
+Generating RTLIL representation for module `\mac_mul_block_0'.
+Successfully finished Verilog frontend.
+
+12. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/accumulate.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/accumulate.v' to AST representation.
+Generating RTLIL representation for module `\accumulate'.
+Successfully finished Verilog frontend.
+
+13. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/mac_acc_block.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/mac_acc_block.v' to AST representation.
+Generating RTLIL representation for module `\mac_acc_block'.
+Successfully finished Verilog frontend.
+
+14. Executing Verilog-2005 frontend: /openLANE_flow/designs/mac_cluster/src/mac_combiner_block.v
+Parsing SystemVerilog input from `/openLANE_flow/designs/mac_cluster/src/mac_combiner_block.v' to AST representation.
+Generating RTLIL representation for module `\mac_combiner_block'.
+Successfully finished Verilog frontend.
+
+15. Generating Graphviz representation of design.
+Writing dot description to `/openLANE_flow/designs/mac_cluster/runs/25-11_23-00/tmp/synthesis/hierarchy.dot'.
+Dumping module mac_cluster to page 1.
+
+16. Executing HIERARCHY pass (managing design hierarchy).
+
+16.1. Analyzing design hierarchy..
+Top module:  \mac_cluster
+Used module:     \mac_acc_block
+Used module:         \accumulate
+Used module:             \n_bit_adder
+Used module:     \mac_acc_negator_block
+Used module:     \mac_combiner_block
+Used module:     \mac_mul_block_3
+Used module:         \multiply
+Used module:             \n_bit_array_multiplier
+Used module:                 \array_multiplier_cell
+Used module:     \mac_mul_block_2
+Used module:     \mac_mul_block_1
+Used module:     \mac_mul_block_0
+Used module:     \mac_mul_negator_block
+Parameter \N = 8
+
+16.2. Executing AST frontend in derive mode using pre-parsed AST for module `\n_bit_array_multiplier'.
+Parameter \N = 8
+Generating RTLIL representation for module `$paramod\n_bit_array_multiplier\N=8'.
+Parameter \N = 8
+
+16.3. Executing AST frontend in derive mode using pre-parsed AST for module `\n_bit_adder'.
+Parameter \N = 8
+Generating RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 32
+
+16.4. Executing AST frontend in derive mode using pre-parsed AST for module `\n_bit_adder'.
+Parameter \N = 32
+Generating RTLIL representation for module `$paramod\n_bit_adder\N=32'.
+Parameter \N = 32
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=32'.
+Parameter \N = 32
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=32'.
+Parameter \N = 32
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=32'.
+Parameter \MAC_CONF_WIDTH = 3
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Parameter \MAC_INT_WIDTH = 40
+
+16.5. Executing AST frontend in derive mode using pre-parsed AST for module `\mac_acc_block'.
+Parameter \MAC_CONF_WIDTH = 3
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Parameter \MAC_INT_WIDTH = 40
+Generating RTLIL representation for module `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block'.
+Parameter \MAC_CONF_WIDTH = 4
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_ACC_WIDTH = 32
+Parameter \MAC_INT_WIDTH = 40
+
+16.6. Executing AST frontend in derive mode using pre-parsed AST for module `\mac_acc_negator_block'.
+Parameter \MAC_CONF_WIDTH = 4
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_ACC_WIDTH = 32
+Parameter \MAC_INT_WIDTH = 40
+Generating RTLIL representation for module `$paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_acc_negator_block'.
+Parameter \MAC_CONF_WIDTH = 4
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Parameter \MAC_INT_WIDTH = 40
+
+16.7. Executing AST frontend in derive mode using pre-parsed AST for module `\mac_combiner_block'.
+Parameter \MAC_CONF_WIDTH = 4
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Parameter \MAC_INT_WIDTH = 40
+Generating RTLIL representation for module `$paramod$ee23542a63387a7646874e9b037f1487786a16f8\mac_combiner_block'.
+Parameter \MAC_CONF_WIDTH = 2
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_INT_WIDTH = 40
+
+16.8. Executing AST frontend in derive mode using pre-parsed AST for module `\mac_mul_block_3'.
+Parameter \MAC_CONF_WIDTH = 2
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_INT_WIDTH = 40
+Generating RTLIL representation for module `$paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_3'.
+Parameter \MAC_CONF_WIDTH = 2
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_INT_WIDTH = 40
+
+16.9. Executing AST frontend in derive mode using pre-parsed AST for module `\mac_mul_block_2'.
+Parameter \MAC_CONF_WIDTH = 2
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_INT_WIDTH = 40
+Generating RTLIL representation for module `$paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_2'.
+Parameter \MAC_CONF_WIDTH = 2
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_INT_WIDTH = 40
+
+16.10. Executing AST frontend in derive mode using pre-parsed AST for module `\mac_mul_block_1'.
+Parameter \MAC_CONF_WIDTH = 2
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_INT_WIDTH = 40
+Generating RTLIL representation for module `$paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_1'.
+Parameter \MAC_CONF_WIDTH = 2
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_INT_WIDTH = 40
+
+16.11. Executing AST frontend in derive mode using pre-parsed AST for module `\mac_mul_block_0'.
+Parameter \MAC_CONF_WIDTH = 2
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_INT_WIDTH = 40
+Generating RTLIL representation for module `$paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_0'.
+Parameter \MAC_CONF_WIDTH = 4
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_ACC_WIDTH = 32
+Parameter \MAC_INT_WIDTH = 40
+
+16.12. Executing AST frontend in derive mode using pre-parsed AST for module `\mac_mul_negator_block'.
+Parameter \MAC_CONF_WIDTH = 4
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Parameter \MAC_ACC_WIDTH = 32
+Parameter \MAC_INT_WIDTH = 40
+Generating RTLIL representation for module `$paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_mul_negator_block'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+
+16.13. Executing AST frontend in derive mode using pre-parsed AST for module `\multiply'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Generating RTLIL representation for module `$paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Found cached RTLIL representation for module `$paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Found cached RTLIL representation for module `$paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Found cached RTLIL representation for module `$paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 49
+
+16.14. Executing AST frontend in derive mode using pre-parsed AST for module `\n_bit_adder'.
+Parameter \N = 49
+Generating RTLIL representation for module `$paramod\n_bit_adder\N=49'.
+Parameter \N = 40
+
+16.15. Executing AST frontend in derive mode using pre-parsed AST for module `\n_bit_adder'.
+Parameter \N = 40
+Generating RTLIL representation for module `$paramod\n_bit_adder\N=40'.
+Parameter \N = 40
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=40'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+
+16.16. Executing AST frontend in derive mode using pre-parsed AST for module `\accumulate'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Generating RTLIL representation for module `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Found cached RTLIL representation for module `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Found cached RTLIL representation for module `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Found cached RTLIL representation for module `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32'.
+Parameter \N = 32
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=32'.
+
+16.17. Analyzing design hierarchy..
+Top module:  \mac_cluster
+Used module:     $paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block
+Used module:         \accumulate
+Used module:             $paramod\n_bit_adder\N=32
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_acc_negator_block
+Used module:         \n_bit_adder
+Used module:     $paramod$ee23542a63387a7646874e9b037f1487786a16f8\mac_combiner_block
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_3
+Used module:         \multiply
+Used module:             $paramod\n_bit_array_multiplier\N=8
+Used module:                 \array_multiplier_cell
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_2
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_1
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_0
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_mul_negator_block
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Found cached RTLIL representation for module `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Found cached RTLIL representation for module `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Found cached RTLIL representation for module `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_ACC_WIDTH = 32
+Found cached RTLIL representation for module `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32'.
+Parameter \N = 32
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=32'.
+Parameter \N = 32
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=32'.
+Parameter \N = 32
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=32'.
+Parameter \N = 32
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=32'.
+Parameter \N = 49
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=49'.
+Parameter \N = 40
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=40'.
+Parameter \N = 40
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=40'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Found cached RTLIL representation for module `$paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Found cached RTLIL representation for module `$paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Found cached RTLIL representation for module `$paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16'.
+Parameter \MAC_MIN_WIDTH = 8
+Parameter \MAC_MULT_WIDTH = 16
+Found cached RTLIL representation for module `$paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=8'.
+
+16.18. Analyzing design hierarchy..
+Top module:  \mac_cluster
+Used module:     $paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block
+Used module:         $paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32
+Used module:             \n_bit_adder
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_acc_negator_block
+Used module:         $paramod\n_bit_adder\N=32
+Used module:     $paramod$ee23542a63387a7646874e9b037f1487786a16f8\mac_combiner_block
+Used module:         $paramod\n_bit_adder\N=49
+Used module:         $paramod\n_bit_adder\N=40
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_3
+Used module:         $paramod\n_bit_adder\N=8
+Used module:         \multiply
+Used module:             $paramod\n_bit_array_multiplier\N=8
+Used module:                 \array_multiplier_cell
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_2
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_1
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_0
+Used module:         $paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16
+Used module:             \n_bit_array_multiplier
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_mul_negator_block
+Parameter \N = 8
+Found cached RTLIL representation for module `$paramod\n_bit_array_multiplier\N=8'.
+Parameter \N = 32
+Found cached RTLIL representation for module `$paramod\n_bit_adder\N=32'.
+
+16.19. Analyzing design hierarchy..
+Top module:  \mac_cluster
+Used module:     $paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block
+Used module:         $paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32
+Used module:             $paramod\n_bit_adder\N=32
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_acc_negator_block
+Used module:     $paramod$ee23542a63387a7646874e9b037f1487786a16f8\mac_combiner_block
+Used module:         $paramod\n_bit_adder\N=49
+Used module:         $paramod\n_bit_adder\N=40
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_3
+Used module:         $paramod\n_bit_adder\N=8
+Used module:         \multiply
+Used module:             $paramod\n_bit_array_multiplier\N=8
+Used module:                 \array_multiplier_cell
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_2
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_1
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_0
+Used module:         $paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_mul_negator_block
+
+16.20. Analyzing design hierarchy..
+Top module:  \mac_cluster
+Used module:     $paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block
+Used module:         $paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32
+Used module:             $paramod\n_bit_adder\N=32
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_acc_negator_block
+Used module:     $paramod$ee23542a63387a7646874e9b037f1487786a16f8\mac_combiner_block
+Used module:         $paramod\n_bit_adder\N=49
+Used module:         $paramod\n_bit_adder\N=40
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_3
+Used module:         $paramod\n_bit_adder\N=8
+Used module:         \multiply
+Used module:             $paramod\n_bit_array_multiplier\N=8
+Used module:                 \array_multiplier_cell
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_2
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_1
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_0
+Used module:         $paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_mul_negator_block
+Removing unused module `\mac_combiner_block'.
+Removing unused module `\mac_acc_block'.
+Removing unused module `\accumulate'.
+Removing unused module `\mac_mul_block_0'.
+Removing unused module `\mac_mul_block_2'.
+Removing unused module `\mac_acc_negator_block'.
+Removing unused module `\n_bit_array_multiplier'.
+Removing unused module `\n_bit_adder'.
+Removing unused module `\mac_mul_block_3'.
+Removing unused module `\mac_mul_block_1'.
+Removing unused module `\mac_mul_negator_block'.
+Removed 11 unused modules.
+
+17. Executing SYNTH pass.
+
+17.1. Executing HIERARCHY pass (managing design hierarchy).
+
+17.1.1. Analyzing design hierarchy..
+Top module:  \mac_cluster
+Used module:     $paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block
+Used module:         $paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32
+Used module:             $paramod\n_bit_adder\N=32
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_acc_negator_block
+Used module:     $paramod$ee23542a63387a7646874e9b037f1487786a16f8\mac_combiner_block
+Used module:         $paramod\n_bit_adder\N=49
+Used module:         $paramod\n_bit_adder\N=40
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_3
+Used module:         $paramod\n_bit_adder\N=8
+Used module:         \multiply
+Used module:             $paramod\n_bit_array_multiplier\N=8
+Used module:                 \array_multiplier_cell
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_2
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_1
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_0
+Used module:         $paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_mul_negator_block
+
+17.1.2. Analyzing design hierarchy..
+Top module:  \mac_cluster
+Used module:     $paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block
+Used module:         $paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32
+Used module:             $paramod\n_bit_adder\N=32
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_acc_negator_block
+Used module:     $paramod$ee23542a63387a7646874e9b037f1487786a16f8\mac_combiner_block
+Used module:         $paramod\n_bit_adder\N=49
+Used module:         $paramod\n_bit_adder\N=40
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_3
+Used module:         $paramod\n_bit_adder\N=8
+Used module:         \multiply
+Used module:             $paramod\n_bit_array_multiplier\N=8
+Used module:                 \array_multiplier_cell
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_2
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_1
+Used module:     $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_0
+Used module:         $paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16
+Used module:     $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_mul_negator_block
+Removed 0 unused modules.
+
+17.2. Executing PROC pass (convert processes to netlists).
+
+17.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+17.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 3 switch rules as full_case in process $proc$/openLANE_flow/designs/mac_cluster/src/accumulate.v:23$417 in module $paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32.
+Marked 2 switch rules as full_case in process $proc$/openLANE_flow/designs/mac_cluster/src/mac_cluster.v:42$136 in module mac_cluster.
+Removed a total of 0 dead cases.
+
+17.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 1 redundant assignment.
+Promoted 9 assignments to connections.
+
+17.2.4. Executing PROC_INIT pass (extract init attributes).
+
+17.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+17.2.6. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.$proc$/openLANE_flow/designs/mac_cluster/src/mac_acc_block.v:41$211'.
+Creating decoders for process `$paramod\n_bit_adder\N=32.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$210'.
+Creating decoders for process `$paramod\n_bit_adder\N=8.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$209'.
+Creating decoders for process `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32.$proc$/openLANE_flow/designs/mac_cluster/src/accumulate.v:23$417'.
+     1/1: $0\sum_reg[31:0]
+Creating decoders for process `$paramod\n_bit_adder\N=40.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$416'.
+Creating decoders for process `$paramod\n_bit_adder\N=49.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$415'.
+Creating decoders for process `\mac_cluster.$proc$/openLANE_flow/designs/mac_cluster/src/mac_cluster.v:42$136'.
+     1/2: $2\latched_cfg[3:0]
+     2/2: $1\latched_cfg[3:0]
+
+17.2.7. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `$paramod\n_bit_adder\N=32.\carry_bus[0]' from process `$paramod\n_bit_adder\N=32.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$210'.
+No latch inferred for signal `$paramod\n_bit_adder\N=8.\carry_bus[0]' from process `$paramod\n_bit_adder\N=8.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$209'.
+No latch inferred for signal `$paramod\n_bit_adder\N=40.\carry_bus[0]' from process `$paramod\n_bit_adder\N=40.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$416'.
+No latch inferred for signal `$paramod\n_bit_adder\N=49.\carry_bus[0]' from process `$paramod\n_bit_adder\N=49.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$415'.
+
+17.2.8. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.\mult_only_out0_reg' using process `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.$proc$/openLANE_flow/designs/mac_cluster/src/mac_acc_block.v:41$211'.
+  created $dff cell `$procdff$436' with positive edge clock.
+Creating register for signal `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.\mult_only_out1_reg' using process `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.$proc$/openLANE_flow/designs/mac_cluster/src/mac_acc_block.v:41$211'.
+  created $dff cell `$procdff$437' with positive edge clock.
+Creating register for signal `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.\mult_only_out2_reg' using process `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.$proc$/openLANE_flow/designs/mac_cluster/src/mac_acc_block.v:41$211'.
+  created $dff cell `$procdff$438' with positive edge clock.
+Creating register for signal `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.\mult_only_out3_reg' using process `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.$proc$/openLANE_flow/designs/mac_cluster/src/mac_acc_block.v:41$211'.
+  created $dff cell `$procdff$439' with positive edge clock.
+Creating register for signal `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32.\sum_reg' using process `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32.$proc$/openLANE_flow/designs/mac_cluster/src/accumulate.v:23$417'.
+  created $dff cell `$procdff$440' with positive edge clock.
+Creating register for signal `\mac_cluster.\latched_cfg' using process `\mac_cluster.$proc$/openLANE_flow/designs/mac_cluster/src/mac_cluster.v:42$136'.
+  created $dff cell `$procdff$441' with positive edge clock.
+
+17.2.9. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `$paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.$proc$/openLANE_flow/designs/mac_cluster/src/mac_acc_block.v:41$211'.
+Removing empty process `$paramod\n_bit_adder\N=32.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$210'.
+Removing empty process `$paramod\n_bit_adder\N=8.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$209'.
+Found and cleaned up 3 empty switches in `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32.$proc$/openLANE_flow/designs/mac_cluster/src/accumulate.v:23$417'.
+Removing empty process `$paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32.$proc$/openLANE_flow/designs/mac_cluster/src/accumulate.v:23$417'.
+Removing empty process `$paramod\n_bit_adder\N=40.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$416'.
+Removing empty process `$paramod\n_bit_adder\N=49.$proc$/openLANE_flow/designs/mac_cluster/src/n_bit_adder.v:0$415'.
+Found and cleaned up 2 empty switches in `\mac_cluster.$proc$/openLANE_flow/designs/mac_cluster/src/mac_cluster.v:42$136'.
+Removing empty process `mac_cluster.$proc$/openLANE_flow/designs/mac_cluster/src/mac_cluster.v:42$136'.
+Cleaned up 5 empty switches.
+
+17.3. Executing FLATTEN pass (flatten design).
+Deleting now unused module $paramod$e0b5ffad908508438f78555486e613d216722ea1\mac_acc_block.
+Deleting now unused module $paramod\n_bit_adder\N=32.
+Deleting now unused module $paramod\n_bit_adder\N=8.
+Deleting now unused module $paramod\n_bit_array_multiplier\N=8.
+Deleting now unused module $paramod\accumulate\MAC_MIN_WIDTH=8\MAC_ACC_WIDTH=32.
+Deleting now unused module $paramod\n_bit_adder\N=40.
+Deleting now unused module $paramod\n_bit_adder\N=49.
+Deleting now unused module $paramod\multiply\MAC_MIN_WIDTH=8\MAC_MULT_WIDTH=16.
+Deleting now unused module $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_mul_negator_block.
+Deleting now unused module $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_0.
+Deleting now unused module $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_1.
+Deleting now unused module array_multiplier_cell.
+Deleting now unused module $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_2.
+Deleting now unused module $paramod$113a05951faf764ab3e29c471ff826a00768a535\mac_mul_block_3.
+Deleting now unused module $paramod$ee23542a63387a7646874e9b037f1487786a16f8\mac_combiner_block.
+Deleting now unused module $paramod$f3ea108ccec2059a000be172cfad7c66962ed42e\mac_acc_negator_block.
+Deleting now unused module multiply.
+<suppressed ~126 debug messages>
+
+17.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+<suppressed ~36 debug messages>
+
+17.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+Removed 10 unused cells and 1219 unused wires.
+<suppressed ~19 debug messages>
+
+17.6. Executing CHECK pass (checking for obvious problems).
+checking module mac_cluster..
+found and reported 0 problems.
+
+17.7. Executing OPT pass (performing simple optimizations).
+
+17.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+<suppressed ~102 debug messages>
+Removed a total of 34 cells.
+
+17.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \mac_cluster..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$431.
+Removed 1 multiplexer ports.
+<suppressed ~71 debug messages>
+
+17.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \mac_cluster.
+Performed a total of 0 changes.
+
+17.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.7.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+17.7.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+Removed 0 unused cells and 23 unused wires.
+<suppressed ~1 debug messages>
+
+17.7.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.7.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+17.7.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \mac_cluster..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~71 debug messages>
+
+17.7.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \mac_cluster.
+Performed a total of 0 changes.
+
+17.7.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.7.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+17.7.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+
+17.7.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.7.16. Finished OPT passes. (There is nothing left to do.)
+
+17.8. Executing FSM pass (extract and optimize FSM).
+
+17.8.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+17.8.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+17.8.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+17.8.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+
+17.8.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+17.8.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+17.8.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+17.8.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+17.9. Executing OPT pass (performing simple optimizations).
+
+17.9.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.9.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.9.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \mac_cluster..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~71 debug messages>
+
+17.9.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \mac_cluster.
+Performed a total of 0 changes.
+
+17.9.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.9.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $procdff$441 ($dff) from module mac_cluster (D = $2\latched_cfg[3:0], Q = \latched_cfg, rval = 4'0000).
+Adding EN signal on $auto$opt_dff.cc:702:run$442 ($sdff) from module mac_cluster (D = \cfg [3:0], Q = \latched_cfg).
+Adding SRST signal on $flatten\macacc.\acc3.$procdff$440 ($dff) from module mac_cluster (D = $flatten\macacc.\acc3.$procmux$422_Y, Q = \macacc.acc3.sum_reg, rval = 0).
+Adding EN signal on $auto$opt_dff.cc:702:run$444 ($sdff) from module mac_cluster (D = $flatten\macacc.\acc3.$procmux$422_Y, Q = \macacc.acc3.sum_reg).
+Adding SRST signal on $flatten\macacc.\acc2.$procdff$440 ($dff) from module mac_cluster (D = $flatten\macacc.\acc2.$procmux$422_Y, Q = \macacc.acc2.sum_reg, rval = 0).
+Adding EN signal on $auto$opt_dff.cc:702:run$448 ($sdff) from module mac_cluster (D = $flatten\macacc.\acc2.$procmux$422_Y, Q = \macacc.acc2.sum_reg).
+Adding SRST signal on $flatten\macacc.\acc1.$procdff$440 ($dff) from module mac_cluster (D = $flatten\macacc.\acc1.$procmux$422_Y, Q = \macacc.acc1.sum_reg, rval = 0).
+Adding EN signal on $auto$opt_dff.cc:702:run$452 ($sdff) from module mac_cluster (D = $flatten\macacc.\acc1.$procmux$422_Y, Q = \macacc.acc1.sum_reg).
+Adding SRST signal on $flatten\macacc.\acc0.$procdff$440 ($dff) from module mac_cluster (D = $flatten\macacc.\acc0.$procmux$422_Y, Q = \macacc.acc0.sum_reg, rval = 0).
+Adding EN signal on $auto$opt_dff.cc:702:run$456 ($sdff) from module mac_cluster (D = $flatten\macacc.\acc0.$procmux$422_Y, Q = \macacc.acc0.sum_reg).
+
+17.9.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+Removed 6 unused cells and 6 unused wires.
+<suppressed ~7 debug messages>
+
+17.9.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+<suppressed ~4 debug messages>
+
+17.9.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+17.9.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \mac_cluster..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~70 debug messages>
+
+17.9.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \mac_cluster.
+Performed a total of 0 changes.
+
+17.9.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+<suppressed ~9 debug messages>
+Removed a total of 3 cells.
+
+17.9.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+17.9.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+Removed 0 unused cells and 3 unused wires.
+<suppressed ~1 debug messages>
+
+17.9.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.9.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+17.9.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \mac_cluster..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~70 debug messages>
+
+17.9.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \mac_cluster.
+Performed a total of 0 changes.
+
+17.9.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.9.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+17.9.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+
+17.9.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.9.23. Finished OPT passes. (There is nothing left to do.)
+
+17.10. Executing WREDUCE pass (reducing word size of cells).
+Removed top 7 bits (of 8) from mux cell mac_cluster.$flatten\maccombiner.$ternary$/openLANE_flow/designs/mac_cluster/src/mac_combiner_block.v:88$289 ($mux).
+Removed cell mac_cluster.$flatten\macacc.\acc3.$procmux$419 ($mux).
+Removed cell mac_cluster.$flatten\macacc.\acc2.$procmux$419 ($mux).
+Removed cell mac_cluster.$flatten\macacc.\acc1.$procmux$419 ($mux).
+Removed cell mac_cluster.$flatten\macacc.\acc0.$procmux$419 ($mux).
+Removed top 7 bits (of 8) from wire mac_cluster.$flatten\maccombiner.$ternary$/openLANE_flow/designs/mac_cluster/src/mac_combiner_block.v:88$289_Y.
+
+17.11. Executing PEEPOPT pass (run peephole optimizers).
+
+17.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+Removed 0 unused cells and 5 unused wires.
+<suppressed ~1 debug messages>
+
+17.13. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module mac_cluster:
+  created 0 $alu and 0 $macc cells.
+
+17.14. Executing SHARE pass (SAT-based resource sharing).
+
+17.15. Executing OPT pass (performing simple optimizations).
+
+17.15.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.15.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.15.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \mac_cluster..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~70 debug messages>
+
+17.15.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \mac_cluster.
+Performed a total of 0 changes.
+
+17.15.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.15.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+17.15.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+
+17.15.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.15.9. Finished OPT passes. (There is nothing left to do.)
+
+17.16. Executing MEMORY pass.
+
+17.16.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+17.16.2. Executing MEMORY_DFF pass (merging $dff cells to $memrd and $memwr).
+
+17.16.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+
+17.16.4. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+17.16.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+
+17.16.6. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+17.17. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+
+17.18. Executing OPT pass (performing simple optimizations).
+
+17.18.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+<suppressed ~6 debug messages>
+
+17.18.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.18.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+17.18.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+
+17.18.5. Finished fast OPT passes.
+
+17.19. Executing MEMORY_MAP pass (converting $mem cells to logic and flip-flops).
+
+17.20. Executing OPT pass (performing simple optimizations).
+
+17.20.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.20.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.20.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \mac_cluster..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~65 debug messages>
+
+17.20.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \mac_cluster.
+Performed a total of 0 changes.
+
+17.20.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.20.6. Executing OPT_SHARE pass.
+
+17.20.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+17.20.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+
+17.20.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.20.10. Finished OPT passes. (There is nothing left to do.)
+
+17.21. Executing TECHMAP pass (map to technology primitives).
+
+17.21.1. Executing Verilog-2005 frontend: /build/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/build/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+17.21.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $sdffe.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $dff.
+No more expansions possible.
+<suppressed ~1254 debug messages>
+
+17.22. Executing OPT pass (performing simple optimizations).
+
+17.22.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.22.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.22.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+17.22.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+17.22.5. Finished fast OPT passes.
+
+17.23. Executing ABC pass (technology mapping using ABC).
+
+17.23.1. Extracting gate netlist of module `\mac_cluster' to `<abc-temp-dir>/input.blif'..
+Extracted 2150 gates and 3312 wires to a netlist network with 1160 inputs and 1783 outputs.
+
+17.23.1.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+17.23.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:      170
+ABC RESULTS:            ANDNOT cells:     1039
+ABC RESULTS:               MUX cells:      689
+ABC RESULTS:              NAND cells:        2
+ABC RESULTS:               NOR cells:       17
+ABC RESULTS:               NOT cells:      303
+ABC RESULTS:                OR cells:       23
+ABC RESULTS:             ORNOT cells:        8
+ABC RESULTS:              XNOR cells:        3
+ABC RESULTS:               XOR cells:        2
+ABC RESULTS:        internal signals:      369
+ABC RESULTS:           input signals:     1160
+ABC RESULTS:          output signals:     1783
+Removing temp directory.
+
+17.24. Executing OPT pass (performing simple optimizations).
+
+17.24.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+17.24.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+17.24.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+17.24.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+Removed 0 unused cells and 2898 unused wires.
+<suppressed ~25 debug messages>
+
+17.24.5. Finished fast OPT passes.
+
+17.25. Executing HIERARCHY pass (managing design hierarchy).
+
+17.25.1. Analyzing design hierarchy..
+Top module:  \mac_cluster
+
+17.25.2. Analyzing design hierarchy..
+Top module:  \mac_cluster
+Removed 0 unused modules.
+
+17.26. Printing statistics.
+
+=== mac_cluster ===
+
+   Number of wires:              13057
+   Number of wire bits:          19248
+   Number of public wires:       12455
+   Number of public wire bits:   18646
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               4117
+     $_ANDNOT_                    1039
+     $_AND_                        170
+     $_DFF_P_                      128
+     $_MUX_                        689
+     $_NAND_                         2
+     $_NOR_                         17
+     $_NOT_                        303
+     $_ORNOT_                        8
+     $_OR_                          23
+     $_SDFFE_PP0P_                 132
+     $_XNOR_                         3
+     $_XOR_                          2
+     sky130_fd_sc_hd__fa_4        1601
+
+17.27. Executing CHECK pass (checking for obvious problems).
+checking module mac_cluster..
+found and reported 0 problems.
+
+18. Executing SHARE pass (SAT-based resource sharing).
+
+19. Executing OPT pass (performing simple optimizations).
+
+19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \mac_cluster..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \mac_cluster.
+Performed a total of 0 changes.
+
+19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\mac_cluster'.
+Removed a total of 0 cells.
+
+19.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+19.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+
+19.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module mac_cluster.
+
+19.9. Finished OPT passes. (There is nothing left to do.)
+
+20. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+Removed 0 unused cells and 8708 unused wires.
+<suppressed ~8708 debug messages>
+
+21. Printing statistics.
+
+=== mac_cluster ===
+
+   Number of wires:               4349
+   Number of wire bits:           5929
+   Number of public wires:        3747
+   Number of public wire bits:    5327
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               4117
+     $_ANDNOT_                    1039
+     $_AND_                        170
+     $_DFF_P_                      128
+     $_MUX_                        689
+     $_NAND_                         2
+     $_NOR_                         17
+     $_NOT_                        303
+     $_ORNOT_                        8
+     $_OR_                          23
+     $_SDFFE_PP0P_                 132
+     $_XNOR_                         3
+     $_XOR_                          2
+     sky130_fd_sc_hd__fa_4        1601
+
+22. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_4 (noninv, pins=3, area=23.77) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtp_4 (noninv, pins=4, area=28.78) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_4 (noninv, pins=4, area=30.03) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__dfbbn_2 (noninv, pins=6, area=35.03) is a direct match for cell type $_DFFSR_NNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_4 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_4 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_4 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    \sky130_fd_sc_hd__dfbbn_2 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    unmapped dff cell: $_DFFSR_PNN_
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+22.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `\mac_cluster':
+  mapped 260 $_DFF_P_ cells to \sky130_fd_sc_hd__dfxtp_4 cells.
+
+23. Printing statistics.
+
+=== mac_cluster ===
+
+   Number of wires:               4613
+   Number of wire bits:           6193
+   Number of public wires:        3747
+   Number of public wire bits:    5327
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               4381
+     $_ANDNOT_                    1039
+     $_AND_                        170
+     $_MUX_                        953
+     $_NAND_                         2
+     $_NOR_                         17
+     $_NOT_                        303
+     $_ORNOT_                        8
+     $_OR_                          23
+     $_XNOR_                         3
+     $_XOR_                          2
+     sky130_fd_sc_hd__dfxtp_4      260
+     sky130_fd_sc_hd__fa_4        1601
+
+24. Executing ABC pass (technology mapping using ABC).
+
+24.1. Extracting gate netlist of module `\mac_cluster' to `/tmp/yosys-abc-aJYxGZ/input.blif'..
+Extracted 2520 gates and 3686 wires to a netlist network with 1165 inputs and 1786 outputs.
+
+24.1.1. Executing ABC.
+Running ABC command: /build/bin/yosys-abc -s -f /tmp/yosys-abc-aJYxGZ/abc.script 2>&1
+ABC: ABC command line: "source /tmp/yosys-abc-aJYxGZ/abc.script".
+ABC: 
+ABC: + read_blif /tmp/yosys-abc-aJYxGZ/input.blif 
+ABC: + read_lib -w /openLANE_flow/designs/mac_cluster/runs/25-11_23-00/tmp/trimmed.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.02 sec
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/openLANE_flow/designs/mac_cluster/runs/25-11_23-00/tmp/trimmed.lib" has 43 cells (6 skipped: 6 seq; 0 tri-state; 0 no func; 0 dont_use).  Time =     0.03 sec
+ABC: Memory =    1.92 MB. Time =     0.03 sec
+ABC: + read_constr -v /openLANE_flow/designs/mac_cluster/runs/25-11_23-00/tmp/synthesis/yosys.sdc 
+ABC: Setting driving cell to be "sky130_fd_sc_hd__inv_8".
+ABC: Setting output load to be 17.650000.
+ABC: + read_constr /openLANE_flow/designs/mac_cluster/runs/25-11_23-00/tmp/synthesis/yosys.sdc 
+ABC: + fx 
+ABC: + mfs 
+ABC: + strash 
+ABC: + refactor 
+ABC: + balance 
+ABC: + rewrite 
+ABC: + refactor 
+ABC: + balance 
+ABC: + rewrite 
+ABC: + rewrite -z 
+ABC: + balance 
+ABC: + refactor -z 
+ABC: + rewrite -z 
+ABC: + balance 
+ABC: + retime -D -D 250000 -M 5 
+ABC: + scleanup 
+ABC: Error: The network is combinational.
+ABC: + amap -m -Q 0.1 -F 20 -A 20 -C 5000 
+ABC: + retime -D -D 250000 
+ABC: + buffer -N 8 -S 25000.0 
+ABC: Node 3572 has dup fanin 3562.
+ABC: Node 3572 has dup fanin 3562.
+ABC: Node 3573 has dup fanin 3562.
+ABC: Node 3573 has dup fanin 3562.
+ABC: Node 3574 has dup fanin 3562.
+ABC: Node 3574 has dup fanin 3562.
+ABC: Node 3575 has dup fanin 3562.
+ABC: Node 3575 has dup fanin 3562.
+ABC: Node 3576 has dup fanin 3562.
+ABC: Node 3576 has dup fanin 3562.
+ABC: Node 3577 has dup fanin 3562.
+ABC: Node 3577 has dup fanin 3562.
+ABC: Node 3578 has dup fanin 3562.
+ABC: Node 3578 has dup fanin 3562.
+ABC: Node 3579 has dup fanin 3562.
+ABC: Node 3579 has dup fanin 3562.
+ABC: Node 4064 has dup fanin 3978.
+ABC: Node 4064 has dup fanin 3978.
+ABC: Node 4066 has dup fanin 3978.
+ABC: Node 4066 has dup fanin 3978.
+ABC: Node 4068 has dup fanin 3978.
+ABC: Node 4068 has dup fanin 3978.
+ABC: Node 4070 has dup fanin 3978.
+ABC: Node 4070 has dup fanin 3978.
+ABC: Node 4072 has dup fanin 3978.
+ABC: Node 4072 has dup fanin 3978.
+ABC: Node 4074 has dup fanin 3978.
+ABC: Node 4074 has dup fanin 3978.
+ABC: Node 4076 has dup fanin 3978.
+ABC: Node 4076 has dup fanin 3978.
+ABC: Node 4078 has dup fanin 3978.
+ABC: Node 4078 has dup fanin 3978.
+ABC: Node 4080 has dup fanin 3978.
+ABC: Node 4080 has dup fanin 3978.
+ABC: Node 4082 has dup fanin 3978.
+ABC: Node 4082 has dup fanin 3978.
+ABC: Node 4084 has dup fanin 3978.
+ABC: Node 4084 has dup fanin 3978.
+ABC: Node 4086 has dup fanin 3978.
+ABC: Node 4086 has dup fanin 3978.
+ABC: Node 4088 has dup fanin 3978.
+ABC: Node 4088 has dup fanin 3978.
+ABC: Node 4090 has dup fanin 3978.
+ABC: Node 4090 has dup fanin 3978.
+ABC: Node 4092 has dup fanin 3978.
+ABC: Node 4092 has dup fanin 3978.
+ABC: Node 4093 has dup fanin 558.
+ABC: Node 4093 has dup fanin 559.
+ABC: Node 4093 has dup fanin 558.
+ABC: Node 4093 has dup fanin 559.
+ABC: Node 4098 has dup fanin 4097.
+ABC: Node 4098 has dup fanin 4097.
+ABC: Node 4099 has dup fanin 4097.
+ABC: Node 4099 has dup fanin 4097.
+ABC: Node 4100 has dup fanin 4097.
+ABC: Node 4100 has dup fanin 4097.
+ABC: Node 4101 has dup fanin 4097.
+ABC: Node 4101 has dup fanin 4097.
+ABC: Node 4102 has dup fanin 4097.
+ABC: Node 4102 has dup fanin 4097.
+ABC: Node 4103 has dup fanin 4097.
+ABC: Node 4103 has dup fanin 4097.
+ABC: Node 4104 has dup fanin 4097.
+ABC: Node 4104 has dup fanin 4097.
+ABC: Node 4105 has dup fanin 4097.
+ABC: Node 4105 has dup fanin 4097.
+ABC: Node 4106 has dup fanin 3562.
+ABC: Node 4106 has dup fanin 3562.
+ABC: Node 4109 has dup fanin 3562.
+ABC: Node 4109 has dup fanin 3562.
+ABC: Node 4112 has dup fanin 3562.
+ABC: Node 4112 has dup fanin 3562.
+ABC: Node 4115 has dup fanin 3562.
+ABC: Node 4115 has dup fanin 3562.
+ABC: Node 4118 has dup fanin 3562.
+ABC: Node 4118 has dup fanin 3562.
+ABC: Node 4121 has dup fanin 3562.
+ABC: Node 4121 has dup fanin 3562.
+ABC: Node 4124 has dup fanin 3562.
+ABC: Node 4124 has dup fanin 3562.
+ABC: Node 4127 has dup fanin 3562.
+ABC: Node 4127 has dup fanin 3562.
+ABC: + upsize -D 250000 
+ABC: Current delay (1990.24 ps) does not exceed the target delay (250000.00 ps). Upsizing is not performed.
+ABC: + dnsize -D 250000 
+ABC: + stime -p 
+ABC: WireLoad = "none"  Gates =   3065 ( 22.4 %)   Cap = 17.5 ff (  0.0 %)   Area =    34564.40 ( 99.8 %)   Delay =  3349.95 ps  ( 18.4 %)               
+ABC: Path  0 --      41 : 0    3 pi                        A =   0.00  Df =  27.5  -17.9 ps  S =  45.1 ps  Cin =  0.0 ff  Cout =  23.6 ff  Cmax =   0.0 ff  G =    0  
+ABC: Path  1 --    3119 : 1    6 sky130_fd_sc_hd__inv_8    A =  11.26  Df =  59.7   -4.0 ps  S =  41.2 ps  Cin = 17.7 ff  Cout =  20.9 ff  Cmax =1035.5 ff  G =  112  
+ABC: Path  2 --    3697 : 2    1 sky130_fd_sc_hd__or2_4    A =   8.76  Df = 266.2 -117.0 ps  S =  41.6 ps  Cin =  2.4 ff  Cout =   2.2 ff  Cmax = 514.5 ff  G =   88  
+ABC: Path  3 --    3698 : 1    8 sky130_fd_sc_hd__buf_1    A =   3.75  Df = 530.5  -29.0 ps  S = 491.0 ps  Cin =  2.1 ff  Cout =  41.8 ff  Cmax = 130.0 ff  G = 1892  
+ABC: Path  4 --    3705 : 1    8 sky130_fd_sc_hd__buf_1    A =   3.75  Df = 895.3 -130.7 ps  S = 370.7 ps  Cin =  2.1 ff  Cout =  31.3 ff  Cmax = 130.0 ff  G = 1405  
+ABC: Path  5 --    4167 : 1    8 sky130_fd_sc_hd__buf_1    A =   3.75  Df =1522.9 -392.1 ps  S = 762.0 ps  Cin =  2.1 ff  Cout =  65.6 ff  Cmax = 130.0 ff  G = 2920  
+ABC: Path  6 --    4173 : 1    8 sky130_fd_sc_hd__buf_1    A =   3.75  Df =2179.7 -618.6 ps  S = 775.2 ps  Cin =  2.1 ff  Cout =  66.8 ff  Cmax = 130.0 ff  G = 3020  
+ABC: Path  7 --    4174 : 1    8 sky130_fd_sc_hd__buf_1    A =   3.75  Df =2892.0 -870.0 ps  S = 855.8 ps  Cin =  2.1 ff  Cout =  73.8 ff  Cmax = 130.0 ff  G = 3338  
+ABC: Path  8 --    4185 : 3    2 sky130_fd_sc_hd__nand3_4  A =  17.52  Df =3073.1 -801.0 ps  S = 187.5 ps  Cin =  8.7 ff  Cout =  22.4 ff  Cmax = 469.7 ff  G =  254  
+ABC: Path  9 --    4186 : 4    1 sky130_fd_sc_hd__a2bb2o_4 A =  20.02  Df =3350.0 -825.2 ps  S =  73.8 ps  Cin =  4.6 ff  Cout =  17.6 ff  Cmax = 502.6 ff  G =  382  
+ABC: Start-point = pi40 (\macacc.cfg [0]).  End-point = po376 (\macacc.acc1.acc_in [21]).
+ABC: + print_stats -m 
+ABC: netlist                       : i/o = 1165/ 1786  lat =    0  nd =  3065  edge =   6736  area =34563.47  delay =13.00  lev = 13
+ABC: + write_blif /tmp/yosys-abc-aJYxGZ/output.blif 
+
+24.1.2. Re-integrating ABC results.
+ABC RESULTS:          _const1_ cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__a211o_4 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21bo_4 cells:       27
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_4 cells:       19
+ABC RESULTS:   sky130_fd_sc_hd__a21o_4 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_4 cells:       86
+ABC RESULTS:   sky130_fd_sc_hd__a2bb2o_4 cells:       40
+ABC RESULTS:   sky130_fd_sc_hd__a32o_4 cells:       58
+ABC RESULTS:   sky130_fd_sc_hd__a32oi_4 cells:      128
+ABC RESULTS:   sky130_fd_sc_hd__and2_4 cells:      138
+ABC RESULTS:   sky130_fd_sc_hd__and3_4 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__buf_1 cells:      540
+ABC RESULTS:   sky130_fd_sc_hd__inv_8 cells:      148
+ABC RESULTS:   sky130_fd_sc_hd__nand2_4 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__nand3_4 cells:       15
+ABC RESULTS:   sky130_fd_sc_hd__nor2_4 cells:     1161
+ABC RESULTS:   sky130_fd_sc_hd__o21a_4 cells:       24
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_4 cells:       19
+ABC RESULTS:   sky130_fd_sc_hd__o22a_4 cells:      183
+ABC RESULTS:   sky130_fd_sc_hd__or2_4 cells:      436
+ABC RESULTS:        internal signals:      735
+ABC RESULTS:           input signals:     1165
+ABC RESULTS:          output signals:     1786
+Removing temp directory.
+
+25. Executing SETUNDEF pass (replace undef values with defined constants).
+
+26. Executing HILOMAP pass (mapping to constant drivers).
+
+27. Executing SPLITNETS pass (splitting up multi-bit signals).
+
+28. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \mac_cluster..
+Removed 0 unused cells and 3703 unused wires.
+<suppressed ~12 debug messages>
+
+29. Executing INSBUF pass (insert buffer cells for connected wires).
+
+30. Executing CHECK pass (checking for obvious problems).
+checking module mac_cluster..
+found and reported 0 problems.
+
+31. Printing statistics.
+
+=== mac_cluster ===
+
+   Number of wires:               6939
+   Number of wire bits:           7250
+   Number of public wires:        5005
+   Number of public wire bits:    5316
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               5449
+     sky130_fd_sc_hd__a211o_4        1
+     sky130_fd_sc_hd__a21bo_4       27
+     sky130_fd_sc_hd__a21boi_4      19
+     sky130_fd_sc_hd__a21o_4        10
+     sky130_fd_sc_hd__a22oi_4       86
+     sky130_fd_sc_hd__a2bb2o_4      40
+     sky130_fd_sc_hd__a32o_4        58
+     sky130_fd_sc_hd__a32oi_4      128
+     sky130_fd_sc_hd__and2_4       138
+     sky130_fd_sc_hd__and3_4        16
+     sky130_fd_sc_hd__buf_1        540
+     sky130_fd_sc_hd__conb_1       530
+     sky130_fd_sc_hd__dfxtp_4      260
+     sky130_fd_sc_hd__fa_4        1601
+     sky130_fd_sc_hd__inv_8        148
+     sky130_fd_sc_hd__nand2_4        9
+     sky130_fd_sc_hd__nand3_4       15
+     sky130_fd_sc_hd__nor2_4      1161
+     sky130_fd_sc_hd__o21a_4        24
+     sky130_fd_sc_hd__o21ai_4       19
+     sky130_fd_sc_hd__o22a_4       183
+     sky130_fd_sc_hd__or2_4        436
+
+   Chip area for module '\mac_cluster': 86804.502400
+
+32. Executing Verilog backend.
+Dumping module `\mac_cluster'.
+
+End of script. Logfile hash: bc9b385111, CPU: user 10.66s system 0.08s, MEM: 153.59 MB peak
+Yosys 0.9+3621 (git sha1 84e9fa7, gcc 8.3.1 -fPIC -Os)
+Time spent: 27% 19x opt_clean (3 sec), 15% 2x abc (1 sec), ...
