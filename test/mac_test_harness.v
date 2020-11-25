@@ -24,8 +24,14 @@ module macTestHarness #(
   reg [MAC_MIN_WIDTH-1:0] B2;
   reg [MAC_MIN_WIDTH-1:0] A3;
   reg [MAC_MIN_WIDTH-1:0] B3;
-  reg [4*MAC_ACC_WIDTH + MAC_CONF_WIDTH - 1:0] cfg = 0; 
 
+  reg [MAC_CONF_WIDTH-1:0] cfg_reg = 0;
+  reg [MAC_ACC_WIDTH-1:0] initial0_reg = 0;
+  reg [MAC_ACC_WIDTH-1:0] initial1_reg = 0;
+  reg [MAC_ACC_WIDTH-1:0] initial2_reg = 0;
+  reg [MAC_ACC_WIDTH-1:0] initial3_reg = 0;
+
+  wire [4*MAC_ACC_WIDTH + MAC_CONF_WIDTH - 1:0] cfg = {initial3_reg, initial2_reg, initial1_reg, initial0_reg, cfg_reg}; 
   wire [MAC_ACC_WIDTH-1:0] out0;
   wire [MAC_ACC_WIDTH-1:0] out1;
   wire [MAC_ACC_WIDTH-1:0] out2;
@@ -171,7 +177,11 @@ module macTestHarness #(
   reg verbose = 0;
 
   initial begin
-    $value$plusargs("cfg=%d", cfg);
+    $value$plusargs("cfg=%d", cfg_reg);
+    $value$plusargs("initial0=%d", initial0_reg);
+    $value$plusargs("initial1=%d", initial1_reg);
+    $value$plusargs("initial2=%d", initial2_reg);
+    $value$plusargs("initial3=%d", initial3_reg);
     $value$plusargs("num_tests=%d", num_tests);
     $value$plusargs("verbose=%d", verbose);
   end
