@@ -68,15 +68,70 @@ module macTestHarness #(
 
   //-----------------------------------------------
   // Golden Model
+
+  reg [MAC_MIN_WIDTH-1:0] pipelined0_A0;
+  reg [MAC_MIN_WIDTH-1:0] pipelined0_A1;
+  reg [MAC_MIN_WIDTH-1:0] pipelined0_A2;
+  reg [MAC_MIN_WIDTH-1:0] pipelined0_A3;
+  reg [MAC_MIN_WIDTH-1:0] pipelined0_B0;
+  reg [MAC_MIN_WIDTH-1:0] pipelined0_B1;
+  reg [MAC_MIN_WIDTH-1:0] pipelined0_B2;
+  reg [MAC_MIN_WIDTH-1:0] pipelined0_B3;
+
+  reg [MAC_MIN_WIDTH-1:0] pipelined1_A0;
+  reg [MAC_MIN_WIDTH-1:0] pipelined1_A1;
+  reg [MAC_MIN_WIDTH-1:0] pipelined1_A2;
+  reg [MAC_MIN_WIDTH-1:0] pipelined1_A3;
+  reg [MAC_MIN_WIDTH-1:0] pipelined1_B0;
+  reg [MAC_MIN_WIDTH-1:0] pipelined1_B1;
+  reg [MAC_MIN_WIDTH-1:0] pipelined1_B2;
+  reg [MAC_MIN_WIDTH-1:0] pipelined1_B3;
+
+  always @(posedge clk) begin
+    if (reset | cset) begin
+      pipelined0_A0 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined0_A1 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined0_A2 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined0_A3 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined0_B0 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined0_B1 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined0_B2 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined0_B3 <= {MAC_MIN_WIDTH{1'b0}};
+
+      pipelined1_A0 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined1_A1 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined1_A2 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined1_A3 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined1_B0 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined1_B1 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined1_B2 <= {MAC_MIN_WIDTH{1'b0}};
+      pipelined1_B3 <= {MAC_MIN_WIDTH{1'b0}};
+    end else begin
+      pipelined0_A0 <= A0;
+      pipelined0_A1 <= A1;
+      pipelined0_A2 <= A2;
+      pipelined0_A3 <= A3;
+      pipelined0_B0 <= B0;
+      pipelined0_B1 <= B1;
+      pipelined0_B2 <= B2;
+      pipelined0_B3 <= B3;
+
+      pipelined1_A0 <= pipelined0_A0;
+      pipelined1_A1 <= pipelined0_A1;
+      pipelined1_A2 <= pipelined0_A2;
+      pipelined1_A3 <= pipelined0_A3;
+      pipelined1_B0 <= pipelined0_B0;
+      pipelined1_B1 <= pipelined0_B1;
+      pipelined1_B2 <= pipelined0_B2;
+      pipelined1_B3 <= pipelined0_B3;
+    end
+  end
+
+
   reg [MAC_ACC_WIDTH-1:0] golden_out0;
   reg [MAC_ACC_WIDTH-1:0] golden_out1;
   reg [MAC_ACC_WIDTH-1:0] golden_out2;
   reg [MAC_ACC_WIDTH-1:0] golden_out3;
-
-  reg [MAC_ACC_WIDTH-1:0] pipelined_golden_out0;
-  reg [MAC_ACC_WIDTH-1:0] pipelined_golden_out1;
-  reg [MAC_ACC_WIDTH-1:0] pipelined_golden_out2;
-  reg [MAC_ACC_WIDTH-1:0] pipelined_golden_out3;
 
   always @(posedge clk) begin
     if (reset) begin
@@ -94,79 +149,65 @@ module macTestHarness #(
         `MAC_SINGLE: begin
           if (cfg[2]) begin // Accumulate
             if (cfg[3]) begin // Signed
-              golden_out0 <= ($signed(A0) * $signed(B0)) + $signed(golden_out0);
-              golden_out1 <= ($signed(A1) * $signed(B1)) + $signed(golden_out1);
-              golden_out2 <= ($signed(A2) * $signed(B2)) + $signed(golden_out2);
-              golden_out3 <= ($signed(A3) * $signed(B3)) + $signed(golden_out3);
+              golden_out0 <= ($signed(pipelined1_A0) * $signed(pipelined1_B0)) + $signed(golden_out0);
+              golden_out1 <= ($signed(pipelined1_A1) * $signed(pipelined1_B1)) + $signed(golden_out1);
+              golden_out2 <= ($signed(pipelined1_A2) * $signed(pipelined1_B2)) + $signed(golden_out2);
+              golden_out3 <= ($signed(pipelined1_A3) * $signed(pipelined1_B3)) + $signed(golden_out3);
             end else begin
-              golden_out0 <= (A0 * B0) + golden_out0;
-              golden_out1 <= (A1 * B1) + golden_out1;
-              golden_out2 <= (A2 * B2) + golden_out2;
-              golden_out3 <= (A3 * B3) + golden_out3;
+              golden_out0 <= (pipelined1_A0 * pipelined1_B0) + golden_out0;
+              golden_out1 <= (pipelined1_A1 * pipelined1_B1) + golden_out1;
+              golden_out2 <= (pipelined1_A2 * pipelined1_B2) + golden_out2;
+              golden_out3 <= (pipelined1_A3 * pipelined1_B3) + golden_out3;
             end
           end else begin
             if (cfg[3]) begin // Signed
-              golden_out0 <= $signed(A0) * $signed(B0);
-              golden_out1 <= $signed(A1) * $signed(B1);
-              golden_out2 <= $signed(A2) * $signed(B2);
-              golden_out3 <= $signed(A3) * $signed(B3);
+              golden_out0 <= $signed(pipelined1_A0) * $signed(pipelined1_B0);
+              golden_out1 <= $signed(pipelined1_A1) * $signed(pipelined1_B1);
+              golden_out2 <= $signed(pipelined1_A2) * $signed(pipelined1_B2);
+              golden_out3 <= $signed(pipelined1_A3) * $signed(pipelined1_B3);
             end else begin
-              golden_out0 <= A0 * B0;
-              golden_out1 <= A1 * B1;
-              golden_out2 <= A2 * B2;
-              golden_out3 <= A3 * B3;
+              golden_out0 <= pipelined1_A0 * pipelined1_B0;
+              golden_out1 <= pipelined1_A1 * pipelined1_B1;
+              golden_out2 <= pipelined1_A2 * pipelined1_B2;
+              golden_out3 <= pipelined1_A3 * pipelined1_B3;
             end
           end
         end
         `MAC_DUAL: begin
           if (cfg[2]) begin // Accumulate
             if (cfg[3]) begin // Signed
-              {golden_out1, golden_out0} <= ($signed({A1, A0}) * $signed({B1, B0})) + $signed({golden_out1, golden_out0});
-              {golden_out3, golden_out2} <= ($signed({A3, A2}) * $signed({B3, B2})) + $signed({golden_out3, golden_out2});
+              {golden_out1, golden_out0} <= ($signed({pipelined1_A1, pipelined1_A0}) * $signed({pipelined1_B1, pipelined1_B0})) + $signed({golden_out1, golden_out0});
+              {golden_out3, golden_out2} <= ($signed({pipelined1_A3, pipelined1_A2}) * $signed({pipelined1_B3, pipelined1_B2})) + $signed({golden_out3, golden_out2});
             end else begin
-              {golden_out1, golden_out0} <= ({A1, A0} * {B1, B0}) + {golden_out1, golden_out0};
-              {golden_out3, golden_out2} <= ({A3, A2} * {B3, B2}) + {golden_out3, golden_out2};
+              {golden_out1, golden_out0} <= ({pipelined1_A1, pipelined1_A0} * {pipelined1_B1, pipelined1_B0}) + {golden_out1, golden_out0};
+              {golden_out3, golden_out2} <= ({pipelined1_A3, pipelined1_A2} * {pipelined1_B3, pipelined1_B2}) + {golden_out3, golden_out2};
             end
           end else begin
             if (cfg[3]) begin // Signed 
-              {golden_out1, golden_out0} <= $signed({A1, A0}) * $signed({B1, B0});
-              {golden_out3, golden_out2} <= $signed({A3, A2}) * $signed({B3, B2});
+              {golden_out1, golden_out0} <= $signed({pipelined1_A1, pipelined1_A0}) * $signed({pipelined1_B1, pipelined1_B0});
+              {golden_out3, golden_out2} <= $signed({pipelined1_A3, pipelined1_A2}) * $signed({pipelined1_B3, pipelined1_B2});
             end else begin
-              {golden_out1, golden_out0} <= {A1, A0} * {B1, B0};
-              {golden_out3, golden_out2} <= {A3, A2} * {B3, B2};
+              {golden_out1, golden_out0} <= {pipelined1_A1, pipelined1_A0} * {pipelined1_B1, pipelined1_B0};
+              {golden_out3, golden_out2} <= {pipelined1_A3, pipelined1_A2} * {pipelined1_B3, pipelined1_B2};
             end
           end
         end
         `MAC_QUAD: begin
           if (cfg[2]) begin // Accumulate
             if (cfg[3]) begin // Signed
-              {golden_out3, golden_out2, golden_out1, golden_out0} <= ($signed({A3, A2, A1, A0}) * $signed({B3, B2, B1, B0})) + $signed({golden_out3, golden_out2, golden_out1, golden_out0});
+              {golden_out3, golden_out2, golden_out1, golden_out0} <= ($signed({pipelined1_A3, pipelined1_A2, pipelined1_A1, pipelined1_A0}) * $signed({pipelined1_B3, pipelined1_B2, pipelined1_B1, pipelined1_B0})) + $signed({golden_out3, golden_out2, golden_out1, golden_out0});
             end else begin
-              {golden_out3, golden_out2, golden_out1, golden_out0} <= ({A3, A2, A1, A0} * {B3, B2, B1, B0}) + {golden_out3, golden_out2, golden_out1, golden_out0};
+              {golden_out3, golden_out2, golden_out1, golden_out0} <= ({pipelined1_A3, pipelined1_A2, pipelined1_A1, pipelined1_A0} * {pipelined1_B3, pipelined1_B2, pipelined1_B1, pipelined1_B0}) + {golden_out3, golden_out2, golden_out1, golden_out0};
             end
           end else begin
             if (cfg[3]) begin // Signed
-              {golden_out3, golden_out2, golden_out1, golden_out0} <= $signed({A3, A2, A1, A0}) * $signed({B3, B2, B1, B0});
+              {golden_out3, golden_out2, golden_out1, golden_out0} <= $signed({pipelined1_A3, pipelined1_A2, pipelined1_A1, pipelined1_A0}) * $signed({pipelined1_B3, pipelined1_B2, pipelined1_B1, pipelined1_B0});
             end else begin
-              {golden_out3, golden_out2, golden_out1, golden_out0} <= {A3, A2, A1, A0} * {B3, B2, B1, B0};
+              {golden_out3, golden_out2, golden_out1, golden_out0} <= {pipelined1_A3, pipelined1_A2, pipelined1_A1, pipelined1_A0} * {pipelined1_B3, pipelined1_B2, pipelined1_B1, pipelined1_B0};
             end
           end
         end
       endcase
-    end
-  end
-
-  always @(posedge clk) begin
-    if (cset) begin
-      pipelined_golden_out0 <= cfg[MAC_ACC_WIDTH+MAC_CONF_WIDTH-1:MAC_CONF_WIDTH];
-      pipelined_golden_out1 <= cfg[MAC_ACC_WIDTH*2+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH+MAC_CONF_WIDTH];
-      pipelined_golden_out2 <= cfg[MAC_ACC_WIDTH*3+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH];
-      pipelined_golden_out3 <= cfg[MAC_ACC_WIDTH*4+MAC_CONF_WIDTH-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH];
-    end else begin
-      pipelined_golden_out0 <= golden_out0;
-      pipelined_golden_out1 <= golden_out1;
-      pipelined_golden_out2 <= golden_out2;
-      pipelined_golden_out3 <= golden_out3;
     end
   end
 
@@ -191,14 +232,14 @@ module macTestHarness #(
 
   always @(posedge clk) begin
     if (~reset & ~cset) begin
-      A0 = $urandom;
-      A1 = $urandom;
-      A2 = $urandom;
-      A3 = $urandom;
-      B0 = $urandom;
-      B1 = $urandom;
-      B2 = $urandom;
-      B3 = $urandom;
+      A0 <= $urandom;
+      A1 <= $urandom;
+      A2 <= $urandom;
+      A3 <= $urandom;
+      B0 <= $urandom;
+      B1 <= $urandom;
+      B2 <= $urandom;
+      B3 <= $urandom;
 
       if (verbose) begin
         $display("---");
@@ -206,7 +247,7 @@ module macTestHarness #(
         $display("B0: %d B1: %d B2: %d B3: %d", B0, B1, B2, B3);
       end
 
-      if (out0 != pipelined_golden_out0 || out1 != pipelined_golden_out1 || out2 != pipelined_golden_out2 || out3 != pipelined_golden_out3 ) begin
+      if (out0 != golden_out0 || out1 != golden_out1 || out2 != golden_out2 || out3 != golden_out3 ) begin
         $display("FAILED: On test %0d of %0d", test, num_tests);
         $display("With cfg: %3b", cfg[MAC_CONF_WIDTH-1:0]);
         $display("Initial 0: %0d, Initial 1: %0d, Initial 2: %0d, Initial 3: %0d", 
@@ -214,10 +255,10 @@ module macTestHarness #(
           cfg[MAC_ACC_WIDTH*2-1:MAC_ACC_WIDTH+MAC_CONF_WIDTH], 
           cfg[MAC_ACC_WIDTH*3-1:MAC_ACC_WIDTH*2+MAC_CONF_WIDTH],
           cfg[MAC_ACC_WIDTH*4-1:MAC_ACC_WIDTH*3+MAC_CONF_WIDTH]);
-        $display("out0: Got %0d, Expected %0d", out0, pipelined_golden_out0);
-        $display("out1: Got %0d, Expected %0d", out1, pipelined_golden_out1);
-        $display("out2: Got %0d, Expected %0d", out2, pipelined_golden_out2);
-        $display("out3: Got %0d, Expected %0d", out3, pipelined_golden_out3);
+        $display("out0: Got %0d, Expected %0d", out0, golden_out0);
+        $display("out1: Got %0d, Expected %0d", out1, golden_out1);
+        $display("out2: Got %0d, Expected %0d", out2, golden_out2);
+        $display("out3: Got %0d, Expected %0d", out3, golden_out3);
         $finish; 
       end
     end

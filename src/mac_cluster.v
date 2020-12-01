@@ -37,18 +37,22 @@ module mac_cluster #(
   output [MAC_ACC_WIDTH-1:0] out3
 );
 
-reg [MAC_CONF_WIDTH-1:0] latched_cfg;
+/* ---------- GLOBAL WIRES ---------- */
+wire pipeline_rst = rst | cset;
 
+/* ---------- CONFIG LATCHING ---------- */
+reg [MAC_CONF_WIDTH-1:0] latched_cfg;
 always @(posedge clk) begin
   if (rst) begin
-    latched_cfg = {MAC_CONF_WIDTH{1'b0}};
+    latched_cfg <= {MAC_CONF_WIDTH{1'b0}};
   end else if (cset) begin
-    latched_cfg = cfg[MAC_CONF_WIDTH-1:0];
+    latched_cfg <= cfg[MAC_CONF_WIDTH-1:0];
   end else begin
-    latched_cfg = latched_cfg;
+    latched_cfg <= latched_cfg;
   end
 end
 
+/* ---------- PIPELINE STAGE 0 ---------- */
 wire [MAC_MIN_WIDTH-1:0] A0_sign_adjusted;
 wire [MAC_MIN_WIDTH-1:0] A1_sign_adjusted;
 wire [MAC_MIN_WIDTH-1:0] A2_sign_adjusted;
@@ -96,6 +100,142 @@ mac_mul_negator_block #(
   .C3_neg(C3_neg)
 );
 
+/* ---------- PIPELINE REGISTERS ---------- */
+wire [MAC_MIN_WIDTH-1:0] A0_sign_adjusted_pipelined;
+wire [MAC_MIN_WIDTH-1:0] A1_sign_adjusted_pipelined;
+wire [MAC_MIN_WIDTH-1:0] A2_sign_adjusted_pipelined;
+wire [MAC_MIN_WIDTH-1:0] A3_sign_adjusted_pipelined;
+wire [MAC_MIN_WIDTH-1:0] B0_sign_adjusted_pipelined;
+wire [MAC_MIN_WIDTH-1:0] B1_sign_adjusted_pipelined;
+wire [MAC_MIN_WIDTH-1:0] B2_sign_adjusted_pipelined;
+wire [MAC_MIN_WIDTH-1:0] B3_sign_adjusted_pipelined;
+
+wire C0_neg_pipelined1;
+wire C1_neg_pipelined1;
+wire C2_neg_pipelined1;
+wire C3_neg_pipelined1;
+
+register #(
+  .WIDTH(MAC_MIN_WIDTH)
+) A0_sign_adjusted_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(A0_sign_adjusted),
+  .Q(A0_sign_adjusted_pipelined)
+);
+
+register #(
+  .WIDTH(MAC_MIN_WIDTH)
+) A1_sign_adjusted_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(A1_sign_adjusted),
+  .Q(A1_sign_adjusted_pipelined)
+);
+
+register #(
+  .WIDTH(MAC_MIN_WIDTH)
+) A2_sign_adjusted_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(A2_sign_adjusted),
+  .Q(A2_sign_adjusted_pipelined)
+);
+
+register #(
+  .WIDTH(MAC_MIN_WIDTH)
+) A3_sign_adjusted_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(A3_sign_adjusted),
+  .Q(A3_sign_adjusted_pipelined)
+);
+
+register #(
+  .WIDTH(MAC_MIN_WIDTH)
+) B0_sign_adjusted_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(B0_sign_adjusted),
+  .Q(B0_sign_adjusted_pipelined)
+);
+
+register #(
+  .WIDTH(MAC_MIN_WIDTH)
+) B1_sign_adjusted_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(B1_sign_adjusted),
+  .Q(B1_sign_adjusted_pipelined)
+);
+
+register #(
+  .WIDTH(MAC_MIN_WIDTH)
+) B2_sign_adjusted_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(B2_sign_adjusted),
+  .Q(B2_sign_adjusted_pipelined)
+);
+
+register #(
+  .WIDTH(MAC_MIN_WIDTH)
+) B3_sign_adjusted_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(B3_sign_adjusted),
+  .Q(B3_sign_adjusted_pipelined)
+);
+
+register #(
+  .WIDTH(1)
+) C0_neg_register1 (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(C0_neg),
+  .Q(C0_neg_pipelined1)
+);
+
+register #(
+  .WIDTH(1)
+) C1_neg_register1 (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(C1_neg),
+  .Q(C1_neg_pipelined1)
+);
+
+register #(
+  .WIDTH(1)
+) C2_neg_register1 (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(C2_neg),
+  .Q(C2_neg_pipelined1)
+);
+
+register #(
+  .WIDTH(1)
+) C3_neg_register1 (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(C3_neg),
+  .Q(C3_neg_pipelined1)
+);
+
+/* ---------- PIPELINE STAGE 1 ---------- */
 wire [MAC_INT_WIDTH-1:0] mac_mul_out0;
 wire [MAC_INT_WIDTH-1:0] mac_mul_out1;
 wire [MAC_INT_WIDTH-1:0] mac_mul_out2;
@@ -111,11 +251,11 @@ mac_mul_block_0 #(
   .clk(clk),
   .rst(rst),
   .en(en),
-  .A0(A0_sign_adjusted),
-  .A1(A1_sign_adjusted),
-  .A2(A2_sign_adjusted),
-  .A3(A3_sign_adjusted),
-  .B0(B0_sign_adjusted),
+  .A0(A0_sign_adjusted_pipelined),
+  .A1(A1_sign_adjusted_pipelined),
+  .A2(A2_sign_adjusted_pipelined),
+  .A3(A3_sign_adjusted_pipelined),
+  .B0(B0_sign_adjusted_pipelined),
   .cfg(latched_cfg[1:0]),
   .C(mac_mul_out0)
 );
@@ -129,11 +269,11 @@ mac_mul_block_1 #(
   .clk(clk),
   .rst(rst),
   .en(en),
-  .A0(A0_sign_adjusted),
-  .A1(A1_sign_adjusted),
-  .A2(A2_sign_adjusted),
-  .A3(A3_sign_adjusted),
-  .B1(B1_sign_adjusted),
+  .A0(A0_sign_adjusted_pipelined),
+  .A1(A1_sign_adjusted_pipelined),
+  .A2(A2_sign_adjusted_pipelined),
+  .A3(A3_sign_adjusted_pipelined),
+  .B1(B1_sign_adjusted_pipelined),
   .cfg(latched_cfg[1:0]),
   .C(mac_mul_out1)
 );
@@ -147,11 +287,11 @@ mac_mul_block_2 #(
   .clk(clk),
   .rst(rst),
   .en(en),
-  .A0(A0_sign_adjusted),
-  .A1(A1_sign_adjusted),
-  .A2(A2_sign_adjusted),
-  .A3(A3_sign_adjusted),
-  .B2(B2_sign_adjusted),
+  .A0(A0_sign_adjusted_pipelined),
+  .A1(A1_sign_adjusted_pipelined),
+  .A2(A2_sign_adjusted_pipelined),
+  .A3(A3_sign_adjusted_pipelined),
+  .B2(B2_sign_adjusted_pipelined),
   .cfg(latched_cfg[1:0]),
   .C(mac_mul_out2)
 );
@@ -165,15 +305,107 @@ mac_mul_block_3 #(
   .clk(clk),
   .rst(rst),
   .en(en),
-  .A0(A0_sign_adjusted),
-  .A1(A1_sign_adjusted),
-  .A2(A2_sign_adjusted),
-  .A3(A3_sign_adjusted),
-  .B3(B3_sign_adjusted),
+  .A0(A0_sign_adjusted_pipelined),
+  .A1(A1_sign_adjusted_pipelined),
+  .A2(A2_sign_adjusted_pipelined),
+  .A3(A3_sign_adjusted_pipelined),
+  .B3(B3_sign_adjusted_pipelined),
   .cfg(latched_cfg[1:0]),
   .C(mac_mul_out3)
 );
 
+/* ---------- PIPELINE REGISTERS ---------- */
+wire [MAC_INT_WIDTH-1:0] mac_mul_out0_pipelined;
+wire [MAC_INT_WIDTH-1:0] mac_mul_out1_pipelined;
+wire [MAC_INT_WIDTH-1:0] mac_mul_out2_pipelined;
+wire [MAC_INT_WIDTH-1:0] mac_mul_out3_pipelined;
+
+wire C0_neg_pipelined2;
+wire C1_neg_pipelined2;
+wire C2_neg_pipelined2;
+wire C3_neg_pipelined2;
+
+register #(
+  .WIDTH(MAC_INT_WIDTH)
+) mac_mul_out0_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(mac_mul_out0),
+  .Q(mac_mul_out0_pipelined)
+);
+
+register #(
+  .WIDTH(MAC_INT_WIDTH)
+) mac_mul_out1_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(mac_mul_out1),
+  .Q(mac_mul_out1_pipelined)
+);
+
+register #(
+  .WIDTH(MAC_INT_WIDTH)
+) mac_mul_out2_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(mac_mul_out2),
+  .Q(mac_mul_out2_pipelined)
+);
+
+register #(
+  .WIDTH(MAC_INT_WIDTH)
+) mac_mul_out3_register (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(mac_mul_out3),
+  .Q(mac_mul_out3_pipelined)
+);
+
+register #(
+  .WIDTH(1)
+) C0_neg_register2 (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(C0_neg_pipelined1),
+  .Q(C0_neg_pipelined2)
+);
+
+register #(
+  .WIDTH(1)
+) C1_neg_register2 (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(C1_neg_pipelined1),
+  .Q(C1_neg_pipelined2)
+);
+
+register #(
+  .WIDTH(1)
+) C2_neg_register2 (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(C2_neg_pipelined1),
+  .Q(C2_neg_pipelined2)
+);
+
+register #(
+  .WIDTH(1)
+) C3_neg_register2 (
+  .clk(clk),
+  .rst(pipeline_rst),
+  .en(1'b1),
+  .D(C3_neg_pipelined1),
+  .Q(C3_neg_pipelined2)
+);
+
+/* ---------- PIPELINE STAGE 2 ---------- */
 wire [MAC_ACC_WIDTH-1:0] mac_combiner_out0;
 wire [MAC_ACC_WIDTH-1:0] mac_combiner_out1;
 wire [MAC_ACC_WIDTH-1:0] mac_combiner_out2;
@@ -194,10 +426,10 @@ mac_combiner_block #(
   .rst(rst),
   .en(en),
   .cfg(latched_cfg),
-  .partial0(mac_mul_out0),
-  .partial1(mac_mul_out1),
-  .partial2(mac_mul_out2),
-  .partial3(mac_mul_out3),
+  .partial0(mac_mul_out0_pipelined),
+  .partial1(mac_mul_out1_pipelined),
+  .partial2(mac_mul_out2_pipelined),
+  .partial3(mac_mul_out3_pipelined),
   .out0(mac_combiner_out0),
   .out1(mac_combiner_out1),
   .out2(mac_combiner_out2),
@@ -220,10 +452,10 @@ mac_acc_negator_block #(
   .C1_in(mac_combiner_out1),
   .C2_in(mac_combiner_out2),
   .C3_in(mac_combiner_out3),
-  .C0_neg(C0_neg),
-  .C1_neg(C1_neg),
-  .C2_neg(C2_neg),
-  .C3_neg(C3_neg),
+  .C0_neg(C0_neg_pipelined2),
+  .C1_neg(C1_neg_pipelined2),
+  .C2_neg(C2_neg_pipelined2),
+  .C3_neg(C3_neg_pipelined2),
   .C0_out(mac_combiner_out0_sign_adjusted),
   .C1_out(mac_combiner_out1_sign_adjusted),
   .C2_out(mac_combiner_out2_sign_adjusted),
