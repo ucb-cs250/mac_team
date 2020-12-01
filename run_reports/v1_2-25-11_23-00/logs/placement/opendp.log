@@ -1,0 +1,39 @@
+OpenROAD 0.9.0 e582f2522b
+This program is licensed under the BSD-3 license. See the LICENSE file for details. 
+Components of this program may be licensed under more restrictive licenses which must be honored.
+Notice 0: Reading LEF file:  /openLANE_flow/designs/mac_cluster/runs/25-11_23-00/tmp/merged_unpadded.lef
+Notice 0:     Created 11 technology layers
+Notice 0:     Created 25 technology vias
+Notice 0:     Created 437 library cells
+Notice 0: Finished LEF file:  /openLANE_flow/designs/mac_cluster/runs/25-11_23-00/tmp/merged_unpadded.lef
+Notice 0: 
+Reading DEF file: /openLANE_flow/designs/mac_cluster/runs/25-11_23-00/tmp/placement/openphysyn.def
+Notice 0: Design: mac_cluster
+Notice 0:     Created 328 pins.
+Notice 0:     Created 9050 components and 37739 component-terminals.
+Notice 0:     Created 7250 nets and 19109 connections.
+Notice 0: Finished DEF file: /openLANE_flow/designs/mac_cluster/runs/25-11_23-00/tmp/placement/openphysyn.def
+Warning: could not find power special net
+Design Stats
+--------------------------------
+total instances          9050
+multi row instances         0
+fixed instances          3601
+nets                     7250
+design area          247745.1 u^2
+fixed area             5421.4 u^2
+movable area          87885.5 u^2
+utilization                36 %
+utilization padded         59 %
+rows                      183
+row height                2.7 u
+
+Placement Analysis
+--------------------------------
+total displacement    20328.3 u
+average displacement      2.2 u
+max displacement         20.1 u
+original HPWL        303438.6 u
+legalized HPWL       322037.3 u
+delta HPWL                  6 %
+

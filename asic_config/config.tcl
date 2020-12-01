@@ -17,7 +17,6 @@ set ::env(CLOCK_PORT) "clk"
 set ::env(CLOCK_NET) $::env(CLOCK_PORT)
 
 set filename $::env(DESIGN_DIR)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
-puts $filename
 if { [file exists $filename] == 1} {
 	source $filename
 }
@@ -32,16 +31,23 @@ set ::env(FP_SIZING) absolute
 # Units probably microns
 set ::env(DIE_AREA) [list 0 0 700 700]
 
-# Floorplan config
 #set ::env(FP_CORE_UTIL) 5
-# Placement config
 set ::env(PL_TARGET_DENSITY) 0.3
 
-# CTS config
-# Routing config
 #set ::env(ROUTING_STRATEGY) 14 ;# run TritonRoute14
 #set ::env(GLB_RT_ADJUSTMENT) 0
-# Flow control config
+set ::env(GLB_RT_MAXLAYER) 5
+
+# add_macro_obs \
+#	-defFile $::env(CURRENT_DEF) \
+#	-lefFile $::env(MERGED_LEF_UNPADDED) \
+#	-obstruction core_obs \
+#	-placementX 500 \
+#	-placementY 500 \
+#	-sizeWidth 2200 \
+#	-sizeHeight 4300 \
+#	-fixed 1 \
+#	-layerNames "met5"
 
 # # threads for supporting tools
 set ::env(ROUTING_CORES) 4

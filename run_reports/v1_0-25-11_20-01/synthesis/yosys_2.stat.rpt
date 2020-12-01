@@ -1,0 +1,48 @@
+
+31. Printing statistics.
+
+=== mac_cluster ===
+
+   Number of wires:               8596
+   Number of wire bits:           8907
+   Number of public wires:        4058
+   Number of public wire bits:    4369
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               7491
+     sky130_fd_sc_hd__a2111oi_4      2
+     sky130_fd_sc_hd__a211o_4       77
+     sky130_fd_sc_hd__a21bo_4      182
+     sky130_fd_sc_hd__a21boi_4      55
+     sky130_fd_sc_hd__a21o_4        87
+     sky130_fd_sc_hd__a21oi_4       29
+     sky130_fd_sc_hd__a22oi_4       64
+     sky130_fd_sc_hd__a2bb2o_4     194
+     sky130_fd_sc_hd__a2bb2oi_4     19
+     sky130_fd_sc_hd__a32o_4       133
+     sky130_fd_sc_hd__a32oi_4       44
+     sky130_fd_sc_hd__and2_4       327
+     sky130_fd_sc_hd__and3_4        54
+     sky130_fd_sc_hd__and4_4         3
+     sky130_fd_sc_hd__buf_1        785
+     sky130_fd_sc_hd__conb_1       460
+     sky130_fd_sc_hd__dfxtp_4      256
+     sky130_fd_sc_hd__fa_4        1216
+     sky130_fd_sc_hd__inv_8        538
+     sky130_fd_sc_hd__nand2_4      220
+     sky130_fd_sc_hd__nand3_4        1
+     sky130_fd_sc_hd__nor2_4      1254
+     sky130_fd_sc_hd__nor3_4        97
+     sky130_fd_sc_hd__nor4_4         8
+     sky130_fd_sc_hd__o21a_4       249
+     sky130_fd_sc_hd__o21ai_4       86
+     sky130_fd_sc_hd__o22a_4       273
+     sky130_fd_sc_hd__o32a_4         9
+     sky130_fd_sc_hd__or2_4        731
+     sky130_fd_sc_hd__or3_4         14
+     sky130_fd_sc_hd__or4_4         18
+     sky130_fd_sc_hd__xor2_4         6
+
+   Chip area for module '\mac_cluster': 106168.073600
+

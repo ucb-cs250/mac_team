@@ -1,0 +1,26 @@
+
+22. Printing statistics.
+
+=== mac_cluster ===
+
+   Number of wires:               4613
+   Number of wire bits:           6193
+   Number of public wires:        3747
+   Number of public wire bits:    5327
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               4381
+     $_ANDNOT_                    1039
+     $_AND_                        170
+     $_MUX_                        953
+     $_NAND_                         2
+     $_NOR_                         17
+     $_NOT_                        303
+     $_ORNOT_                        8
+     $_OR_                          23
+     $_XNOR_                         3
+     $_XOR_                          2
+     sky130_fd_sc_hd__dfxtp_4      260
+     sky130_fd_sc_hd__fa_4        1601
+

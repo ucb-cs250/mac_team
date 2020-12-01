@@ -1,9 +1,0 @@
-  violation type: Short
-    srcs: macmul3.A0B3_mul_block.array_multiplier.horizontal\[6\].vertical\[5\].multiplier_cell.adder/OBS macmul3.A0B3_mul_block.array_multiplier.carry_bus\[45\] 
-    bbox = ( 163.47, 95.98 ) - ( 163.61, 96.12 ) on Layer met1
-  violation type: Short
-    srcs: macmul3.A0B3_mul_block.array_multiplier.carry_bus\[45\] macmul3.A0B3_mul_block.array_multiplier.horizontal\[6\].vertical\[5\].multiplier_cell.sum_in 
-    bbox = ( 163.385, 96.32 ) - ( 163.675, 96.46 ) on Layer met1
-  violation type: Short
-    srcs: macmul3.A0B3_mul_block.array_multiplier.carry_bus\[45\] macmul3.A0B3_mul_block.array_multiplier.horizontal\[6\].vertical\[5\].multiplier_cell.sum_in 
-    bbox = ( 163.47, 96.32 ) - ( 163.61, 96.46 ) on Layer met1

@@ -1,0 +1,4 @@
+during executing: "sta /openLANE_flow/scripts/sta.tcl |& tee >&@stdout /openLANE_flow/designs/mac_cluster/runs/25-11_23-00/logs/synthesis/opensta_spef.log"
+Last 10 lines:
+child killed: segmentation violation
+
