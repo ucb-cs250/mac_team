@@ -85,7 +85,7 @@ assign C2_neg = A2_msb ^ B2_msb;
 assign C3_neg = A3_msb ^ B3_msb;
 
 // Configurable negation chain
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) A0_adder (
   .A(~A0_in),
@@ -96,7 +96,7 @@ n_bit_adder #(
 );
 
 assign A1_cin = ~single ? A0_cout : 1'b1;
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) A1_adder (
   .A(~A1_in),
@@ -107,7 +107,7 @@ n_bit_adder #(
 );
 
 assign A2_cin = quad ? A1_cout : 1'b1;
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) A2_adder (
   .A(~A2_in),
@@ -118,7 +118,7 @@ n_bit_adder #(
 );
 
 assign A3_cin = ~single ? A2_cout : 1'b1;
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) A3_adder (
   .A(~A3_in),
@@ -128,7 +128,7 @@ n_bit_adder #(
   .cout()
 );
 
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) B0_adder (
   .A(~B0_in),
@@ -139,7 +139,7 @@ n_bit_adder #(
 );
 
 assign B1_cin = ~single ? B0_cout : 1'b1;
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) B1_adder (
   .A(~B1_in),
@@ -150,7 +150,7 @@ n_bit_adder #(
 );
 
 assign B2_cin = quad ? B1_cout : 1'b1;
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) B2_adder (
   .A(~B2_in),
@@ -161,7 +161,7 @@ n_bit_adder #(
 );
 
 assign B3_cin = ~single ? B2_cout : 1'b1;
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) B3_adder (
   .A(~B3_in),

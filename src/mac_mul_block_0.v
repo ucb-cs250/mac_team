@@ -78,7 +78,7 @@ wire block_1_cout;
 wire block_2_cout;
 wire block_3_cout;
 
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) block_1_adder (
   .A(A0B0[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
@@ -89,7 +89,7 @@ n_bit_adder #(
 );
 
 wire [MAC_MIN_WIDTH-1:0] block_2_B = quad ? A2B0[MAC_MIN_WIDTH-1:0] : {MAC_MIN_WIDTH{1'b0}};
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) block_2_adder (
   .A(A1B0[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
@@ -99,7 +99,7 @@ n_bit_adder #(
   .cout(block_2_cout)
 );
 
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) block_3_adder (
   .A(A2B0[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),
@@ -109,7 +109,7 @@ n_bit_adder #(
   .cout(block_3_cout)
 );
 
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_MIN_WIDTH)
 ) block_4_adder (
   .A(A3B0[MAC_MULT_WIDTH-1:MAC_MIN_WIDTH]),

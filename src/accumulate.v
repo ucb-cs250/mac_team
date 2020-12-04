@@ -32,7 +32,7 @@ always @(posedge clk) begin
   end
 end
 
-n_bit_adder #(
+n_bit_cla_adder #(
   .N(MAC_ACC_WIDTH)
 ) accumlate_adder (
   .A(sum_reg),
