@@ -322,17 +322,31 @@ module three_level_cla_adder #(
 
   // Handle remaining bits
   if (NUM_TWO_LEVEL_ADDERS != NUM_FULL_TWO_LEVEL_ADDERS) begin
-    two_level_cla_adder #(
-      .N(N-(16*NUM_FULL_TWO_LEVEL_ADDERS))
-    ) adder (
-      .A(A[N-1:16*NUM_FULL_TWO_LEVEL_ADDERS]),
-      .B(B[N-1:16*NUM_FULL_TWO_LEVEL_ADDERS]),
-      .cin(C_bus[NUM_TWO_LEVEL_ADDERS-1]),
-      .SUM(SUM[N-1:16*NUM_FULL_TWO_LEVEL_ADDERS]),
-      .cout(),
-      .GG(GG_bus[NUM_TWO_LEVEL_ADDERS-1]),
-      .PG(PG_bus[NUM_TWO_LEVEL_ADDERS-1])
-    );
+    if (N-(16*NUM_FULL_TWO_LEVEL_ADDERS) <= 4) begin
+      one_level_cla_adder #(
+        .N(N-(16*NUM_FULL_TWO_LEVEL_ADDERS))
+      ) adder (
+        .A(A[N-1:16*NUM_FULL_TWO_LEVEL_ADDERS]),
+        .B(B[N-1:16*NUM_FULL_TWO_LEVEL_ADDERS]),
+        .cin(C_bus[NUM_TWO_LEVEL_ADDERS-1]),
+        .SUM(SUM[N-1:16*NUM_FULL_TWO_LEVEL_ADDERS]),
+        .cout(),
+        .GG(GG_bus[NUM_TWO_LEVEL_ADDERS-1]),
+        .PG(PG_bus[NUM_TWO_LEVEL_ADDERS-1])
+      );
+    end else begin
+      two_level_cla_adder #(
+        .N(N-(16*NUM_FULL_TWO_LEVEL_ADDERS))
+      ) adder (
+        .A(A[N-1:16*NUM_FULL_TWO_LEVEL_ADDERS]),
+        .B(B[N-1:16*NUM_FULL_TWO_LEVEL_ADDERS]),
+        .cin(C_bus[NUM_TWO_LEVEL_ADDERS-1]),
+        .SUM(SUM[N-1:16*NUM_FULL_TWO_LEVEL_ADDERS]),
+        .cout(),
+        .GG(GG_bus[NUM_TWO_LEVEL_ADDERS-1]),
+        .PG(PG_bus[NUM_TWO_LEVEL_ADDERS-1])
+      );
+    end
   end
 
   wire [NUM_TWO_LEVEL_ADDERS-1:0] C_clu;

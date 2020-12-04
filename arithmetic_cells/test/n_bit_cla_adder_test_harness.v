@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module n_bit_cla_adder_test_harness #(
-  parameter N = 47
+  parameter N = 33
 )(
   input clk
 );
