@@ -1,0 +1,160 @@
+Startpoint: _10641_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _10549_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _10641_/CLK (sky130_fd_sc_hd__dfxtp_4)
+   0.22    0.22 v _10641_/Q (sky130_fd_sc_hd__dfxtp_4)
+   0.03    0.24 ^ _05946_/Y (sky130_fd_sc_hd__inv_8)
+   0.02    0.26 v _05947_/Y (sky130_fd_sc_hd__nor2_2)
+   0.00    0.26 v _10549_/D (sky130_fd_sc_hd__dfxtp_4)
+           0.26   data arrival time
+
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00   clock reconvergence pessimism
+           0.00 ^ _10549_/CLK (sky130_fd_sc_hd__dfxtp_4)
+  -0.03   -0.03   library hold time
+          -0.03   data required time
+---------------------------------------------------------
+          -0.03   data required time
+          -0.26   data arrival time
+---------------------------------------------------------
+           0.29   slack (MET)
+
+
+Startpoint: _10601_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _10836_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _10601_/CLK (sky130_fd_sc_hd__dfxtp_4)
+   0.63    0.63 v _10601_/Q (sky130_fd_sc_hd__dfxtp_4)
+   1.03    1.66 v maccombiner.partial0_upper_partial1_full_adder.adder_chain[0].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93    2.59 v maccombiner.partial0_upper_partial1_full_adder.adder_chain[1].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93    3.52 v maccombiner.partial0_upper_partial1_full_adder.adder_chain[2].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93    4.44 v maccombiner.partial0_upper_partial1_full_adder.adder_chain[3].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93    5.37 v maccombiner.partial0_upper_partial1_full_adder.adder_chain[4].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93    6.30 v maccombiner.partial0_upper_partial1_full_adder.adder_chain[5].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93    7.23 v maccombiner.partial0_upper_partial1_full_adder.adder_chain[6].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93    8.15 v maccombiner.partial0_upper_partial1_full_adder.adder_chain[7].adder/COUT (sky130_fd_sc_hd__fa_4)
+   1.33    9.49 v maccombiner.partial0_upper_partial1_full_adder.adder_chain[8].adder/SUM (sky130_fd_sc_hd__fa_4)
+   1.10   10.58 v maccombiner.quad_full_adder.adder_chain[0].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   11.51 v maccombiner.quad_full_adder.adder_chain[1].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   12.44 v maccombiner.quad_full_adder.adder_chain[2].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   13.37 v maccombiner.quad_full_adder.adder_chain[3].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   14.29 v maccombiner.quad_full_adder.adder_chain[4].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   15.22 v maccombiner.quad_full_adder.adder_chain[5].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   16.15 v maccombiner.quad_full_adder.adder_chain[6].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   17.07 v maccombiner.quad_full_adder.adder_chain[7].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   18.00 v maccombiner.quad_full_adder.adder_chain[8].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   18.93 v maccombiner.quad_full_adder.adder_chain[9].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   19.86 v maccombiner.quad_full_adder.adder_chain[10].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   20.78 v maccombiner.quad_full_adder.adder_chain[11].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   21.71 v maccombiner.quad_full_adder.adder_chain[12].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   22.64 v maccombiner.quad_full_adder.adder_chain[13].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   23.56 v maccombiner.quad_full_adder.adder_chain[14].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   24.49 v maccombiner.quad_full_adder.adder_chain[15].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   25.42 v maccombiner.quad_full_adder.adder_chain[16].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   26.35 v maccombiner.quad_full_adder.adder_chain[17].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   27.27 v maccombiner.quad_full_adder.adder_chain[18].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   28.20 v maccombiner.quad_full_adder.adder_chain[19].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   29.13 v maccombiner.quad_full_adder.adder_chain[20].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   30.05 v maccombiner.quad_full_adder.adder_chain[21].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   30.98 v maccombiner.quad_full_adder.adder_chain[22].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   31.91 v maccombiner.quad_full_adder.adder_chain[23].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   32.84 v maccombiner.quad_full_adder.adder_chain[24].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   33.76 v maccombiner.quad_full_adder.adder_chain[25].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   34.69 v maccombiner.quad_full_adder.adder_chain[26].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   35.62 v maccombiner.quad_full_adder.adder_chain[27].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   36.54 v maccombiner.quad_full_adder.adder_chain[28].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   37.47 v maccombiner.quad_full_adder.adder_chain[29].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   38.40 v maccombiner.quad_full_adder.adder_chain[30].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   39.33 v maccombiner.quad_full_adder.adder_chain[31].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   40.25 v maccombiner.quad_full_adder.adder_chain[32].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   41.18 v maccombiner.quad_full_adder.adder_chain[33].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   42.11 v maccombiner.quad_full_adder.adder_chain[34].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   43.03 v maccombiner.quad_full_adder.adder_chain[35].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   43.96 v maccombiner.quad_full_adder.adder_chain[36].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   44.89 v maccombiner.quad_full_adder.adder_chain[37].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   45.82 v maccombiner.quad_full_adder.adder_chain[38].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   46.74 v maccombiner.quad_full_adder.adder_chain[39].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   47.67 v maccombiner.quad_full_adder.adder_chain[40].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   48.60 v maccombiner.quad_full_adder.adder_chain[41].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   49.52 v maccombiner.quad_full_adder.adder_chain[42].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   50.45 v maccombiner.quad_full_adder.adder_chain[43].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   51.38 v maccombiner.quad_full_adder.adder_chain[44].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   52.31 v maccombiner.quad_full_adder.adder_chain[45].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   53.23 v maccombiner.quad_full_adder.adder_chain[46].adder/COUT (sky130_fd_sc_hd__fa_4)
+   0.93   54.16 v maccombiner.quad_full_adder.adder_chain[47].adder/COUT (sky130_fd_sc_hd__fa_4)
+   1.27   55.43 v maccombiner.quad_full_adder.adder_chain[48].adder/SUM (sky130_fd_sc_hd__fa_4)
+   0.15   55.58 ^ _06390_/Y (sky130_fd_sc_hd__nand2_2)
+   0.24   55.82 v _06391_/Y (sky130_fd_sc_hd__nand2_2)
+   0.72   56.55 v _07073_/X (sky130_fd_sc_hd__or2_2)
+   1.78   58.33 v _07093_/X (sky130_fd_sc_hd__or4_2)
+   1.36   59.68 v _07101_/X (sky130_fd_sc_hd__or4_2)
+   0.46   60.15 v _07102_/X (sky130_fd_sc_hd__buf_1)
+   1.05   61.20 v _07103_/X (sky130_fd_sc_hd__or3_2)
+   0.36   61.56 v _07104_/X (sky130_fd_sc_hd__buf_1)
+   0.25   61.81 ^ _07105_/Y (sky130_fd_sc_hd__nor4_2)
+   0.25   62.06 ^ _07106_/X (sky130_fd_sc_hd__or2_2)
+   0.41   62.47 ^ _07107_/X (sky130_fd_sc_hd__buf_1)
+   0.10   62.57 v _08725_/Y (sky130_fd_sc_hd__inv_8)
+   1.27   63.84 v _08726_/X (sky130_fd_sc_hd__or4_2)
+   0.46   64.31 v _08727_/X (sky130_fd_sc_hd__buf_1)
+   1.05   65.36 v _08728_/X (sky130_fd_sc_hd__or3_2)
+   0.34   65.70 v _08729_/X (sky130_fd_sc_hd__buf_1)
+   1.55   67.25 v _08730_/X (sky130_fd_sc_hd__or4_2)
+   0.71   67.96 v _08732_/X (sky130_fd_sc_hd__or2_2)
+   0.34   68.30 v _08733_/X (sky130_fd_sc_hd__buf_1)
+   1.20   69.49 v _08734_/X (sky130_fd_sc_hd__or3_2)
+   0.82   70.31 v _08735_/X (sky130_fd_sc_hd__or2_2)
+   0.65   70.96 v _08738_/X (sky130_fd_sc_hd__or2_2)
+   0.34   71.30 v _08739_/X (sky130_fd_sc_hd__buf_1)
+   1.33   72.63 v _08740_/X (sky130_fd_sc_hd__or4_2)
+   0.40   73.03 v _08741_/X (sky130_fd_sc_hd__buf_1)
+   1.01   74.04 v _08752_/X (sky130_fd_sc_hd__or3_2)
+   0.35   74.39 v _08753_/X (sky130_fd_sc_hd__buf_1)
+   0.13   74.52 ^ _08754_/Y (sky130_fd_sc_hd__inv_8)
+   1.28   75.80 v macaccnegator.C3_adder.adder.adders[1].adder.adders[2].adder.adders[2].adder/SUM (sky130_fd_sc_hd__fa_4)
+   0.50   76.29 v _06790_/X (sky130_fd_sc_hd__o22a_4)
+   0.12   76.41 ^ _09446_/Y (sky130_fd_sc_hd__nor2_2)
+   0.28   76.69 ^ _09447_/X (sky130_fd_sc_hd__or2_2)
+   0.08   76.77 v _09448_/Y (sky130_fd_sc_hd__inv_8)
+   0.06   76.83 ^ _09452_/Y (sky130_fd_sc_hd__nand2_2)
+   0.30   77.13 ^ _09453_/X (sky130_fd_sc_hd__and2_2)
+   0.07   77.19 v _09454_/Y (sky130_fd_sc_hd__nor2_2)
+   1.52   78.71 v _09495_/X (sky130_fd_sc_hd__or4_2)
+   0.28   78.99 v _09496_/X (sky130_fd_sc_hd__buf_1)
+   0.22   79.21 ^ _09508_/Y (sky130_fd_sc_hd__nand2_2)
+   0.11   79.32 v _09509_/Y (sky130_fd_sc_hd__nor2_2)
+   0.99   80.31 v _09510_/X (sky130_fd_sc_hd__or3_2)
+   1.54   81.85 ^ macacc.acc3.accumlate_adder.adder.adders[1].adder.adders[3].adder.adders[3].adder/SUM (sky130_fd_sc_hd__fa_4)
+   0.08   81.93 v _09773_/Y (sky130_fd_sc_hd__nor2_2)
+   0.21   82.15 ^ _09774_/Y (sky130_fd_sc_hd__nor3_2)
+   0.12   82.27 v _09775_/Y (sky130_fd_sc_hd__nor2_2)
+   0.10   82.37 ^ _09776_/Y (sky130_fd_sc_hd__nor2_2)
+   0.00   82.37 ^ _10836_/D (sky130_fd_sc_hd__dfxtp_4)
+          82.37   data arrival time
+
+  83.00   83.00   clock clk (rise edge)
+   0.00   83.00   clock network delay (ideal)
+   0.00   83.00   clock reconvergence pessimism
+          83.00 ^ _10836_/CLK (sky130_fd_sc_hd__dfxtp_4)
+  -0.16   82.84   library setup time
+          82.84   data required time
+---------------------------------------------------------
+          82.84   data required time
+         -82.37   data arrival time
+---------------------------------------------------------
+           0.47   slack (MET)
+
+
