@@ -40,7 +40,7 @@ def build_simulator(clean = False):
       print('{}'.format(test_make_output))
       print('An exception has occured!:\n {}'.format(test_make_err))
 
-def run_simulator(n, w, signed, acc, initials):
+def run_simulator(n, w, signed, acc, initials, edgecase):
   if initials:
     data_file = f"{test_result_dir}/results_{w}_{'mac' if acc else 'mul'}_{'signed' if signed else 'unsigned'}_initials.npz"
     if os.path.exists(data_file):
@@ -75,7 +75,7 @@ def run_simulator(n, w, signed, acc, initials):
 
   try:
     test_output = subprocess.run([f"{base_dir}/simulator-mac_test_harness", f"+cfg={cfg}", f"+initial0={initial_cfg[0]}", f"+initial1={initial_cfg[1]}",
-      f"+initial2={initial_cfg[2]}",  f"+initial3={initial_cfg[3]}", "+verbose=1", f"+num_tests={n}", f"+verilator+seed+{seed}"], 
+      f"+initial2={initial_cfg[2]}",  f"+initial3={initial_cfg[3]}", "+verbose=1", f"+num_tests={n}", f"+verilator+seed+{seed}", f"+edgecase={edgecase}"], 
       check=True, stdin=stdinf, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=600).stdout.decode(sys.getfilesystemencoding())
   except subprocess.CalledProcessError as e:
     test_output = e.output.decode(sys.getfilesystemencoding())
@@ -186,6 +186,7 @@ if __name__ == "__main__":
   parser.add_argument('-t', help='Set coverage target for configuration (float between 0 and 1)', type=float, default=0.0)
   parser.add_argument('-n', help='Number of tests to run (per cycle if target is set). Number of initial values to test if --initial set', type=int, default=100)
   parser.add_argument('-w', help='Set width of MAC operations', type=int, default = 8)
+  parser.add_argument('-e', help='Test a particular edge. 1: A is 0, 2: A is max value, 3: B is 0, 4: B is max value', type=int, default = 0)
   parser.add_argument('--acc', help='Turn on accumulate for MAC', action='store_true', default = False)
   parser.add_argument('--signed', help='Turn on signed operations for MAC', action='store_true', default = False)
   parser.add_argument('--initials', help='Test random initial values', action='store_true', default = False)
@@ -199,7 +200,7 @@ if __name__ == "__main__":
   if args.initials:
     print("---RUNNING TESTING RANDOM INITIAL VALUES---")
     for _ in range (0, args.n):
-      run_simulator(10, args.w, args.signed, args.acc, True)
+      run_simulator(10, args.w, args.signed, args.acc, True, args.e)
   else:
     print("---TESTING RANDOM INPUTS---")
     if args.t > 0.0:
@@ -213,7 +214,7 @@ if __name__ == "__main__":
 
         print(f"INFO: Current coverage: {coverage}")
 
-        last_result = run_simulator(args.n, args.w, args.signed, args.acc, False)
+        last_result = run_simulator(args.n, args.w, args.signed, args.acc, False, args.e)
         coverage = calculate_coverage(args.n, args.w, args.signed, args.acc)
 
 
@@ -222,7 +223,7 @@ if __name__ == "__main__":
       else:
         print("---COVERAGE TARGET HIT---")
     else:
-      run_simulator(args.n, args.w, args.signed, args.acc, False)
+      run_simulator(args.n, args.w, args.signed, args.acc, False, args.e)
       print(f"INFO: Current coverage: {calculate_coverage(args.n, args.w, args.signed, args.acc)}")
 
     if (args.show):

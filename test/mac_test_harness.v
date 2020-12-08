@@ -37,6 +37,8 @@ module macTestHarness #(
   wire [MAC_ACC_WIDTH-1:0] out2;
   wire [MAC_ACC_WIDTH-1:0] out3;
 
+  reg [2:0] edgecase = 0;
+
   //-----------------------------------------------
   // Instantiate the dut
 
@@ -225,6 +227,7 @@ module macTestHarness #(
     $value$plusargs("initial3=%d", initial3_reg);
     $value$plusargs("num_tests=%d", num_tests);
     $value$plusargs("verbose=%d", verbose);
+    $value$plusargs("edgecase=%d", edgecase);
   end
 
   //-----------------------------------------------
@@ -232,14 +235,14 @@ module macTestHarness #(
 
   always @(posedge clk) begin
     if (~reset & ~cset) begin
-      A0 <= $urandom;
-      A1 <= $urandom;
-      A2 <= $urandom;
-      A3 <= $urandom;
-      B0 <= $urandom;
-      B1 <= $urandom;
-      B2 <= $urandom;
-      B3 <= $urandom;
+      A0 <= edgecase == 1 ? 0 : (edgecase == 2 ? {MAC_MIN_WIDTH{1'b1}} : $urandom);
+      A1 <= edgecase == 1 ? 0 : (edgecase == 2 ? {MAC_MIN_WIDTH{1'b1}} : $urandom);
+      A2 <= edgecase == 1 ? 0 : (edgecase == 2 ? {MAC_MIN_WIDTH{1'b1}} : $urandom);
+      A3 <= edgecase == 1 ? 0 : (edgecase == 2 ? {MAC_MIN_WIDTH{1'b1}} : $urandom); 
+      B0 <= edgecase == 3 ? 0 : (edgecase == 4 ? {MAC_MIN_WIDTH{1'b1}} : $urandom);
+      B1 <= edgecase == 3 ? 0 : (edgecase == 4 ? {MAC_MIN_WIDTH{1'b1}} : $urandom);
+      B2 <= edgecase == 3 ? 0 : (edgecase == 4 ? {MAC_MIN_WIDTH{1'b1}} : $urandom);
+      B3 <= edgecase == 3 ? 0 : (edgecase == 4 ? {MAC_MIN_WIDTH{1'b1}} : $urandom);
 
       if (verbose) begin
         $display("---");
