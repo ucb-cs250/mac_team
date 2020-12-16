@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 `include "mac_const.vh"
 
-module mac_mul_block_2 #(
+module mac_mul_block_2_experimental #(
   parameter MAC_CONF_WIDTH=2,
   parameter MAC_MIN_WIDTH=8,
   parameter MAC_MULT_WIDTH=2*MAC_MIN_WIDTH,
