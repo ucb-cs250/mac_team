@@ -45,13 +45,13 @@ always @(posedge clk) begin
   mult_only_out3_reg <= in3;
 end
 
-// Accumulators
-wire carry_0_out;
-wire carry_1_in;
-wire carry_1_out;
-wire carry_2_in;
-wire carry_2_out;
-wire carry_3_in;
+wire carry_in_1;
+wire carry_in_2;
+wire carry_in_3;
+
+wire [3:0] P;
+wire [3:0] G;
+wire [2:0] C;
 
 accumulate #(
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
@@ -61,10 +61,11 @@ accumulate #(
   .rst(rst),
   .en(en),
   .cset(cset),
-  .carry_in(1'b0),
   .init(initial0),
+  .carry_in(1'b0),
   .acc_in(in0),
-  .carry_out(carry_0_out),
+  .PG(P[0]),
+  .GG(G[0]),
   .out(acc_out0)
 );
 
@@ -76,10 +77,11 @@ accumulate #(
   .rst(rst),
   .en(en),
   .cset(cset),
-  .carry_in(carry_1_in),
   .init(initial1),
+  .carry_in(carry_in_1),
   .acc_in(in1),
-  .carry_out(carry_1_out),
+  .PG(P[1]),
+  .GG(G[1]),
   .out(acc_out1)
 );
 
@@ -91,10 +93,11 @@ accumulate #(
   .rst(rst),
   .en(en),
   .cset(cset),
-  .carry_in(carry_2_in),
   .init(initial2),
+  .carry_in(carry_in_2),
   .acc_in(in2),
-  .carry_out(carry_2_out),
+  .PG(P[2]),
+  .GG(G[2]),
   .out(acc_out2)
 );
 
@@ -106,20 +109,32 @@ accumulate #(
   .rst(rst),
   .en(en),
   .cset(cset),
-  .carry_in(carry_3_in),
   .init(initial3),
+  .carry_in(carry_in_3),
   .acc_in(in3),
-  .carry_out(), // Empty, will overflow
+  .PG(P[3]),
+  .GG(G[3]),
   .out(acc_out3)
+);
+
+carry_lookahead_unit #(
+  .N(4)
+) clu (
+  .cin(1'b0),
+  .P(P),
+  .G(G),
+  .C(C),
+  .GG(),
+  .PG()
 );
 
 // Assigning Carry Signals
 wire single = ~(cfg[1] | cfg[0]);
 wire quad = cfg[1] & ~cfg[0];
 
-assign carry_1_in = single ? 1'b0 : carry_0_out;
-assign carry_2_in = quad ? carry_1_out : 1'b0;
-assign carry_3_in = single ? 1'b0 : carry_2_out;
+assign carry_in_1 = single ? 1'b0 : C[0];
+assign carry_in_2 = quad ? C[1] : 1'b0;
+assign carry_in_3 = single ? 1'b0 : C[2];
 
 // Assigning outputs
 assign out0 = cfg[2] ? acc_out0 : mult_only_out0_reg;

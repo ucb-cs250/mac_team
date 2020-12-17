@@ -13,7 +13,8 @@ module accumulate #(
   input [MAC_ACC_WIDTH - 1:0] init, // Initial value
   input [MAC_ACC_WIDTH - 1:0] acc_in, 
 
-  output carry_out,
+  output PG,
+  output GG,
   output [MAC_ACC_WIDTH-1:0] out
 );
 
@@ -39,7 +40,9 @@ n_bit_cla_adder #(
   .B(acc_in),
   .cin(carry_in),
   .SUM(sum),
-  .cout(carry_out)
+  .cout(),
+  .PG(PG),
+  .GG(GG)
 );
 
 assign out = sum_reg;

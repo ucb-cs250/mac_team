@@ -1,13 +1,15 @@
 `timescale 1ns / 1ps
 
 module n_bit_cla_adder #(
-    parameter N=45
+    parameter N=32
 )(
     input [N-1:0]   A,
     input [N-1:0]   B,
     input           cin,
     output [N-1:0]  SUM,
-    output          cout
+    output          cout,
+    output          PG,
+    output          GG
 );
   
   if (N <= 4) begin
@@ -19,8 +21,8 @@ module n_bit_cla_adder #(
       .cin(cin),
       .SUM(SUM),
       .cout(cout),
-      .PG(),
-      .GG()
+      .PG(PG),
+      .GG(GG)
     );
   end else if (N <= 16) begin
     two_level_cla_adder #(
@@ -31,8 +33,8 @@ module n_bit_cla_adder #(
       .cin(cin),
       .SUM(SUM),
       .cout(cout),
-      .PG(),
-      .GG()
+      .PG(PG),
+      .GG(GG)
     );
   end else if (N <= 64) begin
     three_level_cla_adder #(
@@ -43,8 +45,8 @@ module n_bit_cla_adder #(
       .cin(cin),
       .SUM(SUM),
       .cout(cout),
-      .PG(),
-      .GG()
+      .PG(PG),
+      .GG(GG)
     ); 
   end else begin
     $error($sformatf("Illegal value for n_bit_cla_adder parameter N (%0d)", N));
