@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 `include "mac_const.vh"
 
-module mac_cluste_experimental #(
+module mac_cluster_experimental #(
   // 1 (MSB) but for signed (1) or unsigned (0), 1 bit for mac or mul, 2 (LSB) bits for Single, Dual, or Quad.
   parameter MAC_CONF_WIDTH=4,
   parameter MAC_MIN_WIDTH=8,
@@ -59,7 +59,7 @@ wire [MAC_INT_WIDTH-1:0] mac_mul_out2;
 wire [MAC_INT_WIDTH-1:0] mac_mul_out3;
 
 // Instantiating all blocks in a quad-cluster and fully connecting them together
-mac_mul_block_0 #(
+mac_mul_block_0_experimental #(
   .MAC_CONF_WIDTH(2),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_MULT_WIDTH(MAC_MULT_WIDTH),
@@ -77,7 +77,7 @@ mac_mul_block_0 #(
   .C(mac_mul_out0)
 );
 
-mac_mul_block_1 #(
+mac_mul_block_1_experimental #(
   .MAC_CONF_WIDTH(2),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_MULT_WIDTH(MAC_MULT_WIDTH),
@@ -95,7 +95,7 @@ mac_mul_block_1 #(
   .C(mac_mul_out1)
 );
 
-mac_mul_block_2 #(
+mac_mul_block_2_experimental #(
   .MAC_CONF_WIDTH(2),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_MULT_WIDTH(MAC_MULT_WIDTH),
@@ -113,7 +113,7 @@ mac_mul_block_2 #(
   .C(mac_mul_out2)
 );
 
-mac_mul_block_3 #(
+mac_mul_block_3_experimental #(
   .MAC_CONF_WIDTH(2),
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),
   .MAC_MULT_WIDTH(MAC_MULT_WIDTH),

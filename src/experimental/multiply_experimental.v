@@ -21,5 +21,4 @@ n_bit_array_multiplier #(
 	.PROD(C)
 );
 
-end
 endmodule
