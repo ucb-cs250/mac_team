@@ -51,7 +51,7 @@ wire carry_in_3;
 
 wire [3:0] P;
 wire [3:0] G;
-wire [2:0] C;
+wire [3:0] C;
 
 accumulate #(
   .MAC_MIN_WIDTH(MAC_MIN_WIDTH),

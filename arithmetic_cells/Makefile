@@ -9,7 +9,7 @@ skywater_fa_dir=$(base_dir)/../../skywater-pdk/libraries/sky130_fd_sc_hd/latest/
 skywater_ha_dir=$(base_dir)/../../skywater-pdk/libraries/sky130_fd_sc_hd/latest/cells/ha
 
 sim_name = verilator
-model_name = n_bit_one_adder_test_harness
+model_name = n_bit_acc_negator_adder_test_harness
 
 sim_prefix = simulator
 sim = $(base_dir)/$(sim_prefix)-$(model_name)

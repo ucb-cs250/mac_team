@@ -56,54 +56,46 @@ wire C2_msb = C2_in[MAC_ACC_WIDTH-1];
 wire C3_msb = C3_in[MAC_ACC_WIDTH-1];
 
 // Configurable negation chain
-n_bit_cla_adder #(
+n_bit_acc_negator_adder #(
   .N(MAC_ACC_WIDTH)
 ) C0_adder (
   .A(~C0_in),
-  .B({MAC_ACC_WIDTH{1'b0}}),
   .cin(1'b1),
   .SUM(C0_bar),
   .PG(),
-  .GG(),
   .cout(C0_cout)
 );
 
 assign C1_cin = ~single ? C0_cout : 1'b1;
-n_bit_cla_adder #(
+n_bit_acc_negator_adder #(
   .N(MAC_ACC_WIDTH)
 ) C1_adder (
   .A(~C1_in),
-  .B({MAC_ACC_WIDTH{1'b0}}),
   .cin(C1_cin),
   .SUM(C1_bar),
   .PG(),
-  .GG(),
   .cout(C1_cout)
 );
 
 assign C2_cin = quad ? C1_cout : 1'b1;
-n_bit_cla_adder #(
+n_bit_acc_negator_adder #(
   .N(MAC_ACC_WIDTH)
 ) C2_adder (
   .A(~C2_in),
-  .B({MAC_ACC_WIDTH{1'b0}}),
   .cin(C2_cin),
   .SUM(C2_bar),
   .PG(),
-  .GG(),
   .cout(C2_cout)
 );
 
 assign C3_cin = ~single ? C2_cout : 1'b1;
-n_bit_cla_adder #(
+n_bit_acc_negator_adder #(
   .N(MAC_ACC_WIDTH)
 ) C3_adder (
   .A(~C3_in),
-  .B({MAC_ACC_WIDTH{1'b0}}),
   .cin(C3_cin),
   .SUM(C3_bar),
   .PG(),
-  .GG(),
   .cout()
 );
 
