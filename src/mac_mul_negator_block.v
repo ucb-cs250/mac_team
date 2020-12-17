@@ -95,76 +95,69 @@ n_bit_one_adder #(
 );
 
 assign A1_cin = ~single ? A0_cout : 1'b1;
-n_bit_adder #(
+n_bit_one_adder #(
   .N(MAC_MIN_WIDTH)
 ) A1_adder (
   .A(~A1_in),
-  .B({MAC_MIN_WIDTH{1'b0}}),
   .cin(A1_cin),
   .SUM(A1_bar),
   .cout(A1_cout)
 );
 
 assign A2_cin = quad ? A1_cout : 1'b1;
-n_bit_adder #(
+n_bit_one_adder #(
   .N(MAC_MIN_WIDTH)
 ) A2_adder (
   .A(~A2_in),
-  .B({MAC_MIN_WIDTH{1'b0}}),
   .cin(A2_cin),
   .SUM(A2_bar),
   .cout(A2_cout)
 );
 
 assign A3_cin = ~single ? A2_cout : 1'b1;
-n_bit_adder #(
+n_bit_one_adder #(
   .N(MAC_MIN_WIDTH)
 ) A3_adder (
   .A(~A3_in),
-  .B({MAC_MIN_WIDTH{1'b0}}),
   .cin(A3_cin),
   .SUM(A3_bar),
   .cout()
 );
 
-n_bit_adder #(
+n_bit_one_adder #(
   .N(MAC_MIN_WIDTH)
 ) B0_adder (
   .A(~B0_in),
-  .B({MAC_MIN_WIDTH{1'b0}}),
   .cin(1'b1),
   .SUM(B0_bar),
   .cout(B0_cout)
 );
 
 assign B1_cin = ~single ? B0_cout : 1'b1;
-n_bit_adder #(
+n_bit_one_adder #(
   .N(MAC_MIN_WIDTH)
 ) B1_adder (
   .A(~B1_in),
-  .B({MAC_MIN_WIDTH{1'b0}}),
   .cin(B1_cin),
   .SUM(B1_bar),
   .cout(B1_cout)
 );
 
 assign B2_cin = quad ? B1_cout : 1'b1;
-n_bit_adder #(
+n_bit_one_adder #(
   .N(MAC_MIN_WIDTH)
 ) B2_adder (
   .A(~B2_in),
-  .B({MAC_MIN_WIDTH{1'b0}}),
   .cin(B2_cin),
   .SUM(B2_bar),
   .cout(B2_cout)
 );
 
 assign B3_cin = ~single ? B2_cout : 1'b1;
-n_bit_adder #(
+n_bit_one_adder #(
   .N(MAC_MIN_WIDTH)
 ) B3_adder (
   .A(~B3_in),
-  .B({MAC_MIN_WIDTH{1'b0}}),
   .cin(B3_cin),
   .SUM(B3_bar),
   .cout()
