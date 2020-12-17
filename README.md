@@ -1,6 +1,6 @@
 # mac_team
 
-This is a width-configurable MAC "block" that can calculate 4-8bit\*8bit, 2-16bit\*16-bit, or 1-32bit\*32bit MAC or multiply operations in a single cycle. The operation and operation bitwidth can be configurated at runtime.
+This is a pipelined, width-configurable MAC "block" that can calculate 4-8bit\*8bit, 2-16bit\*16-bit, or 1-32bit\*32bit MAC or multiply operations with a three-cycle delay. The operation and operation bitwidth can be configurated at runtime.
 
 ## Basic Block Diagram and IO
 Below is a basic block diagram of the inputs and outputs of the MAC from an external point of view. More a closer look at the MAC, please refer to the section [MAC Cluster Block Diagram](#MAC-Cluster-Block-Diagram).
@@ -108,5 +108,7 @@ For those who are interested in the design of the MAC, the below diagram briefly
 Regarding the main components, the multiply, combiner, and accumulator blocks provide the MAC cluster's core functionality. Each multiply block preforms unsigned 8x8 multiply operations with up to 4 parallel multiplies at a time. For the single width (8-bit) configuration, each multiply block performs their own independent 8x8 multiply. For larger configurations such as the 16 and 32-bit inputs, the multiply blocks perform multiple operations in parallel to compute the cross-products to multiply larger bitwidths. The combiner block then takes those cross-products and assembles them into the correct result. Once the inputs have been properly multiplied, they are then passed into the accumulator which will then accumulate the values or forward the values depending on the configured function.
 
 For the MAC to support signed operations, negator blocks are cleverly used to manipulate the sign of the multiplication inputs and outputs such that we can re-use the unsigned multipliers to avoid extra hardware. The first negator block will take the absolute value of all inputs to allow for unsigned multiplication, while the second negator will assign the correct sign after the multiplication has completed. This double negation layer strategy allows us to properly multiply signed inputs without having the need for signed multipliers.
+
+In terms of pipelining, the cluster is broken up into three stages, as shown with the verticle dotted lines before the mult and accumulator blocks.
 
 For more exact block diagrams of each component, you can check out the [diagrams directory](https://github.com/ucb-cs250/mac_team/tree/master/diagrams).
