@@ -38,14 +38,6 @@ wire [MAC_ACC_WIDTH-1:0] C1_bar;
 wire [MAC_ACC_WIDTH-1:0] C2_bar;
 wire [MAC_ACC_WIDTH-1:0] C3_bar;
 
-wire C0_cout;
-wire C1_cout;
-wire C2_cout;
-
-wire C1_cin;
-wire C2_cin;
-wire C3_cin;
-
 wire quad = cfg[1] & ~cfg[0];
 wire dual = ~cfg[1] & cfg[0];
 wire single = ~(quad | dual);
@@ -55,6 +47,14 @@ wire C1_msb = C1_in[MAC_ACC_WIDTH-1];
 wire C2_msb = C2_in[MAC_ACC_WIDTH-1];
 wire C3_msb = C3_in[MAC_ACC_WIDTH-1];
 
+wire C1_cin;
+wire C2_cin;
+wire C3_cin;
+
+wire [3:0] P;
+wire [3:0] G;
+wire [2:0] C;
+
 // Configurable negation chain
 n_bit_cla_adder #(
   .N(MAC_ACC_WIDTH)
@@ -63,10 +63,12 @@ n_bit_cla_adder #(
   .B({MAC_ACC_WIDTH{1'b0}}),
   .cin(1'b1),
   .SUM(C0_bar),
-  .cout(C0_cout)
+  .PG(P[0]),
+  .GG(G[0]),
+  .cout()
 );
 
-assign C1_cin = ~single ? C0_cout : 1'b1;
+assign C1_cin = ~single ? C[0] : 1'b1;
 n_bit_cla_adder #(
   .N(MAC_ACC_WIDTH)
 ) C1_adder (
@@ -74,10 +76,12 @@ n_bit_cla_adder #(
   .B({MAC_ACC_WIDTH{1'b0}}),
   .cin(C1_cin),
   .SUM(C1_bar),
-  .cout(C1_cout)
+  .PG(P[1]),
+  .GG(G[1]),
+  .cout()
 );
 
-assign C2_cin = quad ? C1_cout : 1'b1;
+assign C2_cin = quad ? C[1] : 1'b1;
 n_bit_cla_adder #(
   .N(MAC_ACC_WIDTH)
 ) C2_adder (
@@ -85,10 +89,12 @@ n_bit_cla_adder #(
   .B({MAC_ACC_WIDTH{1'b0}}),
   .cin(C2_cin),
   .SUM(C2_bar),
-  .cout(C2_cout)
+  .PG(P[2]),
+  .GG(G[2]),
+  .cout()
 );
 
-assign C3_cin = ~single ? C2_cout : 1'b1;
+assign C3_cin = ~single ? C[2] : 1'b1;
 n_bit_cla_adder #(
   .N(MAC_ACC_WIDTH)
 ) C3_adder (
@@ -96,7 +102,20 @@ n_bit_cla_adder #(
   .B({MAC_ACC_WIDTH{1'b0}}),
   .cin(C3_cin),
   .SUM(C3_bar),
+  .PG(P[3]),
+  .GG(G[2]),
   .cout()
+);
+
+carry_lookahead_unit #(
+  .N(4)
+) clu (
+  .cin(1'b0),
+  .P(P),
+  .G(G),
+  .C(C),
+  .GG(),
+  .PG()
 );
 
 // Select negated or normal output based on cfg[1:0] -> single dual quad, is neg inputs

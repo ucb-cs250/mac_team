@@ -85,11 +85,10 @@ assign C2_neg = A2_msb ^ B2_msb;
 assign C3_neg = A3_msb ^ B3_msb;
 
 // Configurable negation chain
-n_bit_adder #(
+n_bit_one_adder #(
   .N(MAC_MIN_WIDTH)
 ) A0_adder (
   .A(~A0_in),
-  .B({MAC_MIN_WIDTH{1'b0}}),
   .cin(1'b1),
   .SUM(A0_bar),
   .cout(A0_cout)
